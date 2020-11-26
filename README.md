@@ -17,4 +17,8 @@ Who knows what lies beneath ||
 > work as multiplier to base damage of a weapon/spell if they hold a specific type
 > swords gain strenght*2 for example // -- needs balancing
 
+<<<<<<< HEAD
 > Final
+=======
+Yay works i guess
+>>>>>>> 81c1294596724881af415811f1be5fb2a71f90d0
