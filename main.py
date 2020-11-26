@@ -3,9 +3,10 @@
 
 # --- DOCSTRING -------------------
 '''
+Executeable Main Document of the
+"PythonRPG"
 
 '''
-
 # --- IMPORT ----------------------
 
 
