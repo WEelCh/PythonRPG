@@ -17,5 +17,9 @@ Who knows what lies beneath ||
 > work as multiplier to base damage of a weapon/spell if they hold a specific type 
 > swords gain strenght*2 for example // -- needs balancing
 
+<<<<<<< HEAD
+> Fabi isn geiler
+=======
 
 Hallo Elijah
+>>>>>>> 244dd1dedc1a6819597e427ed2ff0722d3087955
