@@ -28,20 +28,19 @@ while 'MAIN_LOOP':
         break
 
     elif choise == '1': # Continue
-        pass
+        submenus.continuegame()
 
     elif choise == '2': # New Game
         pass
 
     elif choise == '3': # Load Game
-        pass
+        submenus.loadgame()
 
     elif choise == '4': # Settings
-        pass
+        submenus.settings()
 
     else:
         choise = True # error message
-
 
 # --- SHUT DOWN -------------------
 

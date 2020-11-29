@@ -1,0 +1,12 @@
+<data>
+
+    <cmd_location>
+        <value name="Y-Axis">3</value>
+        <value name="X-Axis">43</value>
+    </cmd_location>
+
+    <last_game>
+        <value name="Game-Number">None</value>
+    </last_game>
+
+</data>
