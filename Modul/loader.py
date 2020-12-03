@@ -57,6 +57,10 @@ def getsavegame():
     return str(root[1][0].text)
 
 
+
+def getTile():
+    pass
+
 # --- SHUT DOWN -------------------
 
 
