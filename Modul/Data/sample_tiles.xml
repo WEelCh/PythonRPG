@@ -1,0 +1,23 @@
+<data>
+
+    <big_tiles>
+
+        <tile name = "City" type = "open">
+            <value>123</value>
+            <value2>23</value2>
+        </tile>
+
+        <tile name = "Bunker" type = "closed">
+            <value>123</value>
+            <value2>23</value2>
+        </tile>
+
+    </big_tiles>
+
+    <small_tiles>
+
+
+
+    </small_tiles>
+
+</data>
