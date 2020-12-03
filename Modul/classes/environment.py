@@ -15,6 +15,8 @@ File to generate and work with tiles and the whole world during a game.
 
 class bigTile:
 
+# --- --- --- ---
+
     def __init__(self,coordinate_y:int,coordinate_x:int,isnew:int=0):
         '''
         Constructor to initialize an instance of a bigTile.
@@ -28,14 +30,14 @@ class bigTile:
         self.__coordinate_y = coordinate_y
         self.__type = 'empty'
         self.__name = 'none'
-        self.__description = 'nothing yet'
         self.__inherited_smallTiles = {}
         if(isnew is 0):
             self.generateSmallTiles()
             self.generatebigTile()
             self.setPlayerExploration()
     
-    
+# --- --- --- ---
+
     def getCoordinates(self):
         '''
         method to return both coordinates of the Tile in order to check if player
@@ -53,16 +55,17 @@ class bigTile:
         '''
         self.__type = 
         self._name =
-        self.__description = 
-
         '''
+
+# --- --- --- ---
+
     def setPlayerExploration(self):
         '''
         increasing the players count of explored tiles as this attribute contributs to the later world_generation
         making it more difficult but also making more weapons available.
         the character also skills with increasing counter of explorations
         '''
-        passit
+        pass
         #return active_player.exploration =+ 1 
 
     def loadSmallTiles(self):
@@ -102,6 +105,7 @@ class smallTile:
         self.__name = None
         self.__description = 'empty'
         self.__available_items = []
+        self.__lock_condition = 'open'
 #generate world
     def generateTile(self):
         '''
@@ -111,6 +115,10 @@ class smallTile:
         self.generateItems()
         #further add more stuff lol
 
+    def generatelockCondition(self):
+        if( self.__type.lower() is 'housing') or ( self.__type.lower() is 'dungeon'):
+
+        self.__lock_condition
     def generateType(self):
         '''
         generates type of content, letting it vary with its content and description
