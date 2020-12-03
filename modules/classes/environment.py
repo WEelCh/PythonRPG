@@ -15,14 +15,14 @@ File to generate and work with tiles and the whole world during a game.
 
 class bigTile:
 
-    def __init__(self,coordinate_y:int,coordinate_x:int):
+    def __init__(self,coordinate_y:int,coordinate_x:int,isnew:int=0):
         '''
         Constructor to initialize an instance of a bigTile.
-         - Takes coordinates to make it available in the set matrix. -- player travels by choosing these coordinates
-         - Generates the instance's data and types upon loading - given in constructor. 
-         - Generates its inhereted smallTiles when it gets called - 9 in total held in a dictionary for easier access. 
-         - more to come i guess // 
-         # maybe holding an active attribute making it easier for the game to track where player is located at // 
+        - Takes coordinates to make it available in the set matrix. -- player travels by choosing these coordinates
+        - Generates the instance's data and types upon loading - given in constructor. 
+        - Generates its inhereted smallTiles when it gets called - 9 in total held in a dictionary for easier access. 
+        - more to come i guess // 
+        ## maybe holding an active attribute making it easier for the game to track where player is located at // 
         '''
         self.__coordinate_x = coordinate_x
         self.__coordinate_y = coordinate_y
@@ -30,10 +30,19 @@ class bigTile:
         self.__name = 'none'
         self.__description = 'nothing yet'
         self.__inherited_smallTiles = {}
-        self.generatedSmallTiles()
-        self.generatebigTile()
-        self.setPlayerExploration()
+        if(isnew is 0):
+            self.generateSmallTiles()
+            self.generatebigTile()
+            self.setPlayerExploration()
     
+    
+    def getCoordinates(self):
+        '''
+        method to return both coordinates of the Tile in order to check if player
+        has already been on that Tile or not.  
+        '''
+        return self.__coordinate_x, self.__coordinate_y\
+        
     def generatebigTile(self):
         '''
         setting all the necessary 
@@ -53,21 +62,24 @@ class bigTile:
         making it more difficult but also making more weapons available.
         the character also skills with increasing counter of explorations
         '''
-
-        return active_player.exploration += 1 
+        passit
+        #return active_player.exploration =+ 1 
 
     def loadSmallTiles(self):
         pass
 
     def listSmallTiles(self):
-        for key in self.__inherited_smallTiles.keys:
+        for key in self.__inherited_smallTiles:
             print(key,'\n')
-    def generatedSmallTiles(self):
+    def generateSmallTiles(self):
         print('generating Tiles and adding them')
         for i in range(0,8):
-            self.__inherited_smallTiles['test',+i] = smallTile()
-            self.__inherited_smallTiles['test',+i].generateTile()
+            self.__inherited_smallTiles['test%d'%(i)] = smallTile()
+            self.__inherited_smallTiles['test%d'%(i)].generateTile()
     def getSmallTiles(self):
+        '''
+        returns a dictionary of adjacent 
+        '''
         return self.__inherited_smallTiles
     def getName(self):
         return self.__type 
@@ -133,11 +145,11 @@ class smallTile:
 # --- ----
 # static generated tile
 home = bigTile(0,0)
-home.generatedSmallTiles()
-home.
+home.generateSmallTiles()
 print(home)
 print(home.getName())
 print(home.getSmallTiles())
+print(home.listSmallTiles())
 # --- ----
 
 world_tiles = {

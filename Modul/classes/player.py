@@ -93,7 +93,7 @@ class player:
                     # should display list of items in the display menu //
                     choice_b = str(input('\n>> '))
                     if(type(choice_b) != int):
-                        
+                        pass                        
 
             else:
                 pass    
