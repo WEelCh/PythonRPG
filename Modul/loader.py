@@ -9,7 +9,6 @@ Handles all xml related logic
 
 import xml.etree.ElementTree as ET
 import re
-import Modul.setting
 from random import randint
 
 # --- DECLARATION -----------------
@@ -24,7 +23,7 @@ from random import randint
 
 # FORMAT HANDLING
 
-def getYXformat():
+def getYXFormat():
     '''returns the Y-Axis and X-Axis
     values from the meta.xml'''
 
@@ -37,7 +36,7 @@ def getYXformat():
 
 
 
-def setYXformat(new_y, new_x):
+def setYXFormat(new_y, new_x):
     '''changes the Y-Axis and X-Axis
     values at the meta.xml'''
 
@@ -51,7 +50,7 @@ def setYXformat(new_y, new_x):
 
 
 
-def getsavegame():
+def getSaveGame():
     '''checks for last savegame information
     in meta.xml'''
 
@@ -64,36 +63,28 @@ def getsavegame():
 # SAMPLE TILE HANDLING
 
 
-def getBigTile(progress_exploration:int):
-    '''
-    return big_tile data from sample_tiles.xml
-    value _progress_exploration_ helps to filter and later implement certain aspects of the game.
-
-    '''
+def getBigTile(search_id):
+    '''return big_tile data from sample_tiles.xml
+    due to ID'''
 
     tree = ET.parse('Data\\sample_tiles.xml')
     root = tree.getroot()
 
     tile_data = dict()
-    if progress_exploration is 0:
-        for tile in root[0]: # big_tile
-            #  defaults to home tile at 0,0
-            if tile.get('id') == 0:
-                for data in tile:
-                    tile_data[data.tag] = data.text
-                return tile_data
-    elif( progress_exploration <=20) and (progress_exploration >1):
-        pass
+
+    for tile in root[0]: # big_tile
+        if tile.get('id') == search_id:
+            for data in tile:
+                tile_data[data.tag] = data.text
+            return tile_data
     raise KeyError ('No tile with specified id !')
 
 
 
 def getSmallTile(search):
-    '''
-    return small_tile data from sample_tiles.xml
+    '''return small_tile data from sample_tiles.xml
     due to id OR type
-    raises a KeyError if id or type does not exist
-    '''
+    raises a KeyError if id or type does not exist'''
 
     tree = ET.parse('Data\\sample_tiles.xml')
     root = tree.getroot()
@@ -128,18 +119,7 @@ def getSmallTile(search):
 
 
 
-def loadTile(coordinates):
-    '''
-    attribute __coordinates__ holds a string with X/Y coordinates in following format:
-    - X_Y
-        - and example might be 0_0; -1_80; -90_-90 etc. 
-    given coordinates must be found in /saves/$Player/explored_tiles.xml
-    will then return the given list as dictionary. 
-    '''
-    tree = ET.parse(Modul.setting.path_active_player)
-    root = tree.getroot()
 
-    
 
 
 # --- SHUT DOWN -------------------

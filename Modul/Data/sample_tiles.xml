@@ -1,23 +1,14 @@
 <data>
 
     <big_tiles>
-<!--
-        <tile id = "1" type = "open,closed">
-            <name>Bunker</name>
-            <wert>23</wert>
-        </tile>
 
-        <tile id = "2" type = "closed">
-            <name>Stadt</name>
-            <wert>34</wert>
-        </tile>
--->
-        <tile id = '0'>
+
+
     </big_tiles>
 
     <small_tiles>
         <Tile>
-            <type   >housing</type>
+            <type>housing</type>
             <name>Scheune</name>
             <description>a little shed with nothing but dry wheat in it</description>
             
@@ -26,23 +17,8 @@
         <Tile>
             <type>final_station</type>
             <name>research center</name>
-            <description>this must be the last location to finally and this misery</description>
+            <description>a little shed with nothing but dry wheat in it</description>
         </Tile>
-
-        <tile id = "1" type = "housing">
-            <name>Wohnhaus</name>
-            <value2>84</value2>
-        </tile>
-
-        <tile id = "2" type = "habitat">
-            <name>
-            Field
-            </name>
-            <description>
-            A Field. They probably harvested crops like wheat and beetroots once, now theres only mud and certain
-            curves left.
-            </description>
-        </tile>
 
         <Tile>
             <type>habitat</type>

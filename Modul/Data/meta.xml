@@ -5,8 +5,30 @@
         <value name="X-Axis">43</value>
     </cmd_location>
 
+
     <last_game>
         <value name="Game-Number">None</value>
     </last_game>
+
+
+    <meta_savegame>
+
+        <savegame_1 status = "inactiv">
+            <name>-----</name>
+        </savegame_1>
+    
+        <savegame_2 status = "inactiv">
+            <name>-----</name>
+        </savegame_2>
+    
+        <savegame_3 status = "inactiv">
+            <name>-----</name>
+        </savegame_3>
+    
+        <savegame_4 status = "inactiv">
+            <name>-----</name>
+        </savegame_4>
+
+    </meta_savegame>
 
 </data>

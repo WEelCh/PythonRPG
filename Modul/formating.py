@@ -17,15 +17,15 @@ import os, platform
 
 # --- DECLARATION -----------------
 
-# clear function based on used OS. Linux and Win supported //
+# clear function in relation to OS
 system_check = platform.system()
-if  (system_check.lower() == 'linux') or (system_check.lower() == 'Darwin'): 
-    clear   =lambda: os.system('clear')
-elif(system_check.lower() == 'Windows'):
-    clear   =lambda: os.system('cls')
+if  (system_check.lower() == 'linux') or (system_check.lower() == 'darwin'): 
+    clear=lambda: os.system('clear')
+elif(system_check.lower() == 'windows'):
+    clear=lambda: os.system('cls')
 
 # display formating values
-form_y, form_x = loader.getYXformat()
+form_y, form_x = loader.getYXFormat()
 
 # static lines
 upper_line  =lambda  : print(' '*form_x + '╔'+'═'*121+'╗')
@@ -54,6 +54,8 @@ _author_ = ' Stange Fabian'+' '*90+'Zeidler Elijah  '
 # --- SETUP -----------------------
 
 # --- MAIN ------------------------
+
+# chunks
 
 def _headermenu(path, T = False):
     '''Print header of menu'''
@@ -85,7 +87,7 @@ def _bottom(error):
 
     return input_line(message)
 
-
+# generell menu
 
 def menu (error = False):
     '''Show Menu'''
@@ -161,8 +163,6 @@ def loadGame(error):
     empty_line(1)
 
     return _bottom(error)
-
-
 
 
 
