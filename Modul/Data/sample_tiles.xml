@@ -2,21 +2,29 @@
 
     <big_tiles>
 
-        <tile name = "City" type = "open">
-            <value>123</value>
-            <value2>23</value2>
+        <tile id = "1" type = "open,closed">
+            <name>Bunker</name>
+            <wert>23</wert>
         </tile>
 
-        <tile name = "Bunker" type = "closed">
-            <value>123</value>
-            <value2>23</value2>
+        <tile id = "2" type = "closed">
+            <name>Stadt</name>
+            <wert>34</wert>
         </tile>
 
     </big_tiles>
 
     <small_tiles>
 
+        <tile id = "1" type = "open,closed">
+            <name>Wohnhaus</name>
+            <value2>84</value2>
+        </tile>
 
+        <tile id = "2" type = "closed,free">
+            <name>Feld</name>
+            <Wert>45</Wert>
+        </tile>
 
     </small_tiles>
 
