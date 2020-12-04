@@ -2,15 +2,7 @@
 
     <big_tiles>
 
-        <tile id = "1" type = "open,closed">
-            <name>Bunker</name>
-            <wert>23</wert>
-        </tile>
 
-        <tile id = "2" type = "closed">
-            <name>Stadt</name>
-            <wert>34</wert>
-        </tile>
 
     </big_tiles>
 
@@ -28,30 +20,20 @@
             <description>a little shed with nothing but dry wheat in it</description>
         </Tile>
 
-        <tile id = "1" type = "open,closed">
-            <name>Wohnhaus</name>
-            <value2>84</value2>
-        </tile>
-
-        <tile id = "2" type = "closed,free">
-            <name>Feld</name>
-            <Wert>45</Wert>
-        </tile>
-
         <Tile>
-            <type>habitat<type>
+            <type>habitat</type>
             <name>Field</name>
             <description>a forest, nothing is to be found here, I guess.</description>
         </Tile>
 
         <Tile>
-            <type>habitat<type>
+            <type>habitat</type>
             <name></name>
             <description>a forest, nothing is to be found here, I guess.</description>
         </Tile>
 
         <Tile>
-            <type>habitat<type>
+            <type>habitat</type>
             <name>Forest</name>
             <description>a forest, nothing is to be found here, I guess.</description>
         </Tile>
@@ -64,7 +46,7 @@
         
         <Tile>
             <name>Home</name>
-            <type>shelter</name>
+            <type>shelter</type>
             <description>Your safe place, where it all began. Rise if you would, for it is our curse.</description>
         </Tile>
 
