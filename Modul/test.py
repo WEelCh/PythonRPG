@@ -22,6 +22,15 @@ tree.write('Data\\format.xml')
 #root.findall('./format_data
 #/cmd_location/[name="Y-Axis"]'))
 '''
-
+"""
 for child in root[0]:
     print(child.tag, child.attrib, child[0].tag, child[0].text)
+
+print()
+
+for tile in root.findall('big_tiles'):
+    print( tile.find('tile'))
+"""
+
+import loader
+print(loader.getSmallTile('ger'))

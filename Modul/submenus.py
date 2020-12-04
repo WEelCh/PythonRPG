@@ -17,17 +17,17 @@ from Modul import formating, loader
 
 # --- MAIN ------------------------
 
-def continuegame():
+def continueGame():
     '''Logic for Menu-Continue
     Checks for last savegame and, if exist
     loads savegame'''
 
-    game_value = loader.getsavegame()
+    game_value = loader.getSaveGame()
 
     if game_value == 'None':
         choise = False
         while 'CONTINUE_LOOP':
-            choise = formating.nosavegame(choise)
+            choise = formating.noSaveGame(choise)
             if choise == '0':
                 break
             else:
@@ -38,11 +38,11 @@ def continuegame():
 
 
 
-def loadgame(choise = False):
+def loadGame(choise = False):
     '''Logic for Menu-Load Game'''
     while 'LOADGAME_LOOP':
 
-        choise = formating.loadgame(choise)
+        choise = formating.loadGame(choise)
 
         if choise == '0':
             break
@@ -61,20 +61,20 @@ def settings(choise = False):
             break
 
         elif choise == '1': # Format Window
-            settingsformat()
+            settingsFormat()
 
         elif choise == '2': # Delete User-Data
-            settingsdelete()
+            settingsDelete()
 
         else:
             choise = True # error message
 
 
-def settingsformat(choise = False):
+def settingsFormat(choise = False):
     '''Logic for  Menu-Settings-FormatWindow'''
     while 'FORMATWINDOW_LOOP':
 
-        choise = formating.settingsformatwindow(choise)
+        choise = formating.settingsFormatWindow(choise)
         new_form_y, new_form_x, s = '', '', True
 
         if   choise == '0': # Back
@@ -111,7 +111,7 @@ def settingsformat(choise = False):
             formating.form_y,formating.form_x = loader.getYXformat()
 
 
-def settingsdelete():
+def settingsDelete():
     pass
 
 

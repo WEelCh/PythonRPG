@@ -13,11 +13,16 @@ them in standardized format
 
 from Modul import loader
 
-import os
+import os, platform
 
 # --- DECLARATION -----------------
 
-clear = lambda : os.system('cls')
+# clear function in relation to OS
+system_check = platform.system()
+if  (system_check.lower() == 'linux') or (system_check.lower() == 'Darwin'): 
+    clear   =lambda: os.system('clear')
+elif(system_check.lower() == 'Windows'):
+    clear   =lambda: os.system('cls')
 
 # display formating values
 form_y, form_x = loader.getYXformat()
@@ -112,7 +117,7 @@ def menu (error = False):
 
 
 
-def nosavegame(error):
+def noSaveGame(error):
     '''Show Menu-Continue : No Savegame'''
 
     clear()
@@ -132,7 +137,7 @@ def nosavegame(error):
 
 
 
-def loadgame(error):
+def loadGame(error):
     '''Show Menu-Load Game'''
 
     clear()
@@ -184,7 +189,7 @@ def settings(error = False):
     return _bottom(error)
 
 
-def settingsformatwindow(error):
+def settingsFormatWindow(error):
     '''Show Menu-Setting-Format'''
 
     clear()
