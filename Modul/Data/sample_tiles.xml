@@ -1,13 +1,15 @@
 <data>
 
     <big_tiles>
+<!--
 
-
-
+-->
+    <Tile id='0'>
+    </Tile>
     </big_tiles>
 
     <small_tiles>
-        <Tile>
+        <Tile id='0' type='housing'>
             <type>housing</type>
             <name>Scheune</name>
             <description>a little shed with nothing but dry wheat in it</description>

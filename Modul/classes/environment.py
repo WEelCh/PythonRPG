@@ -105,7 +105,7 @@ class smallTile:
         self.__name = None
         self.__description = 'empty'
         self.__available_items = []
-        self.__lock_condition = 'open'
+        self.__lock_condition = 'opened'
 #generate world
     def generateTile(self):
         '''
@@ -113,6 +113,7 @@ class smallTile:
         '''
         self.generateType()
         self.generateItems()
+        self.generatelockCondition()
         #further add more stuff lol
 
     def generatelockCondition(self):
@@ -150,15 +151,4 @@ class smallTile:
 #    tile.setItems()
 #    tile.setMonsters()
 
-# --- ----
-print(home)
-print(home.getName())
-print(home.getSmallTiles())
-print(home.listSmallTiles())
-# --- ----
-
-world_tiles = {
-    'home':home,
-
-    }
 # --- ----
