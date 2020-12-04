@@ -63,28 +63,36 @@ def getsavegame():
 # SAMPLE TILE HANDLING
 
 
-def getBigTile(search_id):
-    '''return big_tile data from sample_tiles.xml
-    due to ID'''
+def getBigTile(progress_exploration:int):
+    '''
+    return big_tile data from sample_tiles.xml
+    value _progress_exploration_ helps to filter and later implement certain aspects of the game.
+
+    '''
 
     tree = ET.parse('Data\\sample_tiles.xml')
     root = tree.getroot()
 
     tile_data = dict()
-
-    for tile in root[0]: # big_tile
-        if tile.get('id') == search_id:
-            for data in tile:
-                tile_data[data.tag] = data.text
-            return tile_data
+    if progress_exploration is 0:
+        for tile in root[0]: # big_tile
+            #  defaults to home tile at 0,0
+            if tile.get('id') == 0:
+                for data in tile:
+                    tile_data[data.tag] = data.text
+                return tile_data
+    elif( progress_exploration <=20) and (progress_exploration >1):
+        pass
     raise KeyError ('No tile with specified id !')
 
 
 
 def getSmallTile(search):
-    '''return small_tile data from sample_tiles.xml
+    '''
+    return small_tile data from sample_tiles.xml
     due to id OR type
-    raises a KeyError if id or type does not exist'''
+    raises a KeyError if id or type does not exist
+    '''
 
     tree = ET.parse('Data\\sample_tiles.xml')
     root = tree.getroot()

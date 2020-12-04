@@ -17,7 +17,7 @@ import os, platform
 
 # --- DECLARATION -----------------
 
-# clear function in relation to OS
+# clear function based on used OS. Linux and Win supported //
 system_check = platform.system()
 if  (system_check.lower() == 'linux') or (system_check.lower() == 'Darwin'): 
     clear   =lambda: os.system('clear')
