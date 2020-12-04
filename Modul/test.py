@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
+from setting import path_Data
 
-
-tree = ET.parse('Data\\sample_tiles.xml')
+tree = ET.parse('%ssample_tiles.xml'%(path_Data))
 root = tree.getroot()
 
 '''

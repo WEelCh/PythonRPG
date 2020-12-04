@@ -65,6 +65,8 @@ class player:
         self.__perception = 0
         self.__items_backpack = []
 
+    def generatePlayer(self):
+        self.__name = str(input())
 # --- ---
 # RETURN VALUES
 # --- ---
