@@ -9,8 +9,8 @@ File to generate and work with tiles and the whole world during a game.
 # --- ----
 
 # --- BEGIN Imports and Variables ---
-
-
+from player import *
+import random
 # --- END Imports and Variables ---
 
 class bigTile:
@@ -30,42 +30,47 @@ class bigTile:
         self.__coordinate_y = coordinate_y
         self.__type = 'empty'
         self.__name = 'none'
-        self.__inherited_smallTiles = {}
+        self.__inherited_smallTiles = dict()
         if(isnew is 0):
             self.generateSmallTiles()
             self.generatebigTile()
             self.setPlayerExploration()
+        else: 
+            self.initializeTile()
     
 # --- --- --- ---
 
     def getCoordinates(self):
         '''
-        method to return both coordinates of the Tile in order to check if player
-        has already been on that Tile or not.  
+        method to return both coordinates of the Tile.
+        In order to check if player has already been on that Tile or not.  
         '''
         return self.__coordinate_x, self.__coordinate_y\
         
     def generatebigTile(self):
         '''
-        setting all the necessary 
+        querying all the necessary elements from the Tile samples and mergin a pair to fill values. 
+        values that are changed here: 
+        - | __type |
+        - | __name |
         '''
         # ---
         # reading out and setting necessary attributes for the mother tile 
         # ---
         '''
         self.__type = 
-        self._name =
+        self.__name =
         '''
 
 # --- --- --- ---
 
-    def setPlayerExploration(self):
+    def increasePlayerExploration(self):
         '''
         increasing the players count of explored tiles as this attribute contributs to the later world_generation
         making it more difficult but also making more weapons available.
         the character also skills with increasing counter of explorations
         '''
-        pass
+        return player.active_player.setExploration(1)
         #return active_player.exploration =+ 1 
 
     def loadSmallTiles(self):
@@ -87,15 +92,13 @@ class bigTile:
     def getName(self):
         return self.__type 
 
-
+# --- --- --- ---
 
 
 # --- --- --- ---
 # class holding the smaller tile inherited by bigTiles
 # --- --- --- ---
 
-# --- --- --- ---
-# --- --- --- ---
 class smallTile:
     '''
     this class is for handling and generating objects 
@@ -106,19 +109,26 @@ class smallTile:
         self.__description = 'empty'
         self.__available_items = []
         self.__lock_condition = 'open'
-#generate world
+        self.__key_required = 0
+    # --- --- --- 
+    #generate world
     def generateTile(self):
         '''
         Initializes Tile and gives it any attributes needed
         '''
         self.generateType()
         self.generateItems()
+        
         #further add more stuff lol
 
     def generatelockCondition(self):
+        '''
+        some housings are locked by default upon loading. 
+        This method generates this dependency upon first creation and sets a required amount of keys needed
+        in order to open it up, if it gets locked. 
+        '''
         if( self.__type.lower() is 'housing') or ( self.__type.lower() is 'dungeon'):
-
-        self.__lock_condition
+            self.__lock_condition = random.choice(['locke','opened'])
     def generateType(self):
         '''
         generates type of content, letting it vary with its content and description
@@ -152,16 +162,12 @@ class smallTile:
 
 # --- ----
 # static generated tile
-home = bigTile(0,0)
-home.generateSmallTiles()
+
+
 print(home)
 print(home.getName())
 print(home.getSmallTiles())
 print(home.listSmallTiles())
 # --- ----
 
-world_tiles = {
-    'home':home,
-
-    }
 # --- ----

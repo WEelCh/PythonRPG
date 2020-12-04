@@ -38,6 +38,14 @@ def continueGame():
 
 
 
+def newGame(choise = False):
+    '''Logic for Menu-New Game
+    Gets Player Data from the User'''
+
+    choise = formating.newGame(choise)
+
+
+
 def loadGame(choise = False):
     '''Logic for Menu-Load Game'''
     while 'LOADGAME_LOOP':
