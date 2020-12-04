@@ -107,8 +107,8 @@ def settingsFormat(choise = False):
                 continue 
 
             # if input was ok, overwrite old values
-            loader.setYXformat(new_form_y, new_form_x)
-            formating.form_y,formating.form_x = loader.getYXformat()
+            loader.setYXFormat(new_form_y, new_form_x)
+            formating.form_y,formating.form_x = loader.getYXFormat()
 
 
 def settingsDelete():

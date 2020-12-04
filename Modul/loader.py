@@ -23,7 +23,7 @@ from random import randint
 
 # FORMAT HANDLING
 
-def getYXformat():
+def getYXFormat():
     '''returns the Y-Axis and X-Axis
     values from the meta.xml'''
 
@@ -36,7 +36,7 @@ def getYXformat():
 
 
 
-def setYXformat(new_y, new_x):
+def setYXFormat(new_y, new_x):
     '''changes the Y-Axis and X-Axis
     values at the meta.xml'''
 
@@ -50,7 +50,7 @@ def setYXformat(new_y, new_x):
 
 
 
-def getsavegame():
+def getSaveGame():
     '''checks for last savegame information
     in meta.xml'''
 
