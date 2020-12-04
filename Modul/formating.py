@@ -17,7 +17,7 @@ import os, platform
 
 # --- DECLARATION -----------------
 
-# clear function in relation to OS
+# clear function based on used OS. Linux and Win supported //
 system_check = platform.system()
 if  (system_check.lower() == 'linux') or (system_check.lower() == 'darwin'): 
     clear=lambda: os.system('clear')
@@ -60,6 +60,9 @@ _author_ = ' Stange Fabian'+' '*90+'Zeidler Elijah  '
 def _headermenu(path, T = False):
     '''Print header of menu'''
 
+    clear()
+    space_line(form_y)
+
     upper_line()
     empty_line(1)
     mid_content(_title_)
@@ -92,8 +95,6 @@ def _bottom(error):
 def menu (error = False):
     '''Show Menu'''
 
-    clear()
-    space_line(form_y)
     _headermenu('MENU')
 
     empty_line(3)
@@ -122,8 +123,6 @@ def menu (error = False):
 def noSaveGame(error):
     '''Show Menu-Continue : No Savegame'''
 
-    clear()
-    space_line(form_y)
     _headermenu('MENU / CONTINUE')
 
     empty_line(8)
@@ -138,12 +137,31 @@ def noSaveGame(error):
     return _bottom(error)
 
 
+####################################### XML AUSLESE
+def newGame(error, status):
+    '''Show Menu-New Game'''
 
+    _headermenu('MENU / NEW GAME')
+
+    empty_line(1)
+    mid_content('At wich GameSave do you want to generate')
+    mid_content('the new game?')
+    empty_line(1)
+    mid_content('foo')
+    mid_content('foo')
+    mid_content('foo')
+    mid_content('foo')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+
+######################################## XML AUSLESE
 def loadGame(error):
     '''Show Menu-Load Game'''
 
-    clear()
-    space_line(form_y)
     _headermenu('MENU / LOAD GAME', T = True)
 
     emptyT_line(1)
@@ -169,8 +187,6 @@ def loadGame(error):
 def settings(error = False):
     '''Show Menu-Settings'''
 
-    clear()
-    space_line(form_y)
     _headermenu('MENU / SETTINGS')
 
     empty_line(6)
@@ -192,8 +208,6 @@ def settings(error = False):
 def settingsFormatWindow(error):
     '''Show Menu-Setting-Format'''
 
-    clear()
-    space_line(form_y)
     _headermenu('MENU / SETTINGS / FORMAT WINDOW')
 
     empty_line(2)
