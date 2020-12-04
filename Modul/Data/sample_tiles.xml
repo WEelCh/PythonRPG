@@ -12,7 +12,7 @@
             <wert>34</wert>
         </tile>
 -->
-        <tile id = '0'
+        <tile id = '0'>
     </big_tiles>
 
     <small_tiles>
@@ -45,19 +45,19 @@
         </tile>
 
         <Tile>
-            <type>habitat<type>
+            <type>habitat</type>
             <name>Field</name>
             <description>a forest, nothing is to be found here, I guess.</description>
         </Tile>
 
         <Tile>
-            <type>habitat<type>
+            <type>habitat</type>
             <name></name>
             <description>a forest, nothing is to be found here, I guess.</description>
         </Tile>
 
         <Tile>
-            <type>habitat<type>
+            <type>habitat</type>
             <name>Forest</name>
             <description>a forest, nothing is to be found here, I guess.</description>
         </Tile>
@@ -70,7 +70,7 @@
         
         <Tile>
             <name>Home</name>
-            <type>shelter</name>
+            <type>shelter</type>
             <description>Your safe place, where it all began. Rise if you would, for it is our curse.</description>
         </Tile>
 
