@@ -9,6 +9,7 @@ Handles all xml related logic
 
 import xml.etree.ElementTree as ET
 import re
+import Modul.setting
 from random import randint
 
 # --- DECLARATION -----------------
@@ -127,7 +128,18 @@ def getSmallTile(search):
 
 
 
+def loadTile(coordinates):
+    '''
+    attribute __coordinates__ holds a string with X/Y coordinates in following format:
+    - X_Y
+        - and example might be 0_0; -1_80; -90_-90 etc. 
+    given coordinates must be found in /saves/$Player/explored_tiles.xml
+    will then return the given list as dictionary. 
+    '''
+    tree = ET.parse(Modul.setting.path_active_player)
+    root = tree.getroot()
 
+    
 
 
 # --- SHUT DOWN -------------------

@@ -3,7 +3,7 @@
 __author__ ='Fabian Stange'
 
 # ---- ---- import libraries ---- ----
-
+import Modul.loader as loader
 
 # ---- ---- ---- ----
 
@@ -24,8 +24,9 @@ class player:
         # --- position on map
         self.__coordinate_X = 0
         self.__coordinate_Y = 0
-        self.__active_tile = dict()
-        self.__tiles_explored = 0
+        self.__active_tile = list()
+        self.__explored_tiles = list()
+        self.__explore_score = 0
         # --- dynamic leveling attributes
         self.__level = 0
         self.__experience = 0 
@@ -39,9 +40,10 @@ class player:
         self.__perception = 0
         self.__items_backpack = []
 
-# --- ---
-# SETTING VALUES
-# --- ---
+    # --- ---
+    # SETTING VALUES
+    # --- ---
+
     def initializePlayer(self):
         '''
         method to import player data after successfully saving the game
@@ -51,7 +53,7 @@ class player:
         self.__sex = 'empty'
         # --- position on map
         self.__active_coordinates = [0,0]
-        self.__tiles_explored = 0
+        self.__explore_score = 0
         # --- dynamic leveling attributes
         self.__level = 0
         self.__experience = 0 
@@ -67,9 +69,11 @@ class player:
 
     def generatePlayer(self):
         self.__name = str(input())
-# --- ---
-# RETURN VALUES
-# --- ---
+    
+    # --- ---
+    # RETURN VALUES
+    # --- ---
+    
     def getName(self):
         return self.__name
 
@@ -99,12 +103,14 @@ class player:
         Example: 0_-1;-2_2
         '''
         return self.__coordinate_X+'_'+self.__coordinate_Y
-# --- ---
-# UPDATING VALUES
-# --- ---
     
-# --- ---
-# UPDATING ITEMLIST
+    # --- ---
+    # UPDATING VALUES
+    # --- ---
+    
+    # --- ---
+    # UPDATING ITEMLIST
+
     def checkItems(self,):
         '''
         a method for checking the players inventory.
@@ -162,8 +168,17 @@ class player:
                 pass    
 
 
-# --- ---
-# MOVEMENT OF PLAYER
+    # --- ---
+    # MOVEMENT OF PLAYER
+    def CheckTileExplored(self):
+        if self.getCoordinates() in self.__explored_tiles:
+            # search in explored_tiles.xml and read out the object to load it.
+            loader.loadTile()
+            self.__active_tile = 0 #searched object
+            pass
+
+        else: 
+            
     def goEast(self):
         self.__coordinate_X -= 1  
     def goWest(self):

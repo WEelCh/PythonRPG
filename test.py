@@ -1,3 +1,4 @@
-from Modul.classes import player
+from Modul.classes.player import * 
 
 active_player = player()
+active_player.generateCharacter()

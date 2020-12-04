@@ -9,7 +9,7 @@ File to generate and work with tiles and the whole world during a game.
 # --- ----
 
 # --- BEGIN Imports and Variables ---
-from Modul.classes.player import *
+from player import *
 import random
 # --- END Imports and Variables ---
 
@@ -35,26 +35,31 @@ class bigTile:
             self.generateSmallTiles()
             self.generatebigTile()
             self.setPlayerExploration()
+        else: 
+            self.initializeTile()
     
 # --- --- --- ---
 
     def getCoordinates(self):
         '''
-        method to return both coordinates of the Tile in order to check if player
-        has already been on that Tile or not.  
+        method to return both coordinates of the Tile.
+        In order to check if player has already been on that Tile or not.  
         '''
         return self.__coordinate_x, self.__coordinate_y\
         
     def generatebigTile(self):
         '''
-        setting all the necessary 
+        querying all the necessary elements from the Tile samples and mergin a pair to fill values. 
+        values that are changed here: 
+        - | __type |
+        - | __name |
         '''
         # ---
         # reading out and setting necessary attributes for the mother tile 
         # ---
         '''
         self.__type = 
-        self._name =
+        self.__name =
         '''
 
 # --- --- --- ---
@@ -87,15 +92,13 @@ class bigTile:
     def getName(self):
         return self.__type 
 
-
+# --- --- --- ---
 
 
 # --- --- --- ---
 # class holding the smaller tile inherited by bigTiles
 # --- --- --- ---
 
-# --- --- --- ---
-# --- --- --- ---
 class smallTile:
     '''
     this class is for handling and generating objects 
@@ -107,7 +110,8 @@ class smallTile:
         self.__available_items = []
         self.__lock_condition = 'open'
         self.__key_required = 0
-#generate world
+    # --- --- --- 
+    #generate world
     def generateTile(self):
         '''
         Initializes Tile and gives it any attributes needed
@@ -159,18 +163,11 @@ class smallTile:
 # --- ----
 # static generated tile
 
-def CheckTileExplored():
-    if player.getCoordinates 
-home = bigTile(0,0)
-home.generateSmallTiles()
+
 print(home)
 print(home.getName())
 print(home.getSmallTiles())
 print(home.listSmallTiles())
 # --- ----
 
-world_tiles = {
-    'home':home,
-
-    }
 # --- ----
