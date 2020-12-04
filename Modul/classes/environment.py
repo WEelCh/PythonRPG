@@ -9,8 +9,8 @@ File to generate and work with tiles and the whole world during a game.
 # --- ----
 
 # --- BEGIN Imports and Variables ---
-
-
+import Modul.loader as loader
+import random
 # --- END Imports and Variables ---
 
 class bigTile:
@@ -117,8 +117,8 @@ class smallTile:
 
     def generatelockCondition(self):
         if( self.__type.lower() is 'housing') or ( self.__type.lower() is 'dungeon'):
-
-        self.__lock_condition
+            self.__lock_condition = random.choice(['locked','opened'])
+        
     def generateType(self):
         '''
         generates type of content, letting it vary with its content and description
@@ -151,9 +151,6 @@ class smallTile:
 #    tile.setMonsters()
 
 # --- ----
-# static generated tile
-home = bigTile(0,0)
-home.generateSmallTiles()
 print(home)
 print(home.getName())
 print(home.getSmallTiles())
