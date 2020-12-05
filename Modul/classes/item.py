@@ -21,11 +21,9 @@ class Item ():
     '''mother class of all ITEM related
     SubClasses'''
 
-    def __init__(self, i, n):
-        self._id    = i
+    def __init__(self,n):
         self._name  = n
 
-    pass
 
 # --- MAIN ------------------------
 
@@ -33,8 +31,8 @@ class Weapon (Item):
     '''weapon
     serves to increeses atk'''
 
-    def __init__(self, i, n, a):
-        super().__init__(i, n)
+    def __init__(self, n, a):
+        super().__init__(n)
         self._atk   = a
 
     def generate(self,exval):
@@ -53,8 +51,8 @@ class Food (Item):
     '''food
     restores stamina and health'''
 
-    def __init__(self, i, n, s, h):
-        super().__init__(i, n)
+    def __init__(self, n, s, h):
+        super().__init__(n)
         self._re_stamina    = s
         self._re_health     = h
 
@@ -80,8 +78,8 @@ class MedicalSupply (Item):
     '''medical supplies
     restores health'''
 
-    def __init__(self, i, n, h):
-        super().__init__(i, n)
+    def __init__(self, n, h):
+        super().__init__(n)
         self._re_health = h
 
     def getName(self):

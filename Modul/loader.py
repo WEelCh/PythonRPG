@@ -9,8 +9,13 @@ Handles all xml related logic
 
 import xml.etree.ElementTree as ET
 import re
-import Modul.setting as setting
 from random import randint,choice
+
+import Modul.setting as setting
+###from Modul.classes.environment import bigTile
+import Modul.classes.item as Item
+import Modul.classes.entity as Entity
+
 
 # --- DECLARATION -----------------
 
@@ -79,6 +84,70 @@ def getSaveGame():
 
 # SAMPLE TILE HANDLING
 
+def saveTile(obj, pos:str, savegame:int):
+    '''
+    saves old tile
+    
+    '''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+    root = tree.getroot()
+
+    # check exitstence
+
+    try: # when it exists ... just some changes
+        for tile in root.findall('world/region'):
+            if tile.attrib['coord'] == pos:
+                #changes
+
+                indent(root)
+                tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+                return
+    except: # if no tile at all exists
+        pass
+
+    # when it not exists ... new
+    data = root.find('world')
+    region = ET.SubElement(data, 'region')
+    region.attrib['coord'] = pos
+
+    big_tile = ET.SubElement(region, 'big_tile')
+    data = ET.SubElement(big_tile, 'name')
+    data.text = 'foo'
+
+    small_tiles = ET.SubElement(region, 'small_tiles')
+    for i in range(1,11):
+        tile = ET.SubElement(small_tiles, 'tile')
+        tile.attrib['id'] = str(i)
+
+        data = ET.SubElement(tile, 'name')
+        data.text = 'foo'
+        data = ET.SubElement(tile, 'description')
+        data.text = 'foo'
+        data = ET.SubElement(tile, 'lock_condition')
+        data.text = 'foo'
+
+        item = ET.SubElement(tile, 'item')
+        data = ET.SubElement(item, 'name')
+        data.text = 'foo'
+        data = ET.SubElement(item, 'type')
+        data.text = 'foo'
+        data = ET.SubElement(item, 'value')
+        data.text = 'foo'
+
+        entity = ET.SubElement(tile, 'entity')
+        data = ET.SubElement(entity, 'name')
+        data.text = 'foo'
+        data = ET.SubElement(entity, 'type')
+        data.text = 'foo'
+        data = ET.SubElement(entity, 'value')
+        data.text = 'foo'
+
+        indent(root)
+        tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+
+
+
 
 def getBigTile(player_obj:object):
     '''
@@ -118,7 +187,7 @@ def getBigTile(player_obj:object):
 
 
 
-def getSmallTile(search):
+def getSmallTile(typ):
     '''
     return small_tile data from sample_tiles.xml
     due to id OR type
@@ -132,10 +201,10 @@ def getSmallTile(search):
     pos_tiles = list()
 
     try: # search id
-        int(search)
+        int(typ)
 
         for tile in root[1]: # small_tile
-            if tile.get('id') == search:
+            if tile.get('id') == typ:
                 for data in tile:
                     tile_data[data.tag] = data.text
                 return tile_data
@@ -144,35 +213,17 @@ def getSmallTile(search):
     except:
         for tile in root[1]: # small_tile search
             types = tile.get('type').split(',')
-            if search in types:
+            if typ in types:
                 pos_tiles.append(tile)
 
         if len(pos_tiles) == 0:
             raise KeyError ('No tile with specified type !')
 
-        rand_select = randint(0,len(pos_tiles)-1)
+        tile = choice(pos_tiles)
 
-        for data in pos_tiles[rand_select]:
+        for data in tile:
             tile_data[data.tag] = data.text
         return tile_data
-
-
-
-def saveTile(bigtile, pos, savegame):
-    '''
-    saves old tile
-    
-    '''
-
-    tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
-    root = tree.getroot()
-
-    # check exitstence
-    for tile in root.findall('world/region'):
-        if pos == str(tile.attrib):
-
-            # when it exists
-            tile.find('small_tiles/tile')
 
 
 
@@ -204,10 +255,14 @@ def loadTile(coords:str, savegame:str,switch:int=0):
     '''
 
 
-def genItem(typ):
+
+def genItem(typ = False):
     '''
-    gets Itemdata out off the xml with type 'typ'
+    gets Itemdata out of the xml with type 'typ'
     '''
+
+    if typ == False:
+        typ = choice(['Weapon','Food','MedicalSupplies'])
 
     tree = ET.parse(setting.path_Data+'sample_items.xml')
     root = tree.getroot()
@@ -219,8 +274,21 @@ def genItem(typ):
             item_list.append(item)
     
     item = choice(item_list)
-    
-    return item.find('name').text, item.find('value').text
+
+    name = item.find('name').text
+    value = item.find('value').text
+
+    if '_' in value:
+        value = value.split('_')
+
+    if typ == 'Weapon':
+        obj = Item.Weapon(name, value)
+    elif typ == 'Food':
+        obj = Item.Food(name, value[0], value[1])
+    elif typ == 'MedicalSupply':
+        obj = Item.MedicalSupply(name, value)
+
+    return obj
 
 
 
@@ -228,6 +296,9 @@ def genEntity(typ):
     '''
     gets Entitydata out off the xml with type 'typ'
     '''
+
+    if typ == False:
+        typ = choice(['Friend','Enemy'])
 
     tree = ET.parse(setting.path_Data+'sample_entities.xml')
     root = tree.getroot()
@@ -237,22 +308,35 @@ def genEntity(typ):
     for entity in root.findall('entities/entity'):
         if entity.attrib['type'] == typ:
             entity_list.append(entity)
-    
+
     entity = choice(entity_list)
-    
-    return entity.find('name').text, entity.find('value').text
+
+    name = entity.find('name').text
+    value = entity.find('value').text
+
+    if '_' in value:
+        value = value.split('_')
+
+    if typ == 'Friend':
+        obj = 'NOT FINALLY WORKING'
+    elif typ == 'Enemy':
+        obj = Entity.Enemy(name, value[0], value[1])
+
+    return obj
+
 
 
 
 def resetSaveGame(savegame:int):
     '''RESETS the SaveGame with number savegame'''
 
-    tree = ET.parse(setting.path_Saves+'savegame_%d.xml'%(savegame))
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(savegame))
     root = tree.getroot()
 
     root.clear()
 
     # player init
+
     player      = ET.SubElement(root, 'player')
 
     generell    = ET.SubElement(player, 'generell')
@@ -285,9 +369,18 @@ def resetSaveGame(savegame:int):
 
     backpack    = ET.SubElement(player, 'backpack')
     for slot in range(1,11):
-        data                = ET.SubElement(backpack, 'slot')
-        data.text           = 'None'
-        data.attrib['id']   = str(slot)
+        data = ET.SubElement(backpack, 'slot')
+        data.attrib['id'] = str(slot)
+
+        item = ET.SubElement(data, 'item')
+        data = ET.SubElement(item, 'name')
+        data.text = 'None'
+        data = ET.SubElement(item, 'type')
+        data.text = 'None'
+        data = ET.SubElement(item, 'value')
+        data.text = 'None'
+
+    ET.SubElement(root, 'world')
 
     indent(root)
     tree.write(setting.path_Saves+'savegame_%d.xml'%(savegame))
