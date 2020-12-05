@@ -8,7 +8,7 @@
 # --- IMPORT ----------------------
 
 from Modul import formating, loader
-from Modul.classes import player
+#from Modul.classes import player
 
 # --- DECLARATION -----------------
 
@@ -89,8 +89,9 @@ def newGame(choice = False, level = 1):
 
         level += 1
         if level == 5:
-            activ_player = player.Player(player_data)
+            #activ_player = player.Player(player_data)
             '''START_GAME (activ_player)'''
+            break
 
 
 

@@ -137,7 +137,7 @@ def noSaveGame(error):
     return _bottom(error)
 
 
-####################################### XML AUSLESE
+
 def newGame(error, level):
     '''Show Menu-New Game'''
 
@@ -215,11 +215,6 @@ def newGame(error, level):
 
 
 
-
-
-
-
-######################################## XML AUSLESE
 def loadGame(error):
     '''Show Menu-Load Game'''
 
