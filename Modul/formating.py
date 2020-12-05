@@ -47,8 +47,8 @@ mid_content =lambda c: print(' '*form_x+'║' +c.center(121)+'║')
 midT_content=lambda c1, c2: print(' '*form_x+'║' +c1.center(60)+'║'+c2.center(60)+'║')
 
 # static info-values
-_title_  = 'P Y T H O N - R P G'
-_date_   = '2020'
+_title_  = 'Endless Odyssey of Trash'
+_date_   = 'c 2020'
 _author_ = ' Stange Fabian'+' '*90+'Zeidler Elijah  '
 
 # --- SETUP -----------------------
@@ -138,22 +138,83 @@ def noSaveGame(error):
 
 
 ####################################### XML AUSLESE
-def newGame(error, status):
+def newGame(error, level):
     '''Show Menu-New Game'''
 
-    _headermenu('MENU / NEW GAME')
+    _headermenu('MAIN / NEW GAME')
 
-    empty_line(1)
-    mid_content('At wich GameSave do you want to generate')
-    mid_content('the new game?')
-    empty_line(1)
-    mid_content('foo')
-    mid_content('foo')
-    mid_content('foo')
-    mid_content('foo')
-    empty_line(1)
+    if   level == 1: # SaveGame choice
+        empty_line(1)
+        mid_content('At wich SaveGame do you wanna save the')
+        mid_content('new game?')
+        empty_line(1)
+        mid_content('Be aware that old SaveGames can be overwriten')
+        mid_content('by your actions !!!')
+        empty_line(1)
+        midUpT_line()
+        emptyT_line(1)
+        midT_content('foo', 'foo') # eigentlich xml
+        emptyT_line(1)
+        midX_line()
+        emptyT_line(1)
+        midT_content('foo', 'foo')
+        emptyT_line(1)
+        midDwTT_line()
+        empty_line(1)
+        mid_content('Back')
+        mid_content('0')
+        empty_line(1)
+
+    elif level == 2: # Name choice
+        empty_line(1)
+        mid_content('Under wich name do you wanna to play?')
+        empty_line(1)
+        mid_content('Be aware that your name can`t be longer')
+        mid_content('then 15 chars!')
+        empty_line(1)
+        mid_content('Back')
+        mid_content('0')
+        empty_line(1)
+
+    elif level == 3: # Sex choice
+        empty_line(1)
+        mid_content('Wich sex do you choose?')
+        empty_line(1)
+        mid_content('Male')
+        mid_content('1')
+        empty_line(1)
+        mid_content('Female')
+        mid_content('2')
+        empty_line(1)
+        mid_content('Diverse')
+        mid_content('3')
+        empty_line(1)
+        mid_content('Back')
+        mid_content('0')
+        empty_line(1)
+
+    elif level == 4: # Class choice
+        empty_line(1)
+        mid_content('As wich class do you wanna to play?')
+        empty_line(1)
+        midUpT_line()
+        emptyT_line(1)
+        midT_content('Mercenary', 'Stinker')
+        emptyT_line(1)
+        midX_line()
+        emptyT_line(1)
+        midT_content('Scout', 'Illusionist')
+        emptyT_line(1)
+        midDwTT_line()
+        empty_line(1)
+        mid_content('Back')
+        mid_content('0')
+        empty_line(1)
 
     return _bottom(error)
+
+
+
 
 
 

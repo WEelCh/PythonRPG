@@ -142,8 +142,28 @@ def getSmallTile(search):
 
 
 
-def loadTile(coordinates):
+def saveTile(bigtile, pos, savegame):
     '''
+    saves old tile
+    
+    '''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
+    root = tree.getroot()
+
+    # check exitstence
+    for tile in root.findall('world/region'):
+        if pos == str(tile.attrib):
+
+            # when it exists
+            tile.find('small_tiles/tile')
+
+
+
+def loadTile(coords, savegame):
+    '''
+    loads new tile
+    
     attribute __coordinates__ holds a string with X/Y coordinates in following format:
     - X_Y
         - and example might be 0_0; -1_80; -90_-90 etc. 
@@ -152,11 +172,11 @@ def loadTile(coordinates):
 
     {not finished}
     '''
-    # add active player soon//
-    tree = ET.parse(setting.path_Saves+active_player)
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
     root = tree.getroot()
 
-    
+
 
 
 # --- SHUT DOWN -------------------
