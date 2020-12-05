@@ -1,1 +1,93 @@
-<data />
+<savegame_2>
+  <player>
+    <generell>
+      <end_found>None</end_found>
+      <explore_score>None</explore_score>
+      <pos>None,None</pos>
+      <name>None</name>
+      <sex>None</sex>
+      <class>None</class>
+    </generell>
+    <traits>
+      <health>None</health>
+      <stamina>None</stamina>
+      <mana>None</mana>
+      <strength>None</strength>
+      <intelligence>None</intelligence>
+      <perception>None</perception>
+    </traits>
+    <backpack>
+      <slot id="1">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="2">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="3">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="4">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="5">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="6">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="7">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="8">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="9">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+      <slot id="10">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
+    </backpack>
+  </player>
+  <world />
+</savegame_2>
