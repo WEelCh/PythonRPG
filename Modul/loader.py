@@ -18,7 +18,23 @@ from random import randint,choice
 
 # --- SETUP -----------------------
 
+def indent(elem, level=0):
+    '''Copyrigth ERICK M. SPREGEL
+    https://stackoverflow.com/users/1489446/erick-m-sprengel'''
 
+    i = '\n' + level*'  '
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + '  '
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
 
 # --- MAIN ------------------------
 
@@ -221,6 +237,56 @@ def genEntity(typ):
     entity = choice(entity_list)
     
     return entity.find('name').text, entity.find('value').text
+
+
+
+def resetSaveGame(savegame:int):
+    '''RESETS the SaveGame with number savegame'''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%d.xml'%(savegame))
+    root = tree.getroot()
+
+    root.clear()
+
+    # player init
+    player      = ET.SubElement(root, 'player')
+
+    generell    = ET.SubElement(player, 'generell')
+    data        = ET.SubElement(generell, 'end_found')
+    data.text   = 'None'
+    data        = ET.SubElement(generell, 'explore_score')
+    data.text   = 'None'
+    data        = ET.SubElement(generell, 'pos')
+    data.text   = 'None,None'
+    data        = ET.SubElement(generell, 'name')
+    data.text   = 'None'
+    data        = ET.SubElement(generell, 'sex')
+    data.text   = 'None'
+    data        = ET.SubElement(generell, 'class')
+    data.text   = 'None'
+
+    traits      = ET.SubElement(player, 'traits')
+    data        = ET.SubElement(traits, 'health')
+    data.text   = 'None'
+    data        = ET.SubElement(traits, 'stamina')
+    data.text   = 'None'
+    data        = ET.SubElement(traits, 'mana')
+    data.text   = 'None'
+    data        = ET.SubElement(traits, 'strength')
+    data.text   = 'None'
+    data        = ET.SubElement(traits, 'intelligence')
+    data.text   = 'None'
+    data        = ET.SubElement(traits, 'perception')
+    data.text   = 'None'
+
+    backpack    = ET.SubElement(player, 'backpack')
+    for slot in range(1,11):
+        data                = ET.SubElement(backpack, 'slot')
+        data.text           = 'None'
+        data.attrib['id']   = str(slot)
+
+    indent(root)
+    tree.write(setting.path_Saves+'savegame_%d.xml'%(savegame))
 
 # --- SHUT DOWN -------------------
 
