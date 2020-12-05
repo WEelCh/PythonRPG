@@ -26,12 +26,11 @@ class Player:
         # --- position on map
         self.__coordinate_X = 0
         self.__coordinate_Y = 0
+        # active Big Tile object
         self.__active_tile = None
+        # active small Tile object
         self.__active_small_tile = None
         self.__explore_score = 0
-        # --- dynamic leveling attributes
-        #self.__level = 0
-        #self.__experience = 0 
         # --- dynamic attributes of player
         self.__char_class = 'nothing'
         self.__health = 0
@@ -47,7 +46,7 @@ class Player:
         self.generatePlayer(list_at)
 
 # --- ---
-# SETTING VALUES
+# SET VALUES
 # --- ---
 
     def generatePlayer(self,player_input:list):
@@ -378,8 +377,8 @@ class Player:
 
         else: 
             # create a new tile based on the coordinates given and safe it as active tile 
-            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y)
-            self.__explore_score += self.__active_tile.increaseExploration()
+            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self.__explore_score)
+            self.__explore_score += 1
         
     def goEast(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
@@ -414,11 +413,11 @@ adds interaction with environment // active Tile
 - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
 - active_small_tile to directly interact with the queried smallTile from a bigTile
 '''
-def setActiveSmallTile(self):
+def setActiveSmallTile(self,query):
     '''
     triggers query to select active small tile to work with. 
     '''
-    self.__active_small_tile =  self.__active_tile.querySmallTiles()
+    self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
 # --- ---
 # Player Combat
 # --- ---

@@ -186,18 +186,22 @@ def loadTile(coords:str, savegame:str,switch:int=0):
     given coordinates must be found in /saves/$Player/explored_tiles.xml
     will then return the given list as dictionary. 
 
-    loadTile() must be able to check whether a coordinate is present or not. If it is it should return {True}
-    {not finished}
+    loadTile() must be able to check whether a coordinate is present or not.
+    If it is it should return 
     '''
     tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
     root = tree.getroot()
-    
-    if(coords in root.findall('/world/region')) and (switch == 1):
-        return True
-    elif(switch == 0):
-        pass 
+    '''
+    for tile in root.findall('world/region'):
+        
+        if(tile.attrib['coord'] == coords) and (switch == 1):
+            return True
+        elif(tile.attrib['coord'] == coords) and (switch == 0):
+            for data in tile.iter():
+                    tile_data[data.tag] = data.text
+                return tile_data
         # needs to trigger if the given coordinate is present in savegame/// 
-    
+    '''
 
 
 def genItem(typ):

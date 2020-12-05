@@ -18,14 +18,14 @@
 
 <!-- Tiles specified for the Tile type 'Shelter' BEGIN -->
 
-        <Tile id='shelter'>
+        <Tile type='shelter'>
             <name>locker</name>
             <description>
             A little shed with nothing but dry wheat in it
             </description>
         </Tile>
 
-        <Tile id='shelter'>
+        <Tile type='shelter'>
             <name>safeplace</name>
             <description>
             You find yourself in a little foyer. No worries, no enemies, just the flickering light,
@@ -33,7 +33,7 @@
             </description>
         </Tile>
         
-        <Tile id='shelter'>
+        <Tile type='shelter'>
             <name>locker</name>
             <description>a little shed with nothing but dry wheat in it</description>
         </Tile>
@@ -42,9 +42,8 @@
 
 <!-- Tiles specified for the Tile type 'final_station' BEGIN-->
 
-        <Tile id='final_station'>
+        <Tile type='final_station'>
             <name>research center</name>
-
             <description>
             this must be the last location to finally end this misery
             </description>
@@ -61,19 +60,10 @@
             <value2>84</value2>
         </tile>
 
-<!-- Tiles specified for the Tile type 'housing' END-->
+<!-- Tiles specified for the Tile type 'city' END-->
 
 <!-- Tiles specified for the Tile type 'habitat' BEGIN-->
         
-        <tile id = "2" type = "habitat">
-            <name>
-            Field
-            </name>
-            <description>
-            A Field. They probably harvested crops like wheat and beetroots once, now theres only mud and certain
-            curves left.
-            </description>
-        </tile>
 
         <Tile>
             <type>habitat</type>
