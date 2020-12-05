@@ -160,21 +160,28 @@ def saveTile(bigtile, pos, savegame):
 
 
 
-def loadTile(coords, savegame):
+def loadTile(coords:str, savegame:str,switch:int=0):
     '''
     loads new tile
     
-    attribute __coordinates__ holds a string with X/Y coordinates in following format:
+    attribute __coords__ holds a string with X/Y coordinates in following format:
     - X_Y
         - and example might be 0_0; -1_80; -90_-90 etc. 
     given coordinates must be found in /saves/$Player/explored_tiles.xml
     will then return the given list as dictionary. 
 
+    loadTile() must be able to check whether a coordinate is present or not. If it is it should return {True}
     {not finished}
     '''
-
     tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
     root = tree.getroot()
+    
+    if(coords in root.findall('/world/region')) and (switch == 1):
+        return True
+    elif(switch == 0):
+        pass 
+        # needs to trigger if the given coordinate is present in savegame/// 
+    
 
 
 

@@ -17,7 +17,7 @@ import Modul.classes.environment as environment
 
 class Player:
 
-    def __init__(self,list_at:):
+    def __init__(self,list_at:list):
         # --- basic static attributes
         self.__savegame = 'emtpy'
         self.__end_found = False
@@ -73,7 +73,6 @@ class Player:
         self.__char_class = player_input[3]
         self.setClassAttributes()
 
-# --- --- ---
 
     def setClassAttributes(self):
         '''
@@ -128,8 +127,6 @@ class Player:
             self.__perception = 0 
             self.__items_backpack = []
 
-
-
     def initializePlayer(self):
         '''
         {#ONLY FOR SAVEGAME}
@@ -156,10 +153,11 @@ class Player:
         self.__perception = 0
         self.__items_backpack = []
 
-
-    # --- ---
-    # RETURN VALUES
-    # --- ---
+# --- ---
+# RETURN VALUES
+# --- ---
+    
+    # ---  static values ---
     
     def getName(self):
         '''
@@ -182,85 +180,13 @@ class Player:
         '''
         return self.__sex
 
-    def getHealth(self):
-        '''
-        returns Health
-        ### is int
-        '''
-        return self._health,self.__max_health
-    
-    def getStamina(self):
-        '''
-        returns Stamina
-        ### is int
-        '''
-        return self._stamina,self.__max_stamina
-    
-    def getMana(self):
-        '''
-        returns Mana
-        ### is int
-        '''
-        return self._mana,self.__max_mana
-    
-    def listItems(self):
+    def getItems(self):
         '''
         returns items in backpack.
         ### is list
         '''
         return self.__items_backpack
 
-    def listHealth(self):
-        '''
-        returns Health in visualized form
-        ### is string
-        '''
-        percentage_health = self.__health*100/self.__max_health
-        value_max = 20 
-        value_left = round(20*percentage_health/100)
-        return ('[','#'*value_left,'-'*20-value_left,']')
-
-    def listStamina(self):
-        '''
-        returns available Stamina in visualized form
-        ### is string
-        '''
-        percentage_stamina = self.__stamina*100/self.__max_stamina
-        value_max = 20 
-        value_left = round(20*percentage_stamina/100)
-        return ('[','#'*value_left,'-'*20-value_left,']')
-    
-    def listMana(self):
-        '''
-        returns available Mana in visualized form
-        ### is string
-        '''
-        percentage_mana = self.__mana*100/self.__max_mana
-        value_max = 20 
-        value_left = round(20*percentage_mana/100)
-        return ('[','#'*value_left,'-'*20-value_left,']')
-    
-    def getStrenght(self):
-        '''
-        returns the current value for strength
-        ### is int
-        '''
-        return self.__strength
-    
-    def getIntelligence(self):
-        '''
-        returns the current value for strength
-        ### is int
-        '''
-        return self.__intelligence
-    
-    def getPerception(self):
-        '''
-        returns the current value for perception
-        ### is int
-        '''
-        return self.__perception
-    
     def getCoordinates(self):
         '''
         return coordinates as a concatenated string. 
@@ -269,22 +195,114 @@ class Player:
         '''
         return self.__coordinate_X+'_'+self.__coordinate_Y
     
-    def getExplorationScore(self):
-        return self.__explore_score
+# --- ---
+# UPDATING VALUES
+# --- ---
     
-    def getEndFound(self,switch:int=0,new_val=None):
+    def treatHealth(self,switch:int=0,new_val=None):
+        '''
+        returns Health or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        ### return is tuple 
+        takes and returns values as follows:
+        - [0] current value
+        - [1] max value
+        
+        '''
+        if switch == 0:
+            return self.__health,self.__max_health
+        else:
+            self.__health = new_val[0]
+            self.__max_health = new_val[1]
+    
+    def treatStamina(self,switch:int=0,new_val=None):
+        '''
+        returns Stamina or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        ### is tuple 
+        takes and returns values as follows:
+        - [0] current value
+        - [1] max value
+        
+        '''
+        if switch == 0:
+            return self.__stamina,self.__max_stamina
+        else:
+            self.__stamina = new_val[0]
+            self.__max_stamina = new_val[1]
+    
+    def treatMana(self,switch:int=0,new_val=None):
+        '''
+        returns Mana or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        ### is tuple 
+        takes and returns values as follows:
+        - [0] current value
+        - [1] max value
+        
+        '''
+        if switch == 0:
+            return self.__mana,self.__max_mana
+        else:
+            self.__mana = new_val[0]
+            self.__max_mana = new_val[1]
+    
+    def treatPerception(self,switch:int=0,new_val=None):
+        '''
+        returns the current value for perception or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        ### is int
+        '''
+        if switch == 0:
+            return self.__perception
+        else:
+            self.__perception = new_val
+    
+    def treatStrenght(self,switch:int=0,new_val=None):
+        '''
+        returns the current value for strength or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        ### is int
+        '''
+        if switch == 0:
+            return self.__strength
+        else:
+            self.__strength = new_val
+    
+    def treatIntelligence(self,switch:int=0,new_val=None):
+        '''
+        returns the current value for strength or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        ### is int
+        '''
+        if switch == 0:
+            return self.__intelligence
+        else:
+            self.__intelligence = new_val
+    
+    def treatExplorationScore(self,switch:int=0,new_val=None):
+        '''
+        returns current score of explored tiles or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        '''
+        if switch == 0:
+            return self.__explore_score
+        else:
+            self.__explore_score += new_val
+        
+    def treatEndFound(self,switch:int=0,new_val=None):
+        '''
+        returns the current value for End_Found or takes new value based on condition of *switch*
+        defaults to return only if no argument is given
+        '''
         if switch == 0:
             return self.__end_found
         else:
             self.__end_found = new_val
-            
     
-    # --- ---
-    # UPDATING VALUES
-    # --- ---
-    
-    # --- ---
-    # UPDATING ITEMLIST BEGIN
+# --- ---
+# Update/Modify Itemlist
+# --- ---
 
     def checkItems(self,):
         '''
@@ -342,19 +360,17 @@ class Player:
             else:
                 pass    
 
-    # --- ---
-    # UPDATING ITEMLIST END
-    
-    
-    
-    # MOVEMENT OF PLAYER
+# --- ---    
+# Player Movement
+# --- ---
     def CheckTileExplored(self):
         '''
         upon entering a new BigTile this method checks if the new one was already generated before. 
         otherwise it will generate a new one and save the last Tile.
         '''
         
-        if self.getCoordinates() in self.__explored_tiles:
+        if loader.loadTile(self.getCoordinates(),self.__savegame,1,) == True:
+            
             # search in explored_tiles.xml and read out the object to load it.
             loader.loadTile()
             self.__active_tile = 0 #searched object
@@ -363,6 +379,7 @@ class Player:
         else: 
             # create a new tile based on the coordinates given and safe it as active tile 
             self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y)
+            self.__explore_score += self.__active_tile.increaseExploration()
         
     def goEast(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
@@ -385,6 +402,54 @@ class Player:
         del self.__active_tile
         self.CheckTileExplored()
 
+# --- ---
+# Player Interaction
+# --- ---
+'''
+adds interaction with environment // active Tile
+- searchRelics(active_tile._smallTile) -- results with nothing / clue / {small tile vanishes}
+- searchItem(active_tile._small_tile) -- results with item / nothing 
+- explore(active_tile._small_tile) -- results in combat or nothing
+- unlock - if tile.smalltile[] locked >> check if enough owned
+- rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
+- 
+'''
+# --- ---
+# Player Combat
+# --- ---
 
+# --- ---
+# VISUALIZING VALUES
+# --- ---
+    # --- visualize values ---
+    
+    def listHealth(self):
+        '''
+        returns Health in visualized form
+        ### is string
+        '''
+        percentage_health = self.__health*100/self.__max_health
+        value_max = 20 
+        value_left = round(20*percentage_health/100)
+        return ('[','#'*value_left,'-'*20-value_left,']')
 
-# --- interaction with the environment
+    def listStamina(self):
+        '''
+        returns available Stamina in visualized form
+        ### is string
+        '''
+        percentage_stamina = self.__stamina*100/self.__max_stamina
+        value_max = 20 
+        value_left = round(20*percentage_stamina/100)
+        return ('[','#'*value_left,'-'*20-value_left,']')
+    
+    def listMana(self):
+        '''
+        returns available Mana in visualized form
+        ### is string
+        '''
+        percentage_mana = self.__mana*100/self.__max_mana
+        value_max = 20 
+        value_left = round(20*percentage_mana/100)
+        return ('[','#'*value_left,'-'*20-value_left,']')
+    

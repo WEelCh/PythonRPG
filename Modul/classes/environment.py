@@ -15,8 +15,9 @@ import random
 
 class bigTile:
 
-# --- --- --- ---
-
+# --- ---
+# CONSTRUCTOR 
+# --- ---
     def __init__(self,coordinate_x:int,coordinate_y:int,isnew:int=0):
         '''
         Constructor to initialize an instance of a bigTile.
@@ -38,14 +39,16 @@ class bigTile:
         else: 
             self.initializeTile()
     
-# --- --- --- ---
+# --- ---
+# SETTING VALUES
+# --- ---
 
     def getCoordinates(self):
         '''
         method to return both coordinates of the Tile.
         In order to check if player has already been on that Tile or not.  
         '''
-        return self.__coordinate_x, self.__coordinate_y\
+        return self.__coordinate_x, self.__coordinate_y
         
     def generatebigTile(self):
         '''
@@ -62,15 +65,21 @@ class bigTile:
         self.__name =
         '''
 
-# --- --- --- ---
+# --- --- 
+# LOADING VALUES
+# --- --- 
 
-    def increasePlayerExploration(self,player_obj:object):
+# --- --- 
+# Update/Modify VALUES
+# --- --- 
+
+    def increaseExploration(self,player_obj:object):
         '''
         increasing the players count of explored tiles as this attribute contributs to the later world_generation
         making it more difficult but also making more weapons available.
         the character also skills with increasing counter of explorations
         '''
-        return player_obj.setExploration(1)
+        return 1
         #return active_player.exploration =+ 1 
 
     def loadSmallTiles(self):
