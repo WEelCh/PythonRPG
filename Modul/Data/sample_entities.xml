@@ -1,11 +1,11 @@
 <data>
 
     <entities>
-        <entity type = 'friend'>
+        <entity type = 'Friend'>
             <name>Dev</name>
             <value>0</value>
         </entity>
-        <entity type = 'enemy'>
+        <entity type = 'Enemy'>
             <name>Kowalski</name>
             <value>14,2</value>
         </entity>

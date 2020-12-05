@@ -1,19 +1,19 @@
 <data>
 
     <items>
-        <item type = 'weapon'>
+        <item type = 'Weapon'>
             <name>Sword of Dev</name>
             <value>12</value>
         </item>
-        <item type = 'weapon'>
+        <item type = 'Weapon'>
             <name>Sword of Death</name>
             <value>3</value>
         </item>
-        <item type = 'food'>
+        <item type = 'Food'>
             <name>Golden Apple</name>
             <value>25,3</value>
         </item>
-        <item type ='medicalsupply'>
+        <item type ='MedicalSupply'>
             <name>antibiotics</name>
             <value>25</value>
         </item>

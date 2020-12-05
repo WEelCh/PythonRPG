@@ -13,6 +13,8 @@ from random import randint,choice
 
 import Modul.setting as setting
 ###from Modul.classes.environment import bigTile
+import Modul.classes.item as Item
+import Modul.classes.entity as Entity
 
 
 # --- DECLARATION -----------------
@@ -185,7 +187,7 @@ def getBigTile(player_obj:object):
 
 
 
-def getSmallTile(search):
+def getSmallTile(typ):
     '''
     return small_tile data from sample_tiles.xml
     due to id OR type
@@ -199,10 +201,10 @@ def getSmallTile(search):
     pos_tiles = list()
 
     try: # search id
-        int(search)
+        int(typ)
 
         for tile in root[1]: # small_tile
-            if tile.get('id') == search:
+            if tile.get('id') == typ:
                 for data in tile:
                     tile_data[data.tag] = data.text
                 return tile_data
@@ -211,15 +213,15 @@ def getSmallTile(search):
     except:
         for tile in root[1]: # small_tile search
             types = tile.get('type').split(',')
-            if search in types:
+            if typ in types:
                 pos_tiles.append(tile)
 
         if len(pos_tiles) == 0:
             raise KeyError ('No tile with specified type !')
 
-        rand_select = randint(0,len(pos_tiles)-1)
+        tile = choice(pos_tiles)
 
-        for data in pos_tiles[rand_select]:
+        for data in tile:
             tile_data[data.tag] = data.text
         return tile_data
 
@@ -249,10 +251,13 @@ def loadTile(coords:str, savegame:str,switch:int=0):
 
 
 
-def genItem(typ):
+def genItem(typ = False):
     '''
-    gets Itemdata out off the xml with type 'typ'
+    gets Itemdata out of the xml with type 'typ'
     '''
+
+    if typ == False:
+        typ = choice(['Weapon','Food','MedicalSupplies'])
 
     tree = ET.parse(setting.path_Data+'sample_items.xml')
     root = tree.getroot()
@@ -264,8 +269,21 @@ def genItem(typ):
             item_list.append(item)
     
     item = choice(item_list)
-    
-    return item.find('name').text, item.find('value').text
+
+    name = item.find('name').text
+    value = item.find('value').text
+
+    if '_' in value:
+        value = value.split('_')
+
+    if typ == 'Weapon':
+        obj = Item.Weapon(name, value)
+    elif typ == 'Food':
+        obj = Item.Food(name, value[0], value[1])
+    elif typ == 'MedicalSupply':
+        obj = Item.MedicalSupply(name, value)
+
+    return obj
 
 
 
@@ -273,6 +291,9 @@ def genEntity(typ):
     '''
     gets Entitydata out off the xml with type 'typ'
     '''
+
+    if typ == False:
+        typ = choice(['Friend','Enemy'])
 
     tree = ET.parse(setting.path_Data+'sample_entities.xml')
     root = tree.getroot()
@@ -282,10 +303,22 @@ def genEntity(typ):
     for entity in root.findall('entities/entity'):
         if entity.attrib['type'] == typ:
             entity_list.append(entity)
-    
+
     entity = choice(entity_list)
-    
-    return entity.find('name').text, entity.find('value').text
+
+    name = entity.find('name').text
+    value = entity.find('value').text
+
+    if '_' in value:
+        value = value.split('_')
+
+    if typ == 'Friend':
+        obj = 'NOT FINALLY WORKING'
+    elif typ == 'Enemy':
+        obj = Entity.Enemy(name, value[0], value[1])
+
+    return obj
+
 
 
 
