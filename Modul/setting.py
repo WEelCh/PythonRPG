@@ -15,11 +15,8 @@ path = os.getcwd()
 path_Data = path+os.sep+'Modul'+os.sep+'Data'+os.sep
 # absolute path to saves
 path_Saves = path + os.sep + 'saves' + os.sep
-
+# absolute path to active player
 # ---- ---- ---- ----
 
 
 # ---- ---- code //  ---- ----
-print(path)
-print(path_Data)
-#print(path_Saves)

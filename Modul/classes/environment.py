@@ -17,14 +17,14 @@ class bigTile:
 
 # --- --- --- ---
 
-    def __init__(self,coordinate_y:int,coordinate_x:int,isnew:int=0):
+    def __init__(self,coordinate_x:int,coordinate_y:int,isnew:int=0):
         '''
         Constructor to initialize an instance of a bigTile.
         - Takes coordinates to make it available in the set matrix. -- player travels by choosing these coordinates
         - Generates the instance's data and types upon loading - given in constructor. 
         - Generates its inhereted smallTiles when it gets called - 9 in total held in a dictionary for easier access. 
         - more to come i guess // 
-        ## maybe holding an active attribute making it easier for the game to track where player is located at // 
+        > maybe holding an active attribute making it easier for the game to track where player is located at // 
         '''
         self.__coordinate_x = coordinate_x
         self.__coordinate_y = coordinate_y
@@ -32,9 +32,9 @@ class bigTile:
         self.__name = 'none'
         self.__inherited_smallTiles = dict()
         if(isnew is 0):
-            self.generateSmallTiles()
             self.generatebigTile()
-            self.setPlayerExploration()
+            self.generateSmallTiles()
+            self.increasePlayerExploration()
         else: 
             self.initializeTile()
     
@@ -64,13 +64,13 @@ class bigTile:
 
 # --- --- --- ---
 
-    def increasePlayerExploration(self):
+    def increasePlayerExploration(self,player_obj:object):
         '''
         increasing the players count of explored tiles as this attribute contributs to the later world_generation
         making it more difficult but also making more weapons available.
         the character also skills with increasing counter of explorations
         '''
-        return player.active_player.setExploration(1)
+        return player_obj.setExploration(1)
         #return active_player.exploration =+ 1 
 
     def loadSmallTiles(self):
@@ -107,9 +107,11 @@ class smallTile:
         self.__type = 'empty'
         self.__name = None
         self.__description = 'empty'
-        self.__available_items = []
+        self.__available_items = None
+        self.__available_entities = None
         self.__lock_condition = 'open'
         self.__key_required = 0
+        # self.__vanished = 1 
     # --- --- --- 
     #generate world
     def generateTile(self):
@@ -122,13 +124,17 @@ class smallTile:
         #further add more stuff lol
 
     def generatelockCondition(self):
+        
         '''
         some housings are locked by default upon loading. 
         This method generates this dependency upon first creation and sets a required amount of keys needed
         in order to open it up, if it gets locked. 
         '''
         if( self.__type.lower() is 'housing') or ( self.__type.lower() is 'dungeon'):
-            self.__lock_condition = random.choice(['locke','opened'])
+            self.__lock_condition = random.choice(['locked','opened'])
+            if(self.__lock_condition == 'locked'):
+                self.__key_required = random.choice()    
+        
     def generateType(self):
         '''
         generates type of content, letting it vary with its content and description
