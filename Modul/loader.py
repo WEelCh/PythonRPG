@@ -9,8 +9,11 @@ Handles all xml related logic
 
 import xml.etree.ElementTree as ET
 import re
-import Modul.setting as setting
 from random import randint,choice
+
+import Modul.setting as setting
+###from Modul.classes.environment import bigTile
+
 
 # --- DECLARATION -----------------
 
@@ -78,6 +81,70 @@ def getSaveGame():
 
 
 # SAMPLE TILE HANDLING
+
+def saveTile(obj, pos:str, savegame:int):
+    '''
+    saves old tile
+    
+    '''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+    root = tree.getroot()
+
+    # check exitstence
+
+    try: # when it exists ... just some changes
+        for tile in root.findall('world/region'):
+            if tile.attrib['coord'] == pos:
+                #changes
+
+                indent(root)
+                tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+                return
+    except: # if no tile at all exists
+        pass
+
+    # when it not exists ... new
+    data = root.find('world')
+    region = ET.SubElement(data, 'region')
+    region.attrib['coord'] = pos
+
+    big_tile = ET.SubElement(region, 'big_tile')
+    data = ET.SubElement(big_tile, 'name')
+    data.text = 'foo'
+
+    small_tiles = ET.SubElement(region, 'small_tiles')
+    for i in range(1,11):
+        tile = ET.SubElement(small_tiles, 'tile')
+        tile.attrib['id'] = str(i)
+
+        data = ET.SubElement(tile, 'name')
+        data.text = 'foo'
+        data = ET.SubElement(tile, 'description')
+        data.text = 'foo'
+        data = ET.SubElement(tile, 'lock_condition')
+        data.text = 'foo'
+
+        item = ET.SubElement(tile, 'item')
+        data = ET.SubElement(item, 'name')
+        data.text = 'foo'
+        data = ET.SubElement(item, 'type')
+        data.text = 'foo'
+        data = ET.SubElement(item, 'value')
+        data.text = 'foo'
+
+        entity = ET.SubElement(tile, 'entity')
+        data = ET.SubElement(entity, 'name')
+        data.text = 'foo'
+        data = ET.SubElement(entity, 'type')
+        data.text = 'foo'
+        data = ET.SubElement(entity, 'value')
+        data.text = 'foo'
+
+        indent(root)
+        tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+
+
 
 
 def getBigTile(player_obj:object):
@@ -158,24 +225,6 @@ def getSmallTile(search):
 
 
 
-def saveTile(bigtile, pos, savegame):
-    '''
-    saves old tile
-    
-    '''
-
-    tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
-    root = tree.getroot()
-
-    # check exitstence
-    for tile in root.findall('world/region'):
-        if pos == str(tile.attrib):
-
-            # when it exists
-            tile.find('small_tiles/tile')
-
-
-
 def loadTile(coords:str, savegame:str,switch:int=0):
     '''
     loads new tile
@@ -197,7 +246,7 @@ def loadTile(coords:str, savegame:str,switch:int=0):
     elif(switch == 0):
         pass 
         # needs to trigger if the given coordinate is present in savegame/// 
-    
+
 
 
 def genItem(typ):
@@ -243,12 +292,13 @@ def genEntity(typ):
 def resetSaveGame(savegame:int):
     '''RESETS the SaveGame with number savegame'''
 
-    tree = ET.parse(setting.path_Saves+'savegame_%d.xml'%(savegame))
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(savegame))
     root = tree.getroot()
 
     root.clear()
 
     # player init
+
     player      = ET.SubElement(root, 'player')
 
     generell    = ET.SubElement(player, 'generell')
@@ -281,9 +331,18 @@ def resetSaveGame(savegame:int):
 
     backpack    = ET.SubElement(player, 'backpack')
     for slot in range(1,11):
-        data                = ET.SubElement(backpack, 'slot')
-        data.text           = 'None'
-        data.attrib['id']   = str(slot)
+        data = ET.SubElement(backpack, 'slot')
+        data.attrib['id'] = str(slot)
+
+        item = ET.SubElement(data, 'item')
+        data = ET.SubElement(item, 'name')
+        data.text = 'None'
+        data = ET.SubElement(item, 'type')
+        data.text = 'None'
+        data = ET.SubElement(item, 'value')
+        data.text = 'None'
+
+    ET.SubElement(root, 'world')
 
     indent(root)
     tree.write(setting.path_Saves+'savegame_%d.xml'%(savegame))
