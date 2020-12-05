@@ -31,6 +31,7 @@ class bigTile:
         self.__coordinate_y = coordinate_y
         self.__type = 'empty'
         self.__name = 'none'
+        self.__given_explore_count = 0
         self.__inherited_smallTiles = dict()
         if(isnew is 0):
             self.generatebigTile()
@@ -65,9 +66,6 @@ class bigTile:
         self.__name =
         '''
 
-# --- --- 
-# LOADING VALUES
-# --- --- 
 
 # --- --- 
 # Update/Modify VALUES
@@ -82,27 +80,35 @@ class bigTile:
         return 1
         #return active_player.exploration =+ 1 
 
+    def getName(self):
+        return self.__type 
+
+# --- --- 
+# Interaction small Tile
+# --- --- 
+    def querySmallTiles(self):
+        '''
+        queries trough inhereted smallTiles listing them in given document 
+        and returning the choosen Tile back to player. 
+        sets active_small_tile  to selected tile. Allows for interaction directly without querying trough entirye BigTile
+        '''
+        # ends with return of newly selected smallTile
+        return self.__inherited_smallTiles[queried_tile]
+
     def loadSmallTiles(self):
         pass
 
-    def listSmallTiles(self):
-        for key in self.__inherited_smallTiles:
-            print(key,'\n')
     def generateSmallTiles(self):
         print('generating Tiles and adding them')
         for i in range(0,8):
             self.__inherited_smallTiles['test%d'%(i)] = smallTile()
-            self.__inherited_smallTiles['test%d'%(i)].generateTile()
+            self.__inherited_smallTiles['test%d'%(i)].generateTile(self.__given_explore_count)
     def getSmallTiles(self):
         '''
         returns a dictionary of adjacent 
         '''
         return self.__inherited_smallTiles
-    def getName(self):
-        return self.__type 
-
-# --- --- --- ---
-
+    
 
 # --- --- --- ---
 # class holding the smaller tile inherited by bigTiles
@@ -112,7 +118,7 @@ class smallTile:
     '''
     this class is for handling and generating objects 
     '''
-    def __init__(self):
+    def __init__(self,counter_explore:int):
         self.__type = 'empty'
         self.__name = None
         self.__description = 'empty'
@@ -120,6 +126,7 @@ class smallTile:
         self.__available_entities = None
         self.__lock_condition = 'open'
         self.__key_required = 0
+        self.__counter_modifier = counter_explore
         # self.__vanished = 1 
     # --- --- --- 
     #generate world
@@ -162,7 +169,7 @@ class smallTile:
         '''
         generating items for each tile
         '''
-        self.__available_items =[i for i in range(0,9)]
+        self.__available_items = item.item(self.)
 
 
 #def generateTile(tile:object):

@@ -27,7 +27,7 @@ class Player:
         self.__coordinate_X = 0
         self.__coordinate_Y = 0
         self.__active_tile = None
-        self.__explored_tiles = list()
+        self.__active_small_tile = None
         self.__explore_score = 0
         # --- dynamic leveling attributes
         #self.__level = 0
@@ -372,7 +372,7 @@ class Player:
         if loader.loadTile(self.getCoordinates(),self.__savegame,1,) == True:
             
             # search in explored_tiles.xml and read out the object to load it.
-            loader.loadTile()
+            loader.loadTile(self.getCoordinates(),self.__savegame)
             self.__active_tile = 0 #searched object
             pass
 
@@ -412,8 +412,13 @@ adds interaction with environment // active Tile
 - explore(active_tile._small_tile) -- results in combat or nothing
 - unlock - if tile.smalltile[] locked >> check if enough owned
 - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
-- 
+- active_small_tile to directly interact with the queried smallTile from a bigTile
 '''
+def setActiveSmallTile(self):
+    '''
+    triggers query to select active small tile to work with. 
+    '''
+    self.__active_small_tile =  self.__active_tile.querySmallTiles()
 # --- ---
 # Player Combat
 # --- ---
