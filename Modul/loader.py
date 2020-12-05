@@ -184,7 +184,23 @@ def loadTile(coords:str, savegame:str,switch:int=0):
     
 
 
+def genItem(typ):
+    '''
+    gets Itemdata out off the xml with type 'typ'
+    '''
 
+    tree = ET.parse(setting.path_Data+'sample_items.xml')
+    root = tree.getroot()
+
+    item_list = []
+
+    for item in root.findall('items/item'):
+        if item.attrib['type'] == typ:
+            item_list.append(item)
+    
+    item = choice(item_list)
+    
+    return item.find('name').text, item.find('value').text
 
 # --- SHUT DOWN -------------------
 

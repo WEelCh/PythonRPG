@@ -1,0 +1,30 @@
+<data>
+
+    <items>
+        <item type = 'weapon'>
+            <name>Sword of Dev</name>
+            <value>12</value>
+        </item>
+        <item type = 'weapon'>
+            <name>Sword of Death</name>
+            <value>3</value>
+        </item>
+        <item type = 'food'>
+            <name>Golden Apple</name>
+            <value>25,3</value>
+        </item>
+        <item type ='medicalsupply'>
+            <name>antibiotics</name>
+            <value>25</value>
+        </item>
+    </items>
+
+
+
+
+
+
+
+
+
+</data>

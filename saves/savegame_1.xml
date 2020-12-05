@@ -55,12 +55,12 @@
                         <type>...</type>
                         <values>..., ...</values>
                     </entity>
-                <tile /><tile /></tile>
+                </tile>
                 
-            <testtest /></small_tiles>
+            </small_tiles>
         </region>
 
-        <region coord="0_0">
+        <region coord="0_1">
             <big_tile>
                 <name>...</name>
             </big_tile>
