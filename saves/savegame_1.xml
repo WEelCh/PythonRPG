@@ -1,0 +1,90 @@
+<savegame_1>
+
+
+
+    <player>
+        <general>
+            <end_found>...</end_found>
+            <explore_score>...</explore_score>
+            <pos>x,y</pos>
+            <name>...</name>
+            <sex>...</sex>
+            <class>...</class>
+        </general>
+
+        <traits>
+            <health>..., ...</health>
+            <stamina>..., ...</stamina>
+            <mana>..., ...</mana>
+            <strength>...</strength>
+            <intelligence>...</intelligence>
+            <perception>...</perception>
+        </traits>
+
+        <backpack>
+            <slot id="1">
+                <name>...</name>
+                <type>....</type>
+                <values>..., ...</values>
+            </slot>
+        </backpack>
+
+
+    </player>
+
+
+
+
+    <world>
+        <region coord="0_0">
+            <big_tile>
+                <name>...</name>
+            </big_tile>
+            <small_tiles>
+                <tile>
+                    <name>...</name>
+                    <description>...</description>
+                    <lock_condition>...</lock_condition>
+                    <item>
+                        <name>...</name>
+                        <type>....</type>
+                        <values>..., ...</values>
+                    </item>
+                    <entity>
+                        <name>...</name>
+                        <type>...</type>
+                        <values>..., ...</values>
+                    </entity>
+                <tile /><tile /></tile>
+                
+            <testtest /></small_tiles>
+        </region>
+
+        <region coord="0_0">
+            <big_tile>
+                <name>...</name>
+            </big_tile>
+            <small_tiles>
+                <tile>
+                    <name>...</name>
+                    <description>...</description>
+                    <lock_condition>...</lock_condition>
+                    <item>
+                        <name>...</name>
+                        <type>....</type>
+                        <values>..., ...</values>
+                    </item>
+                    <entity>
+                        <name>...</name>
+                        <type>...</type>
+                        <values>..., ...</values>
+                    </entity>
+                </tile>
+                
+            </small_tiles>
+        </region>
+    </world>
+
+
+
+</savegame_1>

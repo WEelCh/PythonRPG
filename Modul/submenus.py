@@ -8,6 +8,7 @@
 # --- IMPORT ----------------------
 
 from Modul import formating, loader
+from Modul.classes import player
 
 # --- DECLARATION -----------------
 
@@ -25,93 +26,140 @@ def continueGame():
     game_value = loader.getSaveGame()
 
     if game_value == 'None':
-        choise = False
+        choice = False
         while 'CONTINUE_LOOP':
-            choise = formating.noSaveGame(choise)
-            if choise == '0':
+            choice = formating.noSaveGame(choice)
+            if choice == '0':
                 break
             else:
-                choise = True
+                choice = True
     else:
         pass
         #start savegame
 
 
 
-def newGame(choise = False):
+def newGame(choice = False, level = 1):
     '''Logic for Menu-New Game
     Gets Player Data from the User'''
+    player_data = []
+    while 'NEWGAME_LOOP':
 
-    choise = formating.newGame(choise)
+        choice = formating.newGame(choice, level)
+
+        if  choice == '0':
+            break
+
+        elif level == 1: # SaveGame choice
+            if   choice in list(['1','2','3','4']):
+                player_data.append(int(choice))
+            else:
+                choice = True
+                continue
+
+        elif level == 2: # Name choice
+            if len(choice) > 15:
+                choice = True
+                continue
+            player_data.append(choice)
+
+        elif level == 3: # Sex choice
+            if   choice == '1':
+                player_data.append('Male')
+            elif choice == '2':
+                player_data.append('Female')
+            elif choice == '3':
+                player_data.append('Diverse')
+            else:
+                choice = True
+                continue
+
+        elif level == 4: # Class choice
+            if   choice == '1':
+                player_data.append('Mercenary')
+            elif choice == '2':
+                player_data.append('Stinker')
+            elif choice == '3':
+                player_data.append('Scout')
+            elif choice == '4':
+                player_data.append('Illusionist')
+            else:
+                choice = True
+                continue
+
+        level += 1
+        if level == 5:
+            activ_player = player.Player(player_data)
+            '''START_GAME (activ_player)'''
 
 
 
-def loadGame(choise = False):
+def loadGame(choice = False):
     '''Logic for Menu-Load Game'''
     while 'LOADGAME_LOOP':
 
-        choise = formating.loadGame(choise)
+        choice = formating.loadGame(choice)
 
-        if choise == '0':
+        if choice == '0':
             break
         else:
-            choise = True
+            choice = True
 
 
 
-def settings(choise = False):
+def settings(choice = False):
     '''Logic for Menu-Settings'''
     while 'SETTINGS_LOOP':
 
-        choise = formating.settings(choise)
+        choice = formating.settings(choice)
 
-        if   choise == '0': # Back
+        if   choice == '0': # Back
             break
 
-        elif choise == '1': # Format Window
+        elif choice == '1': # Format Window
             settingsFormat()
 
-        elif choise == '2': # Delete User-Data
+        elif choice == '2': # Delete User-Data
             settingsDelete()
 
         else:
-            choise = True # error message
+            choice = True # error message
 
 
-def settingsFormat(choise = False):
+def settingsFormat(choice = False):
     '''Logic for  Menu-Settings-FormatWindow'''
     while 'FORMATWINDOW_LOOP':
 
-        choise = formating.settingsFormatWindow(choise)
+        choice = formating.settingsFormatWindow(choice)
         new_form_y, new_form_x, s = '', '', True
 
-        if   choise == '0': # Back
+        if   choice == '0': # Back
             break
 
         else: # search for format config
-            for i in range(len(choise)):
+            for i in range(len(choice)):
 
                 if s == True:
-                    if choise[i].isdecimal():
-                        new_form_y += choise[i]
-                    elif choise[i].isspace():
+                    if choice[i].isdecimal():
+                        new_form_y += choice[i]
+                    elif choice[i].isspace():
                         s = False
                         continue
                     else:
-                        choise = True
+                        choice = True
                         break
 
                 if s == False:
-                    if choise[i].isdecimal():
-                        new_form_x += choise[i]
+                    if choice[i].isdecimal():
+                        new_form_x += choice[i]
                     else:
-                        choise = True
+                        choice = True
                         break
 
             if (new_form_y == '') or (new_form_x == ''):
-                choise = True
+                choice = True
                 continue
-            elif choise == True:
+            elif choice == True:
                 continue 
 
             # if input was ok, overwrite old values

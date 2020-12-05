@@ -31,7 +31,7 @@ while 'MAIN_LOOP':
         submenus.continueGame()
 
     elif choise == '2': # New Game
-        pass
+        submenus.newGame()
 
     elif choise == '3': # Load Game
         submenus.loadGame()
