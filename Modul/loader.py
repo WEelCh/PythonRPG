@@ -202,6 +202,26 @@ def genItem(typ):
     
     return item.find('name').text, item.find('value').text
 
+
+
+def genEntity(typ):
+    '''
+    gets Entitydata out off the xml with type 'typ'
+    '''
+
+    tree = ET.parse(setting.path_Data+'sample_entities.xml')
+    root = tree.getroot()
+
+    entity_list = []
+
+    for entity in root.findall('entities/entity'):
+        if entity.attrib['type'] == typ:
+            entity_list.append(entity)
+    
+    entity = choice(entity_list)
+    
+    return entity.find('name').text, entity.find('value').text
+
 # --- SHUT DOWN -------------------
 
 

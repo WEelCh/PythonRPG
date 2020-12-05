@@ -1,0 +1,15 @@
+<data>
+
+    <entities>
+        <entity type = 'friend'>
+            <name>Dev</name>
+            <value>0</value>
+        </entity>
+        <entity type = 'enemy'>
+            <name>Kowalski</name>
+            <value>14,2</value>
+        </entity>
+    </entities>
+
+
+</data>

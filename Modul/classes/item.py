@@ -44,7 +44,7 @@ class Weapon (Item):
     def getName(self):
         return str(self._name)
 
-    def getatk(self):
+    def getAtk(self):
         return int(self._atk)
 
 
