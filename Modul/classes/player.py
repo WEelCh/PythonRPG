@@ -15,11 +15,11 @@ import Modul.classes.environment as environment
 
 # ---- ---- code //  ---- ----
 
-class Player:
+class Player():
 
     def __init__(self,list_at:list):
         # --- basic static attributes
-        self.__savegame = 'emtpy'
+        self.__savegame = 1
         self.__end_found = False
         self.__name = 'empty'
         self.__sex = 'empty'
@@ -43,6 +43,7 @@ class Player:
         self.__intelligence = 0 
         self.__perception = 0
         self.__items_backpack = []
+        self.__keys = 0
         self.generatePlayer(list_at)
 
 # --- ---
@@ -185,14 +186,21 @@ class Player:
         ### is list
         '''
         return self.__items_backpack
-
+    
+    def getItemsName(self):
+        '''
+        returns list of item names 
+        ### is list
+        '''
+        return [self.__items_backpack[i].getName for i in range(0,len(self.__items_backpack))]
+    
     def getCoordinates(self):
         '''
         return coordinates as a concatenated string. 
         built as follows: *coordinateX_coordinateY*
         Example: 0_-1;-2_2
         '''
-        return self.__coordinate_X+'_'+self.__coordinate_Y
+        return str(self.__coordinate_X)+'_'+str(self.__coordinate_Y)
     
 # --- ---
 # UPDATING VALUES
@@ -309,7 +317,7 @@ class Player:
         If it holds more than 15 items, it will return False,
         otherwise it will return True
         '''
-        if(len(self.__items_backpack) < 15): 
+        if(len(self.__items_backpack) < 10): 
             return True
         else:
             False
@@ -319,12 +327,16 @@ class Player:
         adds a new item as long as there is enough place for the item. 
         If the backpack - list to be precise - is full, it will ask the player
         to choose, whether to change an existing one or just drop the item
+        
+        - returns success message if check passed
+        
+        - leads to swapItem if no space left
         '''
         if self.checkItems() == True:
             self.__items_backpack.append(item)
             return "Success!\n Item was added to your inventory."
         else:
-            self.swapItem()
+            self.swapItem(item)
 
     def deleteItem(self,item:object):
         '''
@@ -338,9 +350,9 @@ class Player:
     
     def swapItem(self,item:object):
         '''
-        takes two Items and asks player if he wants to switch the found item with another in his backpack.
+        VISUALIZE WITH LOOP
+        takes new item and asks player if he wants to switch the found item with another in his backpack.
 
-        '''
         a,b = True
         while a:
             print('It seems like there is not enough space available.\n' \
@@ -355,10 +367,14 @@ class Player:
                     choice_b = str(input('\n>> '))
                     if(type(choice_b) != int):
                         pass                        
-
             else:
                 pass    
-
+        '''
+        # list items first
+        self.getItemsName()
+        '''
+        not done yet ///
+        '''
 # --- ---    
 # Player Movement
 # --- ---
@@ -368,33 +384,35 @@ class Player:
         otherwise it will generate a new one and save the last Tile.
         '''
         
-        if loader.loadTile(self.getCoordinates(),self.__savegame,1,) == True:
-            
+        if loader.loadTile(self.getCoordinates(),self.__savegame) == False:
+            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self.__explore_score)
+            self.__explore_score += 1
             # search in explored_tiles.xml and read out the object to load it.
-            loader.loadTile(self.getCoordinates(),self.__savegame)
-            self.__active_tile = 0 #searched object
             pass
 
         else: 
             # create a new tile based on the coordinates given and safe it as active tile 
-            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self.__explore_score)
-            self.__explore_score += 1
+            loader.loadTile(self.getCoordinates(),self.__savegame)
+            self.__active_tile = 0 #searched object
         
     def goEast(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X -= 1
         del self.__active_tile
         self.CheckTileExplored()
+        
     def goWest(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X += 1
         del self.__active_tile
         self.CheckTileExplored()
+        
     def goNorth(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y += 1
         del self.__active_tile
         self.CheckTileExplored()
+    
     def goSouth(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y -= 1 
@@ -404,20 +422,40 @@ class Player:
 # --- ---
 # Player Interaction
 # --- ---
+
+    def changeLockCondition(self):
+        '''
+        changes opened/closed condition if needed keys are available.
+        '''
+        if self.__keys >= self.__active_small_tile.getkeyRequired():
+            self.__keys -= self.__active_small_tile.getkeyRequired()
+            self.__active_small_tile.updateLockCondition()
+        
+    def searchItem(self):
+        '''
+        method to let player search for an item in active_small_tile
+        '''
+        if self.__active_small_tile.getItem() == None:
+            return 'nothing found'  
+        else:
+            return self.setItem(self.__active_small_tile.getItem())
+
+    def setActiveSmallTile(self,query):
+        '''
+        triggers query to select active small tile to work with. 
+        '''
+        self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
 '''
 adds interaction with environment // active Tile
 - searchRelics(active_tile._smallTile) -- results with nothing / clue / {small tile vanishes}
-- searchItem(active_tile._small_tile) -- results with item / nothing 
 - explore(active_tile._small_tile) -- results in combat or nothing
-- unlock - if tile.smalltile[] locked >> check if enough owned
 - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
 - active_small_tile to directly interact with the queried smallTile from a bigTile
+////
+- searchItem(active_tile._small_tile) -- results with item / nothing ### done ### 
+- unlock - if tile.smalltile[] locked >> check if enough owned ### done ### 
 '''
-def setActiveSmallTile(self,query):
-    '''
-    triggers query to select active small tile to work with. 
-    '''
-    self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
+
 # --- ---
 # Player Combat
 # --- ---

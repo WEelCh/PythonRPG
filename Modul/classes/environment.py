@@ -21,7 +21,7 @@ from Modul.classes.item import *
 # CLASS OF MAIN TILE
 # --- ---
 
-class bigTile:
+class bigTile():
 
 # --- ---
 # CONSTRUCTOR 
@@ -81,8 +81,7 @@ class bigTile:
         '''
         #readout_data = loader.loadTile
         for i in range(0,8):
-            
-        self.__inherited_smallTiles = [smallTile().initializeTile() for i in range(0,8)]
+            self.__inherited_smallTiles = [smallTile().initializeTile() for i in range(0,8)]
 
 # --- --- 
 # RETURN VALUES
@@ -126,6 +125,7 @@ class bigTile:
         '''
         return self.__inherited_smallTiles
     
+    # getSmallTiles 0- alle bitte
 # --- --- 
 # Interaction small Tile
 # --- --- 
@@ -152,7 +152,7 @@ class bigTile:
 
 
 
-class smallTile:
+class smallTile():
 
 # --- ---
 # CONSTRUCTOR 
@@ -170,7 +170,7 @@ class smallTile:
         self.__key_required = 0
         self.__counter_modifier = counter_explore
         if isnew == 0:
-            
+            self.generateBasic()
             self.generateItems()
             self.generateEntity()
             self.generatelockCondition()
@@ -180,14 +180,22 @@ class smallTile:
 # --- ---
 # SET VALUES 
 # --- ---
-    
+
+    def generateBasic(self):
+        '''
+        sets name and description of smallTile read out by loader.getSmallTile()
+        '''
+        data = getSmallTile(self.__type)
+        self.__name = data['name']
+        self.__description = data['description']
+        
     def generateItems(self):
         '''
         method to generate a new Item - whether its a weapon, food or a medicalSupply.
         
         percentage to generate it, scales with scaling.py
         '''
-        self.__available_item = random.choice(['nothing','nothing','nothing','nothing',loader.genItem()])
+        self.__available_item = random.choice([None,None,None,None,loader.genItem()])
         pass
     
     def generateEntity(self):
@@ -204,21 +212,17 @@ class smallTile:
         some housings are locked by default upon loading. 
         This method generates this dependency upon first creation and sets a required amount of keys needed
         in order to open it up, if it gets locked. 
+        possible values are:
+        #### locked 
+        #### opened
+        - generates required keys if condition is 'locked'
+        - if condition is 'opened' no key required
         '''
         if( self.__type.lower() is 'housing') or ( self.__type.lower() is 'dungeon'):
             self.__lock_condition = random.choice(['locked','opened'])
             if(self.__lock_condition == 'locked'):
-                self.__key_required = random.choice()    
+                self.__key_required = random.randint(1,5)    
         
-
-
-    def setName(self,):
-        """
-        docstring
-        """
-        self.__name = 'Haus'
-    
-
     def initializeTile(self,data:list):
         '''
         initializes smalltile attributes with previously saved values.
@@ -227,6 +231,36 @@ class smallTile:
         
         '''
         pass
+
+# --- ---
+# SET VALUES 
+# --- ---
+
+    def getName(self):
+        return self.__name
+    
+    def getDescription(self):
+        return self.__description
+    
+    def getkeyRequired(self):
+        return self.__key_required
+    
+    def getItem(self):
+        '''
+        returns item if one was given. 
+        returns a message of failure if not 
+        '''
+        if self.__available_item != None:
+            return self.__available_item
+        else:
+            return self.__available_item
+# --- ---
+# UDATE VALUES
+# --- ---
+
+    def updateLockCondition(self):
+        if self.__lock_condition == 'locked':
+            self.__lock_condition = 'opened'
 #def generateTile(tile:object):
 #    if not isinstance(tile,object):
 #        raise TypeError
