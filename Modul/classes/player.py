@@ -152,6 +152,10 @@ class Player():
         self.__intelligence = 0 
         self.__perception = 0
         self.__items_backpack = []
+        #
+        # must set the last used TILE from given coordinate
+        self.setActiveTile()
+        
 
 # --- ---
 # RETURN VALUES
@@ -215,10 +219,19 @@ class Player():
     
     def getMaxMana(self):
         return self.__max_mana
+
+
 # --- ---
 # UPDATING VALUES
 # --- ---
     
+    def treatAttackStrength(self):
+        '''
+        function to work with attack strenght, which is evaluated by weapons and their values in backpack 
+        and the given base strength
+        '''
+        pass
+
     def treatHealth(self,switch:int=0,new_val=None):
         '''
         returns Health or takes new value based on condition of *switch*
@@ -408,6 +421,7 @@ class Player():
             # search in explored_tiles.xml and read out the object to load it.
             self.__active_tile =  environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
         
+    
     def goEast(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X -= 1
@@ -460,7 +474,14 @@ class Player():
             return self.setItem(self.__active_small_tile.getItem())
 
     def setActiveTile(self):
-        getBigTile(self,)
+        '''
+        method to set active Big tile upon loading the character for the first time // or smth like that
+        '''
+        if self.__explore_score != 0:
+            # loads given tile
+            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
+        else:
+            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
 
     def setActiveSmallTile(self,query):
         '''
@@ -471,6 +492,7 @@ class Player():
         '''
         self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
         return self.__active_small_tile.getName()
+
 
     '''
     adds interaction with environment // active Tile

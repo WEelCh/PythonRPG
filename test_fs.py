@@ -23,6 +23,7 @@ print(active_player.getName(),active_player.getSavegame(),active_player.getSex()
 print(active_player.listHealth())
 active_player.treatHealth(1,[10,active_player.getMaxHealth()])
 print(active_player.listHealth())
+active_player.set
 print(active_player.getCoordinates())
 
 # ---- ---- code //  ---- ----
