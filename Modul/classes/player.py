@@ -45,6 +45,7 @@ class Player():
         self.__items_backpack = []
         self.__keys = 0
         self.generatePlayer(list_at)
+        self.setActiveTile()
 
 # --- ---
 # SET VALUES
@@ -72,7 +73,6 @@ class Player():
         # iterating trough sublist, provided by choosen class
         self.__char_class = player_input[3]
         self.setClassAttributes()
-
 
     def setClassAttributes(self):
         '''
@@ -423,28 +423,28 @@ class Player():
         
     
     def goEast(self):
-        loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
+        saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X -= 1
         del self.__active_tile
         del self.__active_small_tile
         self.CheckTileExplored()
         
     def goWest(self):
-        loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
+        saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X += 1
         del self.__active_tile
         del self.__active_small_tile
         self.CheckTileExplored()
         
     def goNorth(self):
-        loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
+        saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y += 1
         del self.__active_tile
         del self.__active_small_tile
         self.CheckTileExplored()
     
     def goSouth(self):
-        loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
+        saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y -= 1 
         del self.__active_tile
         del self.__active_small_tile
@@ -477,11 +477,8 @@ class Player():
         '''
         method to set active Big tile upon loading the character for the first time // or smth like that
         '''
-        if self.__explore_score != 0:
-            # loads given tile
-            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
-        else:
-            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
+        # loads given tile
+        self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
 
     def setActiveSmallTile(self,query):
         '''
@@ -496,6 +493,7 @@ class Player():
 
     '''
     adds interaction with environment // active Tile
+    - 
     - searchRelics(active_tile._smallTile) -- results with nothing / clue / {small tile vanishes}
     - explore(active_tile._small_tile) -- results in combat or nothing
     - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
