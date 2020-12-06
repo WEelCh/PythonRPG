@@ -17,6 +17,7 @@
       <perception>None</perception>
     </traits>
     <backpack>
+      <keys>foo</keys>
       <slot id="1">
         <item>
           <name>None</name>
