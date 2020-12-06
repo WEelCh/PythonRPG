@@ -84,7 +84,7 @@ def getSaveGame():
 
 # SAMPLE TILE HANDLING
 
-def saveTile(obj, pos:str, savegame:int):
+def saveTile(obj, coord:str, savegame:int):
     '''
     saves old tile
     
@@ -128,24 +128,95 @@ def saveTile(obj, pos:str, savegame:int):
         data.text = 'foo'
 
         item = ET.SubElement(tile, 'item')
-        data = ET.SubElement(item, 'name')
-        data.text = 'foo'
         data = ET.SubElement(item, 'type')
+        data.text = 'foo'
+        data = ET.SubElement(item, 'name')
         data.text = 'foo'
         data = ET.SubElement(item, 'value')
         data.text = 'foo'
 
         entity = ET.SubElement(tile, 'entity')
-        data = ET.SubElement(entity, 'name')
-        data.text = 'foo'
         data = ET.SubElement(entity, 'type')
+        data.text = 'foo'
+        data = ET.SubElement(entity, 'name')
         data.text = 'foo'
         data = ET.SubElement(entity, 'value')
         data.text = 'foo'
 
-        indent(root)
-        tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+    indent(root)
+    tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
 
+
+
+def loadTile(coords:str, savegame:int):
+    '''
+    loads new tile
+    
+    attribute __coords__ holds a string with X/Y coordinates in following format:
+    - X_Y
+        - and example might be 0_0; -1_80; -90_-90 etc. 
+    given coordinates must be found in /saves/$Player/explored_tiles.xml
+    will then return the given list as dictionary. 
+    
+    dict usage --> e.g. region_DATA [small_tiles] [name] [i]
+    --> get the i'st name of i'st small tile
+    '''
+
+    region_DATA =  {'big_tile':{
+                        'name':None},
+                    'small_tiles':{
+                        'name':[0 for i in range(9)],
+                        'description':[0 for i in range(9)],
+                        'lock_condition':[0 for i in range(9)],
+                        'item':{
+                            'type':[0 for i in range(9)],
+                            'name':[0 for i in range(9)],
+                            'value':[0 for i in range(9)]},
+                        'entity':{
+                            'type':[0 for i in range(9)],
+                            'name':[0 for i in range(9)],
+                            'value':[0 for i in range(9)]}
+                            }}
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
+    root = tree.getroot()
+
+    # checks if tile exists
+    for region in root.findall('world/region'):
+        if region.attrib['coord'] == coords:
+            break
+    return False # if tile NOT exists
+
+    # if tile exists:
+    # loads all the region DATA in region_DATA
+
+    # big_tile
+    region_DATA['big_tile']['name'] = region.find('big_tile/name').text
+
+    # small_tile
+    for i in range(9):
+
+        for tile in region.findall('small_tiles/tile'):
+            if tile.attrib['id'] == str(i):
+                break
+
+        region_DATA['small_tiles']['name'][i] = tile.find('name').text
+        region_DATA['small_tiles']['description'][i] = tile.find('description').text
+        region_DATA['small_tiles']['lock_condition'][i] = tile.find('lock_condition').text
+        if tile.find('item/type').text != 'None':
+            region_DATA['small_tiles']['item']['type'][i] = tile.find('item/type').text
+            region_DATA['small_tiles']['item']['name'][i] = tile.find('item/name').text
+            region_DATA['small_tiles']['item']['value'][i] = tile.find('item/value').text
+        else:
+            region_DATA['small_tiles']['item'][i] = None
+        if tile.find('entity/type').text != 'None':
+            region_DATA['small_tiles']['entity']['type'][i] = tile.find('entity/type').text
+            region_DATA['small_tiles']['entity']['name'][i] = tile.find('entity/name').text
+            region_DATA['small_tiles']['entity']['value'][i] = tile.find('entity/value').text
+        else:
+            region_DATA['small_tiles']['entity'][i] = None
+
+    return region_DATA
 
 
 
@@ -224,35 +295,6 @@ def getSmallTile(typ):
         for data in tile:
             tile_data[data.tag] = data.text
         return tile_data
-
-
-
-def loadTile(coords:str, savegame:str,switch:int=0):
-    '''
-    loads new tile
-    
-    attribute __coords__ holds a string with X/Y coordinates in following format:
-    - X_Y
-        - and example might be 0_0; -1_80; -90_-90 etc. 
-    given coordinates must be found in /saves/$Player/explored_tiles.xml
-    will then return the given list as dictionary. 
-
-    loadTile() must be able to check whether a coordinate is present or not.
-    If it is it should return 
-    '''
-    tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
-    root = tree.getroot()
-    '''
-    for tile in root.findall('world/region'):
-        
-        if(tile.attrib['coord'] == coords) and (switch == 1):
-            return True
-        elif(tile.attrib['coord'] == coords) and (switch == 0):
-            for data in tile.iter():
-                    tile_data[data.tag] = data.text
-                return tile_data
-        # needs to trigger if the given coordinate is present in savegame/// 
-    '''
 
 
 
@@ -368,6 +410,8 @@ def resetSaveGame(savegame:int):
     data.text   = 'None'
 
     backpack    = ET.SubElement(player, 'backpack')
+    data        = ET.SubElement(backpack, 'keys')
+    data.text   = 'foo'
     for slot in range(1,11):
         data = ET.SubElement(backpack, 'slot')
         data.attrib['id'] = str(slot)
