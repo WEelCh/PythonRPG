@@ -3,7 +3,7 @@
 __author__ ='Fabian Stange'
 
 # ---- ---- import libraries ---- ----
-import Modul.loader as loader
+from Modul.loader import *
 import Modul.classes.environment as environment
 # ---- ---- ---- ----
 
@@ -81,19 +81,19 @@ class Player():
         ### takes four possible classes from menu(creategame) upon initialisation 
         '''
         if self.__char_class == 'Mercenary': 
-            self.__health = 0
-            self.__max_health = 0
-            self.__stamina = 0
-            self.__max_stamina = 0
-            self.__mana = 0
-            self.__max_mana = 0
-            self.__strength = 0
-            self.__intelligence = 0
-            self.__perception = 0 
+            self.__health = 20
+            self.__max_health = 20
+            self.__stamina = 30
+            self.__max_stamina = 30
+            self.__mana = 10
+            self.__max_mana = 10
+            self.__strength = 10
+            self.__intelligence = 10
+            self.__perception = 10
             self.__items_backpack = []
         elif self.__char_class == 'Illusionist':
-            self.__health = 0
-            self.__max_health = 0
+            self.__health = 20
+            self.__max_health = 20
             self.__stamina = 0
             self.__max_stamina = 0
             self.__mana = 0
@@ -169,7 +169,7 @@ class Player():
     def getSavegame(self):
         '''
         returns savegame location of object
-        ### is string
+        ### is int
         '''
         return self.__savegame
     
@@ -192,6 +192,8 @@ class Player():
         returns list of item names 
         ### is list
         '''
+        for i in self.__items_backpack:
+            pass 
         return [self.__items_backpack[i].getName for i in range(0,len(self.__items_backpack))]
     
     def getCoordinates(self):
@@ -202,6 +204,17 @@ class Player():
         '''
         return str(self.__coordinate_X)+'_'+str(self.__coordinate_Y)
     
+    def getCharClass(self):
+        return self.__char_class
+
+    def getMaxHealth(self):
+        return self.__max_health
+    
+    def getMaxStamina(self):
+        return self.__max_stamina
+    
+    def getMaxMana(self):
+        return self.__max_mana
 # --- ---
 # UPDATING VALUES
 # --- ---
@@ -265,7 +278,7 @@ class Player():
         else:
             self.__perception = new_val
     
-    def treatStrenght(self,switch:int=0,new_val=None):
+    def treatStrength(self,switch:int=0,new_val=None):
         '''
         returns the current value for strength or takes new value based on condition of *switch*
         defaults to return only if no argument is given
@@ -334,6 +347,7 @@ class Player():
         '''
         if self.checkItems() == True:
             self.__items_backpack.append(item)
+            self.__active_small_tile.setItem()
             return "Success!\n Item was added to your inventory."
         else:
             self.swapItem(item)
@@ -374,6 +388,8 @@ class Player():
         self.getItemsName()
         '''
         not done yet ///
+        if value was swapped with an existing item, it should delete the item from the active small tile
+        - self.__active_small_tile.setItem() used for that process
         '''
 # --- ---    
 # Player Movement
@@ -384,39 +400,40 @@ class Player():
         otherwise it will generate a new one and save the last Tile.
         '''
         
-        if loader.loadTile(self.getCoordinates(),self.__savegame) == False:
-            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self.__explore_score)
-            self.__explore_score += 1
-            # search in explored_tiles.xml and read out the object to load it.
-            pass
-
-        else: 
+        if loadTile(self.getCoordinates(),self.__savegame) == False:
             # create a new tile based on the coordinates given and safe it as active tile 
-            loader.loadTile(self.getCoordinates(),self.__savegame)
-            self.__active_tile = 0 #searched object
+            self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self)
+            self.__explore_score += 1
+        else: 
+            # search in explored_tiles.xml and read out the object to load it.
+            self.__active_tile =  environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
         
     def goEast(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X -= 1
         del self.__active_tile
+        del self.__active_small_tile
         self.CheckTileExplored()
         
     def goWest(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X += 1
         del self.__active_tile
+        del self.__active_small_tile
         self.CheckTileExplored()
         
     def goNorth(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y += 1
         del self.__active_tile
+        del self.__active_small_tile
         self.CheckTileExplored()
     
     def goSouth(self):
         loader.saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y -= 1 
         del self.__active_tile
+        del self.__active_small_tile
         self.CheckTileExplored()
 
 # --- ---
@@ -434,27 +451,37 @@ class Player():
     def searchItem(self):
         '''
         method to let player search for an item in active_small_tile
+        - returns nothing if active_small_tile doesnt hold an item
+        - returns 
         '''
         if self.__active_small_tile.getItem() == None:
             return 'nothing found'  
         else:
             return self.setItem(self.__active_small_tile.getItem())
 
+    def setActiveTile(self):
+        getBigTile(self,)
+
     def setActiveSmallTile(self,query):
         '''
         triggers query to select active small tile to work with. 
+        FOR UI >> Must return what new active _ small Tile is 
+        ### query is string
+        - string must be a name 
         '''
         self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
-'''
-adds interaction with environment // active Tile
-- searchRelics(active_tile._smallTile) -- results with nothing / clue / {small tile vanishes}
-- explore(active_tile._small_tile) -- results in combat or nothing
-- rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
-- active_small_tile to directly interact with the queried smallTile from a bigTile
-////
-- searchItem(active_tile._small_tile) -- results with item / nothing ### done ### 
-- unlock - if tile.smalltile[] locked >> check if enough owned ### done ### 
-'''
+        return self.__active_small_tile.getName()
+
+    '''
+    adds interaction with environment // active Tile
+    - searchRelics(active_tile._smallTile) -- results with nothing / clue / {small tile vanishes}
+    - explore(active_tile._small_tile) -- results in combat or nothing
+    - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
+    - active_small_tile to directly interact with the queried smallTile from a bigTile
+    ////
+    - searchItem(active_tile._small_tile) -- results with item / nothing ### done ### 
+    - unlock - if tile.smalltile[] locked >> check if enough owned ### done ### 
+    '''
 
 # --- ---
 # Player Combat
@@ -473,7 +500,7 @@ adds interaction with environment // active Tile
         percentage_health = self.__health*100/self.__max_health
         value_max = 20 
         value_left = round(20*percentage_health/100)
-        return ('[','#'*value_left,'-'*20-value_left,']')
+        return ('[','#'*value_left,'-'*(20-value_left),']')
 
     def listStamina(self):
         '''
@@ -483,7 +510,7 @@ adds interaction with environment // active Tile
         percentage_stamina = self.__stamina*100/self.__max_stamina
         value_max = 20 
         value_left = round(20*percentage_stamina/100)
-        return ('[','#'*value_left,'-'*20-value_left,']')
+        return ('[','#'*value_left,'-'*(20-value_left),']')
     
     def listMana(self):
         '''
@@ -493,5 +520,5 @@ adds interaction with environment // active Tile
         percentage_mana = self.__mana*100/self.__max_mana
         value_max = 20 
         value_left = round(20*percentage_mana/100)
-        return ('[','#'*value_left,'-'*20-value_left,']')
+        return ('[','#'*value_left,'-'*(20-value_left),']')
     

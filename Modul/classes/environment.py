@@ -9,7 +9,7 @@ File to generate and work with tiles and the whole world during a game.
 # --- ----
 
 # --- BEGIN Imports and Variables ---
-from Modul.player import *
+from Modul.classes.player import *
 import random
 from Modul.loader import *
 from Modul.classes.item import *
@@ -17,16 +17,18 @@ from Modul.classes.item import *
 
 # --- ---- // CODE // ---- ---
 
-# --- ---
-# CLASS OF MAIN TILE
-# --- ---
+# ---
+# --- --- --- ---
+# CLASS BIGTILE BEGIN
+# --- --- --- ---
+# ---
 
 class bigTile():
 
 # --- ---
 # CONSTRUCTOR 
 # --- ---
-    def __init__(self,coordinate_x:int,coordinate_y:int,player_obj,isnew:int=0):
+    def __init__(self,coordinate_x:int,coordinate_y:int,player_obj:object,isnew:int=0):
         '''
         Constructor to initialize an instance of a bigTile.
         - Takes coordinates to make it available in the set matrix. -- player travels by choosing these coordinates
@@ -39,27 +41,26 @@ class bigTile():
         self.__coordinate_y = coordinate_y
         self.__type = 'empty'
         self.__name = 'none'
-        self.__given_explore_count = 0
-        self.__inherited_smallTiles = list()
-        if(isnew is 0):
+        self.__given_explore_count = player_obj.treatExplorationScore()
+        self.__inherited_smallTiles = [0 for i in range(9)]
+        if(isnew == 0):
             self.generatebigTile(player_obj)
-            self.generateSmallTiles(player_obj)
+            self.generateSmallTiles()
         else: 
-            self.initializeTile()
+            self.initializeTile(player_obj)
     
 # --- ---
 # SET VALUES
 # --- ---
-
     
-    def generatebigTile(self,player:obj):
+    def generatebigTile(self,player:object):
         '''
         querying all the necessary elements from the Tile samples and mergin a pair to fill values. 
         values that are changed here: 
         - | __type |
         - | __name |
         '''
-        sample_data = getBigTile(player)
+        sample_data = loader.getBigTile(player)
         self.__type = sample_data['type']
         self.__name = sample_data['name']
     
@@ -68,30 +69,58 @@ class bigTile():
         method to generate 9 new tiles for instance. 
         SmallTile generation depends on their given type
         '''
-        # generates a new small tile that generates upon calling
+        # generates 9 small tiles that generate themselves upon getting  called
         
-        self.__inherited_smallTiles = [smallTile(self.__given_explore_count,self.__type) for i in range(0,8)]
+        for i in range(0,8):
+            self.__inherited_smallTiles[i] = smallTile(self.__given_explore_count,self.__type)
             
-    def initializeTile(self):
+    def initializeTile(self,player:object):
         '''
         ONLY FOR EXISTING TILES. 
-        Loads data creates object BigTile.
+        Loads data and creates object BigTile.
         - adjacent smallTiles and their content are loaded as well. 
-            -- use extra method to get restored
+            -- uses extra method to get restored
         '''
         #readout_data = loader.loadTile
+        data_tile = loader.loadTile(self.getCoordinates,player.getSavegame())
+        self.__name = data_tile['big_tile']['name']
+        # restores the nine inhereted smallTiles
         for i in range(0,8):
-            self.__inherited_smallTiles = [smallTile().initializeTile() for i in range(0,8)]
+            small_tile = list()
+            small_tile.append(data_tile['small_tiles']['name'][i])
+            small_tile.append(data_tile['small_tiles']['description'][i])
+            small_tile.append(data_tile['small_tiles']['lock_condition'][i])
+            if data_tile['small_tiles']['item'][i] != None:
+                list_item = [
+                    data_tile['small_tiles']['item'][i],
+                    data_tile['small_tiles']['item'][i],
+                    data_tile['small_tiles']['item'][i],
+                ]
+                small_tile.append(list_item)
+            else:
+                small_tile.append(None)
+            if data_tile['small_tiles']['entity'][i] != None:
+                list_entity = [
+                    data_tile['small_tiles']['entity'][i],
+                    data_tile['small_tiles']['entity'][i],
+                    data_tile['small_tiles']['entity'][i],
+                ]
+                small_tile.append(list_entity)
+            else:
+                small_tile.append(None)
+            # calls initialisation of small Tile handing over the collected data
+            self.__inherited_smallTiles[i] = smallTile(self.__given_explore_count,self.__type,1,small_tile)
 
 # --- --- 
 # RETURN VALUES
 # --- --- 
+
     def getCoordinates(self):
         '''
         method to return both coordinates of the Tile.
         In order to check if player has already been on that Tile or not.  
         '''
-        return self.__coordinate_x, self.__coordinate_y
+        return str(self.__coordinate_x)+'_'+str(self.__coordinate_y)
     
     def getType(self):
         '''
@@ -125,10 +154,17 @@ class bigTile():
         '''
         return self.__inherited_smallTiles
     
-    # getSmallTiles 0- alle bitte
 # --- --- 
 # Interaction small Tile
 # --- --- 
+
+    def listSmallTiles(self):
+        '''
+        returns a list with each name of the inhereted small tiles 
+        ### is list
+        '''
+        return [Tile.getName() for Tile in self.__inherited_smallTiles]
+            
 
     def querySmallTiles(self,query):
         '''
@@ -137,20 +173,17 @@ class bigTile():
         and returning the choosen Tile back to player. 
         sets active_small_tile  to selected tile. Allows for interaction directly without querying trough entirye BigTile
         '''
+        listSmallTile()
         for Tile in self.__inherited_smallTiles:
             if(Tile.getName() == query):
                 return Tile
         # ends with return of newly selected smallTile
 
-
-
-
-
+# ---
 # --- --- --- ---
-# class holding the smaller tile inherited by bigTiles
+# CLASS SMALLTILE BEGIN
 # --- --- --- ---
-
-
+# ---
 
 class smallTile():
 
@@ -160,13 +193,21 @@ class smallTile():
     '''
     this class is for handling and generating objects 
     '''
-    def __init__(self,counter_explore:int=0,typ:str='none',isnew:int=0):
+    def __init__(self,counter_explore:int=0,typ:str='none',isnew:int=0,data_tile=None):
+        '''
+        Constructor of SmallTile. 
+        Takes: 
+        - counter_explore to generate items and entities with scaling.
+        - typ in order to generate the right tiles for the mothertile >BigTile<
+        - isnew for initializing tile without regenerating
+        - data_tile for the process of restoration of already loaded and generated tile 
+        '''
         self.__type = typ
         self.__name = None
         self.__description = 'empty'
         self.__available_item = None
         self.__available_entity = None
-        self.__lock_condition = 'open'
+        self.__lock_condition = 'opened'
         self.__key_required = 0
         self.__counter_modifier = counter_explore
         if isnew == 0:
@@ -175,7 +216,7 @@ class smallTile():
             self.generateEntity()
             self.generatelockCondition()
         else:
-            self.initializeTile()
+            self.initializeTile(data_tile)
 
 # --- ---
 # SET VALUES 
@@ -185,7 +226,7 @@ class smallTile():
         '''
         sets name and description of smallTile read out by loader.getSmallTile()
         '''
-        data = getSmallTile(self.__type)
+        data = loader.getSmallTile(self.__type)
         self.__name = data['name']
         self.__description = data['description']
         
@@ -204,7 +245,7 @@ class smallTile():
         
         percentage to generate it, scales with scaling.py
         '''
-        self.__available_entity = random.choice(['nothing','nothing','nothing','nothing',loader.genItem()])
+        self.__available_entity = random.choice([None,None,None,None,loader.genEntity()])
     
     def generatelockCondition(self):
         
@@ -218,7 +259,7 @@ class smallTile():
         - generates required keys if condition is 'locked'
         - if condition is 'opened' no key required
         '''
-        if( self.__type.lower() is 'housing') or ( self.__type.lower() is 'dungeon'):
+        if( self.__type.lower() == 'housing') or ( self.__type.lower() == 'dungeon'):
             self.__lock_condition = random.choice(['locked','opened'])
             if(self.__lock_condition == 'locked'):
                 self.__key_required = random.randint(1,5)    
@@ -228,12 +269,30 @@ class smallTile():
         initializes smalltile attributes with previously saved values.
         Takes list to work with 
         
-        
+        - data[3] hold either list with item properties or NONE
+        - data[4] hold either list with entity properties or NONE
         '''
-        pass
+        self.__name = data[0]
+        self.__description = data[1]
+        self.__lock_condition = data[2]
+        if data[3] != None:
+            '''
+            NOT DONE YET // ADJUSTMENT NEEDED
+            ''' 
+            self.__available_item = Item([data[3][0],data[3][1],data[3][2]])
+        else:
+            self.__available_item = None
+        
+        if data[4] != None:
+            '''
+            NOT DONE YET // ADJUSTMENT NEEDED
+            ''' 
+            self.__available_entity = Entity([data[4][0],data[4][1],data[4][2]])
+        else:
+            self.__available_entity = None
 
 # --- ---
-# SET VALUES 
+# RETURN VALUES 
 # --- ---
 
     def getName(self):
@@ -254,6 +313,16 @@ class smallTile():
             return self.__available_item
         else:
             return self.__available_item
+    
+    def getEntity(self):
+        '''
+        returns item if one was given. 
+        returns a message of failure if not 
+        '''
+        if self.__available_entity != None:
+            return self.__available_entity
+        else:
+            return self.__available_entity
 # --- ---
 # UDATE VALUES
 # --- ---
@@ -261,24 +330,29 @@ class smallTile():
     def updateLockCondition(self):
         if self.__lock_condition == 'locked':
             self.__lock_condition = 'opened'
-#def generateTile(tile:object):
-#    if not isinstance(tile,object):
-#        raise TypeError
-#    if tile.shatter() is 'yes':
-#        return searchFailed() # tells player that it disappeared and moves him back to previous positon or simply generates a new tile? 
-#    tile.generateType()
-#    tile.generateDescription()
-#    tile.setItems()
-#    tile.setMonsters()
 
-# --- ----
-# static generated tile
+    def setItem(self):
+        '''
+        method to erase an existing item if it was picked up by the player.
+        ### // ONLY FOR DEBUGGING //
+        returns confirmation that it was deleted 
+        '''
+        self.__available_item = None
+        # confirmation // used for debugging
+        return 'item was deleted'
+
+    def setEntity(self):
+        '''
+        method to erase an existing entity if it was killed by the player.
+        ### // ONLY FOR DEBUGGING //
+        returns confirmation that it was deleted 
+        '''
+        self.__available_entity = None
+        # confirmation // used for debugging
+        return 'entity was deleted'
+    
 
 
-print(home)
-print(home.getName())
-print(home.getSmallTiles())
-print(home.listSmallTiles())
 # --- ----
 
 # --- ----

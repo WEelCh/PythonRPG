@@ -155,7 +155,7 @@ def loadTile(coords:str, savegame:int):
     attribute __coords__ holds a string with X/Y coordinates in following format:
     - X_Y
         - and example might be 0_0; -1_80; -90_-90 etc. 
-    given coordinates must be found in /saves/$Player/explored_tiles.xml
+    given coordinates must be found in /saves/$savegame.xml
     will then return the given list as dictionary. 
     
     dict usage --> e.g. region_DATA [small_tiles] [name] [i]
@@ -229,11 +229,11 @@ def getBigTile(player_obj:object):
     tree = ET.parse(setting.path_Data+'sample_tiles.xml')
     root = tree.getroot()
     
-    percentage = randint(0,player_obj.getExplorationScore)
+    percentage = randint(0,player_obj.treatExplorationScore())
     
     tile_data = dict()
     
-    if player_obj.getExplorationScore() == 0:
+    if player_obj.treatExplorationScore() == 0:
         for tile in root[2]: # big_tile
             #  defaults to home tile at 0,0
             if tile.get('id') == '00':
@@ -241,7 +241,7 @@ def getBigTile(player_obj:object):
                     tile_data[data.tag] = data.text
                 return tile_data
 
-    if(percentage <= 22) or (player_obj.getEndFound() == True): 
+    if(percentage <= 22) or (player_obj.treatEndFound() == True): 
         random_id = range(0,len(root[0]))
         for tile in root[0]: # big_tile
             # read out id length - choose random number for id 
@@ -334,7 +334,7 @@ def genItem(typ = False):
 
 
 
-def genEntity(typ):
+def genEntity(typ = False):
     '''
     gets Entitydata out off the xml with type 'typ'
     '''
@@ -365,8 +365,6 @@ def genEntity(typ):
         obj = Entity.Enemy(name, value[0], value[1])
 
     return obj
-
-
 
 
 def resetSaveGame(savegame:int):
