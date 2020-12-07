@@ -5,6 +5,7 @@ __author__ ='Fabian Stange'
 # ---- ---- import libraries ---- ----
 from Modul.loader import *
 import Modul.classes.environment as environment
+import Module.classes.entity as entity
 # ---- ---- ---- ----
 
 # ---- ---- global variables ---- ----
@@ -31,6 +32,8 @@ class Player():
         # active small Tile object
         self.__active_small_tile = None
         self.__explore_score = 0
+        # active entity to interact with 
+        self.__active_entity: None
         # --- dynamic attributes of player
         self.__char_class = 'nothing'
         self.__health = 0
@@ -220,7 +223,8 @@ class Player():
     def getMaxMana(self):
         return self.__max_mana
 
-
+    def getEntity(self):
+        return self.__active_entity
 # --- ---
 # UPDATING VALUES
 # --- ---
@@ -332,7 +336,7 @@ class Player():
             return self.__end_found
         else:
             self.__end_found = new_val
-    
+ 
 # --- ---
 # Update/Modify Itemlist
 # --- ---
@@ -404,6 +408,16 @@ class Player():
         if value was swapped with an existing item, it should delete the item from the active small tile
         - self.__active_small_tile.setItem() used for that process
         '''
+
+    def queryBackpack(self,itemtype:str):
+        '''
+        #### NOT DONE ####
+        method to query the backpack, searching given type
+        - itemtype must be a string
+        ### is object
+        '''
+        pass
+
 # --- ---    
 # Player Movement
 # --- ---
@@ -421,8 +435,11 @@ class Player():
             # search in explored_tiles.xml and read out the object to load it.
             self.__active_tile =  environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
         
-    
     def goEast(self):
+
+        if(self.__active_entity != None):
+            if(self.__active_entity.getType() != 'Friend'):
+                return "you cant move rn, there's an enemy"
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X -= 1
         del self.__active_tile
@@ -490,10 +507,32 @@ class Player():
         self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
         return self.__active_small_tile.getName()
 
+    def playerRest(self):
+        '''
+        method to let player rest in order to restore stamina (and health)
+        - with a given percentage the player has an encounter with a random enemy
+        interrupting his resting. 
+        - restores stamina to maximum 
+        - if player rests on type"shelter" they restores uninterrupted all the time
+        '''
+        if self.__active_entity != None:
+            return 'sleep not possible, theres an entity here'
+
+        if self.__active_tile.getType() == 'shelter':
+            self.treatStamina(1,[self.__max_stamina,self.__max_stamina])
+            return 'successfully restored'
+        else:
+            if random.choice([i for i in randint(0,20)] <=10):
+                self.__active_entity = genEntity(Enemy)
+
+
+
 
     '''
     adds interaction with environment // active Tile
-    - 
+    - check if entity is enemy or player to allow/disallow travelling
+    - if entity is present no movement is allowed 
+    - query backpack ///
     - searchRelics(active_tile._smallTile) -- results with nothing / clue / {small tile vanishes}
     - explore(active_tile._small_tile) -- results in combat or nothing
     - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
@@ -520,7 +559,7 @@ class Player():
         percentage_health = self.__health*100/self.__max_health
         value_max = 20 
         value_left = round(20*percentage_health/100)
-        return ('[','#'*value_left,'-'*(20-value_left),']')
+        return ('[','#'*value_left,'-'*(value_max-value_left),']')
 
     def listStamina(self):
         '''
@@ -528,9 +567,9 @@ class Player():
         ### is string
         '''
         percentage_stamina = self.__stamina*100/self.__max_stamina
-        value_max = 20 
+        value_max = self.__max_stamina 
         value_left = round(20*percentage_stamina/100)
-        return ('[','#'*value_left,'-'*(20-value_left),']')
+        return ('[','#'*value_left,'-'*(value_max-value_left),']')
     
     def listMana(self):
         '''
@@ -538,7 +577,7 @@ class Player():
         ### is string
         '''
         percentage_mana = self.__mana*100/self.__max_mana
-        value_max = 20 
+        value_max = self.__max_mana
         value_left = round(20*percentage_mana/100)
-        return ('[','#'*value_left,'-'*(20-value_left),']')
+        return ('[','#'*value_left,'-'*(value_max - value_left),']')
     
