@@ -77,4 +77,9 @@ class Enemy (Entity):
 
 
 # --- comment ---------------------
-
+'''
+possible class for later on:
+- Trader
+- Companion
+- passiveMobs (only enemy after fighting)
+'''

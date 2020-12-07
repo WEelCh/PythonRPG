@@ -178,7 +178,7 @@ def loadTile(coords:str, savegame:int):
                             'value':[0 for i in range(9)]}
                             }}
 
-    tree = ET.parse(setting.path_Saves+'savegame_%s'%(str(savegame)))
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
     root = tree.getroot()
 
     # checks if tile exists

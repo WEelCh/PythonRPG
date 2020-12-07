@@ -83,6 +83,7 @@ class bigTile():
         '''
         #readout_data = loader.loadTile
         data_tile = loader.loadTile(self.getCoordinates,player.getSavegame())
+        print(data_tile)
         self.__name = data_tile['big_tile']['name']
         # restores the nine inhereted smallTiles
         for i in range(0,8):
@@ -90,7 +91,7 @@ class bigTile():
             small_tile.append(data_tile['small_tiles']['name'][i])
             small_tile.append(data_tile['small_tiles']['description'][i])
             small_tile.append(data_tile['small_tiles']['lock_condition'][i])
-            if data_tile['small_tiles']['item'][i] != None:
+            if data_tile['small_tiles']['item'][i] != 'None':
                 list_item = [
                     data_tile['small_tiles']['item'][i],
                     data_tile['small_tiles']['item'][i],
@@ -99,7 +100,7 @@ class bigTile():
                 small_tile.append(list_item)
             else:
                 small_tile.append(None)
-            if data_tile['small_tiles']['entity'][i] != None:
+            if data_tile['small_tiles']['entity'][i] != 'None':
                 list_entity = [
                     data_tile['small_tiles']['entity'][i],
                     data_tile['small_tiles']['entity'][i],
