@@ -27,25 +27,30 @@ del system_check
 
 # display formating values
 form_y, form_x = loader.getYXFormat()
+x = ' '*form_x
+
 
 # static lines
-upper_line  =lambda  : print(' '*form_x + '╔'+'═'*121+'╗')
-middle_line =lambda  : print(' '*form_x + '╠'+'═'*121+'╣')
-midUpT_line =lambda  : print(' '*form_x + '╠'+'╦'.center(121,'═')+'╣')
-midX_line   =lambda  : print(' '*form_x + '╠'+'╬'.center(121,'═')+'╣')
-midDwTT_line=lambda  : print(' '*form_x + '╠'+'╩'.center(121,'═')+'╠')
-lower_line  =lambda  : print(' '*form_x + '╚'+'═'*121+'╝')
+upper_line  =lambda  : print(x + '╔'+'═'*121+'╗')
+upperT_line =lambda  : print(x + '╔'+'╦'.center(121,'═')+'╗')
+middle_line =lambda  : print(x + '╠'+'═'*121+'╣')
+midUpT_line =lambda  : print(x + '╠'+'╦'.center(121,'═')+'╣')
+midX_line   =lambda  : print(x + '╠'+'╬'.center(121,'═')+'╣')
+midDwTT_line=lambda  : print(x + '╠'+'╩'.center(121,'═')+'╣')
+lower_line  =lambda  : print(x + '╚'+'═'*121+'╝')
 
-empty_line  =lambda n: [print(' '*form_x + '║'+' '*121+'║') for i in range(n)]
-emptyT_line =lambda n: [print(' '*form_x + '║'+'║'.center(121)+'║') for i in range(n)]
+empty_line  =lambda n: [print(x + '║'+' '*121+'║') for i in range(n)]
+emptyT_line =lambda n: [print(x + '║'+'║'.center(121)+'║') for i in range(n)]
 space_line  =lambda n: [print() for i in range(n)]
 
-input_line  =lambda m: str(input(' '*form_x+m+' '*37))
+input_line  =lambda m: str(input(x+m+' '*37))
 
 # dynamic lines
-norm_content=lambda c: print(' '*form_x+'║ '+c+'║')
-mid_content =lambda c: print(' '*form_x+'║' +c.center(121)+'║')
-midT_content=lambda c1, c2: print(' '*form_x+'║' +c1.center(60)+'║'+c2.center(60)+'║')
+norm_content=lambda c, c1: print(x+'║ '+c.ljust(58)+' ║ '+c1.ljust(58)+' ║')
+mid_content =lambda c: print(x+'║'+c.center(121)+'║')
+midT_content=lambda c1, c2: print(x+'║'+c1.center(60)+'║'+c2.center(60)+'║')
+tri_content =lambda c1,c2,c3: print(x+'║'+c1.center(40)+c2.center(40)+c3.center(40)+' ║')
+
 
 # static info-values
 _title_  = 'Endless Odyssey of Trash'
@@ -56,7 +61,11 @@ _author_ = ' Stange Fabian'+' '*90+'Zeidler Elijah  '
 
 # --- MAIN ------------------------
 
+
+########
 # chunks
+########
+
 
 def _headermenu(path, T = False):
     '''Print header of menu'''
@@ -68,7 +77,7 @@ def _headermenu(path, T = False):
     empty_line(1)
     mid_content(_title_)
     empty_line(1)
-    norm_content(_author_)
+    print(x+'║'+_author_+' ║')
     mid_content(_date_)
     empty_line(1)
     mid_content(''+path)
@@ -91,7 +100,11 @@ def _bottom(error):
 
     return input_line(message)
 
+
+###############
 # generell menu
+###############
+
 
 def menu (error = False):
     '''Show Menu'''
@@ -294,6 +307,76 @@ def settingsFormatWindow(error):
 
 def settingsdeleteuserdata(error):
     pass
+
+#############
+# game format
+#############
+
+
+def _headergame():#r, p):
+    '''Print header of menu
+        r == region
+        p == player'''
+
+    clear()
+    space_line(form_y)
+
+    upperT_line()
+    #emptyT_line(1)
+
+    norm_content('', 'name foo'.center(58)) #because new lambda makes no sense
+    norm_content('  Region Name: '+'foo', 'Health : '+'█'*40+'  20/20')
+    emptyT_line(1)
+    norm_content('  Tile Name  : '+'foo', 'Stamina: '+'█'*40+'  10/10')
+    emptyT_line(1)
+    norm_content('', 'Mana   : '+'█'*40+'  5/5')
+    #emptyT_line(1)
+    norm_content('  SaveGame : '+'0', 'Keys   : '+'o '*2)
+
+    midDwTT_line()
+
+
+
+def game(error):
+    'Print Game Main'
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('name', 'name', 'name')
+    tri_content('entity', 'entity', 'entity')
+    tri_content('item', 'item', 'item')
+    empty_line(2)
+    tri_content('name', 'name', 'name')
+    tri_content('entity', 'entity', 'entity')
+    tri_content('item', 'item', 'item')
+    empty_line(2)
+    tri_content('name', 'name', 'name')
+    tri_content('entity', 'entity', 'entity')
+    tri_content('item', 'item', 'item')
+    empty_line(2)
+
+    middle_line()
+
+    empty_line(1)
+    tri_content('1 : Run', '2 : RUN', '3 : die')
+    empty_line(1)
+    tri_content('4 : DIIIIIIIIIIE', '5 : DIE', '6 : DIE')
+    empty_line(1)
+    tri_content('7 : DIE', '8 : DIE', '9 : DIE')
+    empty_line(2)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Save & Quit')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+
 
 # --- SHUT DOWN -------------------
 
