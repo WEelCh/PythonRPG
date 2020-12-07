@@ -34,7 +34,7 @@ def continueGame():
             else:
                 choice = True
     else:
-        pass
+        formating.game(False)
         #start savegame
 
 

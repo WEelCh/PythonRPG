@@ -21,3 +21,4 @@ etc. easier to access and modify.
 
 
 # ---- ---- code //  ---- ----
+keys = [1,1,1,1,2,2,2,3,3,4,5]

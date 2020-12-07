@@ -79,7 +79,7 @@ def getSaveGame():
     tree = ET.parse(setting.path_Data+'meta.xml')
     root = tree.getroot()
 
-    return str(root[1][0].text)
+    return str(root.find('last_game/value').text)
 
 
 # SAMPLE TILE HANDLING
@@ -116,7 +116,7 @@ def saveTile(obj, coord:str, savegame:int):
     data.text = 'foo'
 
     small_tiles = ET.SubElement(region, 'small_tiles')
-    for i in range(1,11):
+    for i in range(1,10):
         tile = ET.SubElement(small_tiles, 'tile')
         tile.attrib['id'] = str(i)
 
