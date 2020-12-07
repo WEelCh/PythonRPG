@@ -1,104 +1,48 @@
 <data>
 
     <big_tiles>
-    <!-- TYLE ROOT ID 0 -->
-<!--   ##sample##
-        <tile id = "++1" type = "open,closed">
-            <type></type>
-            <name>Bunker</name>
-            <description>
-            
-            </description>>
+
+        <tile>
+            <type>foo</type>
+            <name>foo</name>
         </tile>
--->
+
     </big_tiles>
 
+
+
     <small_tiles>
-    <!-- TYLE ROOT ID 1 -->
 
-<!-- Tiles specified for the Tile type 'Shelter' BEGIN -->
-
-        <Tile type='shelter'>
-            <name>locker</name>
+        <tile type = 'habitate'>
+            <name>Field</name>
             <description>
-            A little shed with nothing but dry wheat in it
+            a forest, nothing is to be found here, I guess.
             </description>
-        </Tile>
-
-        <Tile type='shelter'>
-            <name>safeplace</name>
-            <description>
-            You find yourself in a little foyer. No worries, no enemies, just the flickering light,
-            cold breezes and the unnverving trickling of damaged pipelines. 
-            </description>
-        </Tile>
-        
-        <Tile type='shelter'>
-            <name>locker</name>
-            <description>a little shed with nothing but dry wheat in it</description>
-        </Tile>
-
-<!-- Tiles specified for the Tile type 'Shelter' END-->
-
-<!-- Tiles specified for the Tile type 'final_station' BEGIN-->
-
-        <Tile type='final_station'>
-            <name>research center</name>
-            <description>
-            this must be the last location to finally end this misery
-            </description>
-            <boss>yes</boss>
-        </Tile>
-
-<!-- Tiles specified for the Tile type 'final_station' END-->
-
-<!-- Tiles specified for the Tile type 'city' BEGIN-->
-
-        <tile id ='city'>
-            <type>housing</type>
-            <name>Wohnhaus</name>
-            <value2>84</value2>
         </tile>
 
-<!-- Tiles specified for the Tile type 'city' END-->
-
-<!-- Tiles specified for the Tile type 'habitat' BEGIN-->
-        
-
-        <Tile>
-            <type>habitat</type>
-            <name>Field</name>
-            <description>a forest, nothing is to be found here, I guess.</description>
-        </Tile>
-
-        <Tile>
-            <type>habitat</type>
-            <name></name>
-            <description>a forest, nothing is to be found here, I guess.</description>
-        </Tile>
-
-        <Tile>
-            <type>habitat</type>
-            <name>Forest</name>
-            <description>a forest, nothing is to be found here, I guess.</description>
-        </Tile>
-<!-- Tiles specified for the Tile type 'habitat' END-->
-
+        <tile type = 'final_station'>
+            <name>research center</name>
+            <description>
+this must be the last location to finally end this misery
+            </description>
+        </tile>
 
     </small_tiles>
 
+
+
     <pre-defined_tiles>
-    <!-- TYLE ROOT ID 2 -->        
-        <tile id = '00'>
+
+        <tile id = '0'>
             <type>shelter</type>
             <name>Home</name>
-            <description>A place where no danger lies hidden for an ambus</description>
         </tile>
-        <tile id = '01'>
+
+        <tile id = '1'>
             <type>final_station</type>
             <name>Rocketlab</name>
-            <description></description>
         </tile>
 
     </pre-defined_tiles>
+
 </data>

@@ -225,33 +225,36 @@ def getBigTile(player_obj:object):
     return big_tile data from sample_tiles.xml
     the given object must be an instance of __player__ in order to make the generation adjustable.
     '''
-    
+
     tree = ET.parse(setting.path_Data+'sample_tiles.xml')
     root = tree.getroot()
-    
+
     percentage = randint(0,player_obj.treatExplorationScore())
-    
+
     tile_data = dict()
-    
+
+    # load home tile
     if player_obj.treatExplorationScore() == 0:
-        for tile in root[2]: # big_tile
-            #  defaults to home tile at 0,0
-            if tile.get('id') == '00':
+        for tile in root.findall('pre_defined_tiles/tile'):
+            if tile.attrib['id'] == '0':
                 for data in tile:
                     tile_data[data.tag] = data.text
                 return tile_data
 
-    if(percentage <= 22) or (player_obj.treatEndFound() == True): 
-        random_id = range(0,len(root[0]))
-        for tile in root[0]: # big_tile
-            # read out id length - choose random number for id 
-            if tile.get('id') == random_id:
-                for values in tile:
-                    tile_data[values.tag] = values.text
-                return tile_data
+    #  load random tile
+    if(percentage <= 22) or (player_obj.treatEndFound() == True):
+        cache = []
+        for tile in root.findall('big_tiles/tile'):
+            cache.append(tile)
+        tile = choice(cache)
+        for values in tile:
+            tile_data[values.tag] = values.text
+        return tile_data
+
+    # load end tile
     else:
-        for tile in root[2]:
-            if tile.get('id') == '01':
+        for tile in root.findall('pre_defined_tiles/tile'):
+            if tile.get('id') == '1':
                 for values in tile:
                     tile_data[values.tag]= values.text
                 return tile_data
@@ -281,10 +284,9 @@ def getSmallTile(typ):
                 return tile_data
         raise KeyError ('No tile with specified id !')
 
-    except:
-        for tile in root[1]: # small_tile search
-            types = tile.get('type').split(',')
-            if typ in types:
+    except: # search name
+        for tile in root.findall('small_tiles/tile'):
+            if tile.attrib['type'] == typ:
                 pos_tiles.append(tile)
 
         if len(pos_tiles) == 0:
