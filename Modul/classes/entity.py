@@ -27,6 +27,7 @@ class Friend (Entity):
 
     def __init__(self, n):
         super().__init__(n)
+        self._type = 'Friend'
 
     def generate(self, exval):
         '''generates new value'''
@@ -34,7 +35,10 @@ class Friend (Entity):
         value = value.split(',')
         self._atk = value[0]
         self._health = value[1]
+        
 
+    def getType(self):
+        return self._type
     def getName(self):
         return str(self._name)
 
@@ -46,6 +50,7 @@ class Enemy (Entity):
         super().__init__(n)
         self._atk       = a
         self._health    = h
+        self._type = 'Enemy'
 
     def generate(self, exval):
         '''generates new value'''
@@ -53,6 +58,10 @@ class Enemy (Entity):
         value = value.split(',')
         self._atk = value[0]
         self._health = value[1]
+        
+
+    def getType(self):
+        return self._type
 
     def getName(self):
         return str(self._name)

@@ -337,6 +337,10 @@ def genItem(typ = False):
 def genEntity(typ = False):
     '''
     gets Entitydata out off the xml with type 'typ'
+    
+    possible types are:
+    - Enemy
+    - Friend
     '''
 
     if typ == False:
