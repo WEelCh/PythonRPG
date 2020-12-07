@@ -82,8 +82,7 @@ class bigTile():
             -- uses extra method to get restored
         '''
         #readout_data = loader.loadTile
-        data_tile = loader.loadTile(self.getCoordinates,player.getSavegame())
-        print(data_tile)
+        data_tile = loader.loadTile(self.getCoordinates(),player.getSavegame())
         self.__name = data_tile['big_tile']['name']
         # restores the nine inhereted smallTiles
         for i in range(0,8):
@@ -276,7 +275,7 @@ class smallTile():
         self.__name = data[0]
         self.__description = data[1]
         self.__lock_condition = data[2]
-        if data[3] != None:
+        if data[3][0] != None:
             '''
             NOT DONE YET // ADJUSTMENT NEEDED
             ''' 
@@ -284,7 +283,7 @@ class smallTile():
         else:
             self.__available_item = None
         
-        if data[4] != None:
+        if data[4][0] != None:
             '''
             NOT DONE YET // ADJUSTMENT NEEDED
             ''' 

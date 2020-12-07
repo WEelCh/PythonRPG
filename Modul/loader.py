@@ -182,10 +182,12 @@ def loadTile(coords:str, savegame:int):
     root = tree.getroot()
 
     # checks if tile exists
+    cache = True
     for region in root.findall('world/region'):
         if region.attrib['coord'] == coords:
-            break
-    return False # if tile NOT exists
+            cache = False
+    if cache:
+        return False # if tile NOT exists
 
     # if tile exists:
     # loads all the region DATA in region_DATA

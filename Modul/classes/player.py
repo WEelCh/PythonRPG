@@ -14,7 +14,7 @@ import Modul.classes.entity as entity
 # ---- ---- ---- ----
 
 
-# ---- ---- code //  ---- ----
+# ---- ---- code //  ---- -----
 
 class Player():
 
