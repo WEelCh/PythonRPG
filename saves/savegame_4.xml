@@ -90,5 +90,166 @@
       </slot>
     </backpack>
   </player>
-  <world />
+  <world>
+    <region coord="0_0">
+      <big_tile>
+        <name>Shelter</name>
+      </big_tile>
+      <small_tiles>
+        <tile id="1">
+          <name>Home</name>
+          <description>
+You hear the constant strings of rain pattering on your apartments roof, while small leds illumante this hollow room.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="2">
+          <name>Market</name>
+          <description>
+As you enter the market you perceive a variety of sounds. This area seems busy and maybe you are able to trade as well.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="3">
+          <name>Locker</name>
+          <description>
+A tremendous bank vault secured by space marines indicating that its probably best to avoid going there. Maybe later.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="4">
+          <name>Metro</name>
+          <description>
+Rapid trains once passed these rails, now its just dust and junk paving a way trough the depths of this tunnel.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="5">
+          <name>Lobby</name>
+          <description>
+You enter the halls filled with a diversity of scents indicating that a lot of ppl come here and talk with each other.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="6">
+          <name>Restaurant</name>
+          <description>
+In this distopian times a place to relax and nourish thyself next to well laid plates is fairly welcomed. Enjoy.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="7">
+          <name>Nuclear power plant</name>
+          <description>
+Great Scientists once maintained this enormous accomplishment that delivered power to the whole city and further. 
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="8">
+          <name>Grammar School</name>
+          <description>
+Once visited by many teenagers and kids this school now represents the fallen Importance of education in this world.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+        <tile id="9">
+          <name>collapsed Skyscraper</name>
+          <description>
+Many people worked here before the world fell apart. You ought to find out what caused this destruction at some point.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
+      </small_tiles>
+    </region>
+  </world>
 </savegame_4>
