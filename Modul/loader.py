@@ -1,4 +1,4 @@
-# AUTHOR : Elijah Zeidler Fabian Stange
+# AUTHOR : Elijah Zeidler & Fabian Stange
 # DATE   : 
 
 # --- DOCSTRING -------------------
@@ -97,7 +97,7 @@ def saveTile(obj, coord:str, savegame:int):
 
     try: # when it exists ... just some changes
         for tile in root.findall('world/region'):
-            if tile.attrib['coord'] == pos:
+            if tile.attrib['coord'] == coord:
                 #changes
 
                 indent(root)
@@ -109,7 +109,7 @@ def saveTile(obj, coord:str, savegame:int):
     # when it not exists ... new
     data = root.find('world')
     region = ET.SubElement(data, 'region')
-    region.attrib['coord'] = pos
+    region.attrib['coord'] = coord
 
     big_tile = ET.SubElement(region, 'big_tile')
     data = ET.SubElement(big_tile, 'name')

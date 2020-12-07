@@ -17,12 +17,13 @@ import os, platform
 
 # --- DECLARATION -----------------
 
-# clear function based on used OS. Linux and Win supported //
+# clear function based on used OS; Linux and Win supported 
 system_check = platform.system()
 if  (system_check.lower() == 'linux') or (system_check.lower() == 'darwin'): 
     clear=lambda: os.system('clear')
 elif(system_check.lower() == 'windows'):
     clear=lambda: os.system('cls')
+del system_check
 
 # display formating values
 form_y, form_x = loader.getYXFormat()
