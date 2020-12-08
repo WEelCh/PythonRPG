@@ -81,14 +81,139 @@ def getSaveGame():
 
     return str(root.find('last_game/value').text)
 
+# PLAYER HANDLING
+
+def savePlayer(obj:object, savegame:int):
+    '''Saves the Player object'''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+    root = tree.getroot()
+
+    player = root.find('player')
+
+    generell = player.find('generell')
+    data    = generell.find('end_found')
+    data.text = 'None' 
+    data    = generell.find('explore_score')
+    data.text = 'None'
+    data    = generell.find('pos')
+    data.text = 'None'
+    data    = generell.find('name')
+    data.text = 'None'
+    data    = generell.find('sex')
+    data.text = 'None'
+    data    = generell.find('class')
+    data.text = 'None'
+
+    traits  = player.find('traits')
+    data    = traits.find('health')
+    data.text = 'None'
+    data    = traits.find('stamina')
+    data.text = 'None'
+    data    = traits.find('mana')
+    data.text = 'None'
+    data    = traits.find('strength')
+    data.text = 'None'
+    data    = traits.find('intelligence')
+    data.text = 'None'
+    data    = traits.find('perception')
+    data.text = 'None'
+
+    backpack = player.find('backpack')
+    data = backpack.find('keys')
+    data.text = '0'
+
+    for item in backpack.findall('slot/item'):
+        data = item.find('name')
+        data.text = 'None'
+        data = item.find('type')
+        data.text = 'None'
+        data = item.find('value')
+        data.text = 'None'
+
+    indent(root)
+    tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+
+
+
+def loadPlayer(savegame:int):
+    '''Load the Player'''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+    root = tree.getroot()
+
+    player_DATA = { 'generell':{
+                        'end_found' : None,
+                        'explore_score' : None,
+                        'pos' : None,
+                        'name' : None,
+                        'sex' : None,
+                        'class' : None},
+                    'traits':{
+                        'health' : None,
+                        'stamina' : None,
+                        'mana' : None,
+                        'strength' : None,
+                        'intelligence' : None,
+                        'perception' : None},
+                    'backpack':{
+                        'keys':0,
+                        'items':{
+                            'name':[None for i in range(12)],
+                            'type':[None for i in range(12)],
+                            'value':[None for i in range(12)]}
+                            }}
+
+    player = root.find('player')
+
+    generell = player.find('generell')
+    data    = generell.find('end_found')
+    player_DATA['generell']['end_found'] = data.text
+    data    = generell.find('explore_score')
+    player_DATA['generell']['explore_score'] = data.text
+    data    = generell.find('pos')
+    player_DATA['generell']['pos'] = data.text
+    data    = generell.find('name')
+    player_DATA['generell']['name'] = data.text
+    data    = generell.find('sex')
+    player_DATA['generell']['sex'] = data.text
+    data    = generell.find('class')
+    player_DATA['generell']['class'] = data.text
+
+    traits  = player.find('traits')
+    data    = traits.find('health')
+    player_DATA['traits']['health'] = data.text
+    data    = traits.find('stamina')
+    player_DATA['traits']['stamina'] = data.text
+    data    = traits.find('mana')
+    player_DATA['traits']['mana'] = data.text
+    data    = traits.find('strength')
+    player_DATA['traits']['strength'] = data.text
+    data    = traits.find('intelligence')
+    player_DATA['traits']['intelligence'] = data.text
+    data    = traits.find('perception')
+    player_DATA['traits']['perception'] = data.text
+
+    backpack = player.find('backpack')
+    data = backpack.find('keys')
+    player_DATA['backpack']['keys'] = data.text
+
+    i = 0
+    for item in backpack.findall('slot/item'):
+        data = item.find('name')
+        player_DATA['backpack']['items']['name'][i] = data.text
+        data = item.find('type')
+        player_DATA['backpack']['items']['type'][i] = data.text
+        data = item.find('value')
+        player_DATA['backpack']['items']['value'][i] = data.text
+        i += 1
+
+
 
 # SAMPLE TILE HANDLING
 
 def saveTile(obj, coord:str, savegame:int):
-    '''
-    saves old tile
-    
-    '''
+    '''saves old tile'''
 
     tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
     root = tree.getroot()
@@ -397,6 +522,7 @@ def genEntity(typ = False):
     return obj
 
 
+
 def resetSaveGame(savegame:int):
     '''RESETS the SaveGame with number savegame'''
 
@@ -440,7 +566,7 @@ def resetSaveGame(savegame:int):
     backpack    = ET.SubElement(player, 'backpack')
     data        = ET.SubElement(backpack, 'keys')
     data.text   = 'foo'
-    for slot in range(1,11):
+    for slot in range(12):
         data = ET.SubElement(backpack, 'slot')
         data.attrib['id'] = str(slot)
 
@@ -452,10 +578,84 @@ def resetSaveGame(savegame:int):
         data = ET.SubElement(item, 'value')
         data.text = 'None'
 
-    ET.SubElement(root, 'world')
+    # world init
+
+    name = ['Home','Market','Locker','Metro','Lobby','Restaurant',
+            'Nuclear power plant','Grammar School','collapsed Skyscraper']
+    description = [
+                    '\nYou hear the constant strings of rain pattering on your apartments roof, while small leds illumante this hollow room.\n',
+                    '\nAs you enter the market you perceive a variety of sounds. This area seems busy and maybe you are able to trade as well.\n',
+                    '\nA tremendous bank vault secured by space marines indicating that its probably best to avoid going there. Maybe later.\n',
+                    '\nRapid trains once passed these rails, now its just dust and junk paving a way trough the depths of this tunnel.\n',
+                    '\nYou enter the halls filled with a diversity of scents indicating that a lot of ppl come here and talk with each other.\n',
+                    '\nIn this distopian times a place to relax and nourish thyself next to well laid plates is fairly welcomed. Enjoy.\n',
+                    '\nGreat Scientists once maintained this enormous accomplishment that delivered power to the whole city and further.\n',
+                    '\nOnce visited by many teenagers and kids this school now represents the fallen Importance of education in this world.\n',
+                    '\nMany people worked here before the world fell apart. You ought to find out what caused this destruction at some point.\n'
+                    ]
+
+
+    world       = ET.SubElement(root, 'world')
+    region      = ET.SubElement(world, 'region')
+    region.attrib['coord'] = '0_0'
+
+    big_tile    = ET.SubElement(region, 'big_tile')
+    data        = ET.SubElement(big_tile, 'name')
+    data.attrib['name'] = 'Shelter'
+
+    small_tiles = ET.SubElement(region, 'small_tiles')
+    for i in range(9):
+        tile    = ET.SubElement(small_tiles, 'tile')
+        tile.attrib['id'] = str(i)
+        data    = ET.SubElement(tile, 'name')
+        data.text = name[i-1]
+        data    = ET.SubElement(tile, 'description')
+        data.text = description[i-1]+'          '
+        data    = ET.SubElement(tile, 'lock_condition')
+        data.text = 'opened'
+
+        item    = ET.SubElement(tile, 'item')
+        data    = ET.SubElement(item, 'type')
+        data.text = 'None'
+        data    = ET.SubElement(item, 'name')
+        data.text = 'None'
+        data    = ET.SubElement(item, 'value')
+        data.text = 'None'
+
+        entity    = ET.SubElement(tile, 'entity')
+        data    = ET.SubElement(entity, 'type')
+        data.text = 'None'
+        data    = ET.SubElement(entity, 'name')
+        data.text = 'None'
+        data    = ET.SubElement(entity, 'value')
+        data.text = 'None'
 
     indent(root)
     tree.write(setting.path_Saves+'savegame_%d.xml'%(savegame))
+
+
+
+def resetSettings():
+    '''RESETS the meta.xml'''
+
+    tree = ET.parse(setting.path_Data+'meta.xml')
+    root = tree.getroot()
+
+    # clear formating
+    for value in root.findall('cmd_location/value'):
+        value.text = '0'
+
+    # clear last savegame
+    data = root.find('last_game/value')
+    data.text = 'None'
+
+    # clear savegame meta data
+    for savegame in root.findall('meta_savegame/savegame'):
+        savegame.attrib['status'] = 'inactive'
+
+    indent(root)
+    tree.write(setting.path_Data+'meta.xml')
+
 
 # --- SHUT DOWN -------------------
 

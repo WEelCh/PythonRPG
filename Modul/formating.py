@@ -14,6 +14,7 @@ them in standardized format
 from Modul import loader
 
 import os, platform
+from time import sleep as nap
 
 # --- DECLARATION -----------------
 
@@ -48,6 +49,7 @@ input_line  =lambda m: str(input(x+m+' '*37))
 # dynamic lines
 norm_content=lambda c, c1: print(x+'║ '+c.ljust(58)+' ║ '+c1.ljust(58)+' ║')
 mid_content =lambda c: print(x+'║'+c.center(121)+'║')
+mid_headline=lambda c: print(x+'║'+c.center(121,'═')+'║')
 midT_content=lambda c1, c2: print(x+'║'+c1.center(60)+'║'+c2.center(60)+'║')
 tri_content =lambda c1,c2,c3: print(x+'║'+c1.center(40)+c2.center(40)+c3.center(40)+' ║')
 
@@ -88,13 +90,16 @@ def _headermenu(path, T = False):
 
 
 
-def _bottom(error):
+def _bottom(error,msg:str=''):
     '''Print bottom of standardized format'''
 
     lower_line()
 
     if error == True:
-        message = ' Your Input was invalid:'
+        if msg == '':
+            message = ' Your Input was invalid:'
+        else:
+            message = ' '+msg
     else:
         message = ' '*24
 
@@ -306,14 +311,40 @@ def settingsFormatWindow(error):
 
 
 def settingsdeleteuserdata(error):
-    pass
+    ''' '''
+
+    _headermenu('MENU / SETTINGS / DELETE USERDATA')
+
+    empty_line(2)
+
+    mid_content('!!! WARNING !!!')
+    empty_line(2)
+    mid_content('Be aware that this Action will terminate')
+    mid_content('! ALL your Progress !')
+    empty_line(3)
+    mid_content('! Every Savegame will be irretrievable reseted !')
+    empty_line(1)
+    mid_content('! Personal settings will be reseted !')
+    empty_line(1)
+    mid_content('After that, the game will shutdown and needs to be restarted')
+    empty_line(3)
+    mid_content('If you sill want to continue, please type')
+    empty_line(1)
+    mid_content('"DeLeTe"')
+    empty_line(4)
+    mid_content('Back')
+    mid_content('0')
+
+    empty_line(3)
+
+    return _bottom(error)
 
 #############
 # game format
 #############
 
 
-def _headergame():#r, p):
+def _headergame(r=None, p=None):
     '''Print header of menu
         r == region
         p == player'''
@@ -322,22 +353,20 @@ def _headergame():#r, p):
     space_line(form_y)
 
     upperT_line()
-    #emptyT_line(1)
 
     norm_content('', 'name foo'.center(58)) #because new lambda makes no sense
     norm_content('  Region Name: '+'foo', 'Health : '+'█'*40+'  20/20')
-    emptyT_line(1)
-    norm_content('  Tile Name  : '+'foo', 'Stamina: '+'█'*40+'  10/10')
-    emptyT_line(1)
+    norm_content('  Type       : '+'foo','')
+    norm_content('', 'Stamina: '+'█'*40+'  10/10')
+    norm_content('  Tile Name  : '+'foo','')
     norm_content('', 'Mana   : '+'█'*40+'  5/5')
-    #emptyT_line(1)
     norm_content('  SaveGame : '+'0', 'Keys   : '+'o '*2)
 
     midDwTT_line()
 
 
 
-def game(error):
+def bigTile(error):
     'Print Game Main'
 
     _headergame()
@@ -356,15 +385,15 @@ def game(error):
     tri_content('item', 'item', 'item')
     empty_line(2)
 
-    middle_line()
+    mid_headline(' What do you want to do ')
 
-    empty_line(1)
-    tri_content('1 : Run', '2 : RUN', '3 : die')
-    empty_line(1)
-    tri_content('4 : DIIIIIIIIIIE', '5 : DIE', '6 : DIE')
-    empty_line(1)
-    tri_content('7 : DIE', '8 : DIE', '9 : DIE')
-    empty_line(2)
+    empty_line(3)
+    tri_content('1 : Travel', '2 : Enter', '3 : Inventory')
+    #empty_line(1)
+    #tri_content('4 : Talk', '5 : Attack', '6 : Flee')
+    #empty_line(1)
+    #tri_content('7 : Sleep', '8 : Leave', '')
+    empty_line(4)
 
     middle_line()
 
@@ -375,6 +404,533 @@ def game(error):
     return _bottom(error)
 
 
+
+def travel(error):
+    '''Print Travel Menu'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'NORTH', '')
+    tri_content('', 'foo', '')
+    tri_content('', 'foo', '')
+    empty_line(2)
+    tri_content('WEST', '', 'EAST')
+    tri_content('name', '', 'name')
+    tri_content('foo', '', 'foo')
+    empty_line(2)
+    tri_content('', 'SOUTH', '')
+    tri_content('', 'name', '')
+    tri_content('', 'foo', '')
+    empty_line(2)
+
+    mid_headline(' Where do you want to go ')
+
+    empty_line(1)
+    tri_content('', '1 : North', '')
+    empty_line(1)
+    tri_content('2 : West', '', '3 : East')
+    empty_line(1)
+    tri_content('', '4 : South', '')
+    empty_line(2)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def enter(error):
+    'Print Enter Menu'
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('name', 'name', 'name')
+    tri_content('entity', 'entity', 'entity')
+    tri_content('item', 'item', 'item')
+    empty_line(2)
+    tri_content('name', 'name', 'name')
+    tri_content('entity', 'entity', 'entity')
+    tri_content('item', 'item', 'item')
+    empty_line(2)
+    tri_content('name', 'name', 'name')
+    tri_content('entity', 'entity', 'entity')
+    tri_content('item', 'item', 'item')
+    empty_line(2)
+
+    mid_headline(' What want you enter ')
+
+    empty_line(1)
+    tri_content('1 : name', '2 : name', '3 : name')
+    empty_line(1)
+    tri_content('4 : name', '5 : name', '6 : name')
+    empty_line(1)
+    tri_content('7 : name', '8 : name', '9 : name')
+    empty_line(2)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def smallTile(error):
+    '''Print small Tile'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('', 'ENTITY', '')
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    empty_line(2)
+    tri_content('', 'ITEM', '')
+    tri_content('', 'name', '')
+    tri_content('', 'value', '')
+    empty_line(2)
+
+    mid_headline(' What do you want to do ')
+
+    empty_line(1)
+    tri_content('1 : Search', '2 : Take', '3 : Inventory')
+    empty_line(1)
+    tri_content('4 : Talk', '5 : Attack', '6 : Flee')
+    empty_line(1)
+    tri_content('', '7 : Sleep', '')
+    empty_line(2)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def smallTile_search(error, c:str):
+    '''Print small Tile search'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('', 'ENTITY', '')
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    empty_line(2)
+    tri_content('', 'ITEM', '')
+    tri_content('', 'name', '')
+    tri_content('', 'value', '')
+    empty_line(2)
+
+    mid_headline(' You found... ')
+
+    empty_line(3)
+    mid_content(c)
+    empty_line(4)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('ENTER')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def smallTile_take(error, c:str):
+    '''Print small Tile take'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('', 'ENTITY', '')
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    empty_line(2)
+    tri_content('', 'ITEM', '')
+    tri_content('', 'name', '')
+    tri_content('', 'value', '')
+    empty_line(2)
+
+    mid_headline(' You took... ')
+
+    empty_line(3)
+    mid_content(c)
+    empty_line(4)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('ENTER')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def smallTile_talk(error, c:str):
+    '''Print small Tile talk'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('', 'ENTITY', '')
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    empty_line(2)
+    tri_content('', 'ITEM', '')
+    tri_content('', 'name', '')
+    tri_content('', 'value', '')
+    empty_line(2)
+
+    mid_headline(' You talk to... ')
+
+    empty_line(3)
+    mid_content(c)
+    empty_line(4)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('ENTER')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def smallTile_attack(error, c:str):
+    '''Print small Tile attack'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('', 'ENTITY', '')
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    empty_line(2)
+    tri_content('', 'ITEM', '')
+    tri_content('', 'name', '')
+    tri_content('', 'value', '')
+    empty_line(2)
+
+    mid_headline(' You attacked... ')
+
+    empty_line(3)
+    mid_content(c)
+    empty_line(4)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('ENTER')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def smallTile_flee(error, c:str):
+    '''Print small Tile flee'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('', 'ENTITY', '')
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    empty_line(2)
+    tri_content('', 'ITEM', '')
+    tri_content('', 'name', '')
+    tri_content('', 'value', '')
+    empty_line(2)
+
+    mid_headline(' You try to flee... ')
+
+    empty_line(3)
+    mid_content(c)
+    empty_line(4)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('ENTER')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def smallTile_sleep(error, c:str):
+    '''Print small Tile sleep'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('', 'ENTITY', '')
+    tri_content('', 'name', '')
+    tri_content('', 'dec', '')
+    empty_line(2)
+    tri_content('', 'ITEM', '')
+    tri_content('', 'name', '')
+    tri_content('', 'value', '')
+    empty_line(2)
+
+    mid_headline(' You sleep... ')
+
+    empty_line(3)
+    mid_content(c)
+    empty_line(4)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('ENTER')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def inventory(error):
+    '''Print inventory'''
+
+    _headergame()
+
+    empty_line(1)
+    tri_content('SLOT I', 'SLOT II', 'SLOT III')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT IV', 'SLOT V', 'SLOT VI')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT VII', 'SLOT VIII', 'SLOT IX')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT X', 'SLOT XI', 'SLOT XII')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+
+    mid_headline(' What do you want to do ')
+
+    empty_line(3)
+    tri_content('1 : Eat', '2 : Use', '3 : Discard')
+    mid_content('4 : Diary')
+    empty_line(4)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def inventory_eat(error):
+    '''Print inventory_eat'''
+
+    _headergame()
+
+    empty_line(1)
+    tri_content('Slot I', 'Slot II', 'Slot III')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('Slot IV', 'SLOT V', 'SLOT VI')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT VII', 'SLOT VIII', 'SLOT IX')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT X', 'SLOT XI', 'SLOT XII')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+
+    mid_headline(' Which Item do you want to eat ')
+
+    empty_line(3)
+    mid_content('Item from Slot')
+    mid_content('(1-12)')
+    empty_line(3)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def inventory_use(error):
+    '''Print inventory_use'''
+
+    _headergame()
+
+    empty_line(1)
+    tri_content('Slot I', 'Slot II', 'Slot III')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('Slot IV', 'SLOT V', 'SLOT VI')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT VII', 'SLOT VIII', 'SLOT IX')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT X', 'SLOT XI', 'SLOT XII')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+
+    mid_headline(' Which Item do you want to use ')
+
+    empty_line(3)
+    mid_content('Item from Slot')
+    mid_content('(1-12)')
+    empty_line(3)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def inventory_discard(error):
+    '''Print inventory_discard'''
+
+    _headergame()
+
+    empty_line(1)
+    tri_content('Slot I', 'Slot II', 'Slot III')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('Slot IV', 'SLOT V', 'SLOT VI')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT VII', 'SLOT VIII', 'SLOT IX')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+    tri_content('SLOT X', 'SLOT XI', 'SLOT XII')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(1)
+
+    mid_headline(' Which Item do you want to discard ')
+
+    empty_line(3)
+    mid_content('Item from Slot')
+    mid_content('(1-12)')
+    empty_line(3)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+def inventory_diary(error):
+    '''Print inventory_diary'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('ENTRY I', 'ENTRY II', 'ENTRY III')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('ENTRY IV', 'ENTRY V', 'ENTRY VI')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('ENTRY VII', 'ENTRY VIII', 'ENTRY IX')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(2)
+
+    mid_headline(' Which diary do you want to read ')
+
+    empty_line(4)
+    mid_content('Diary from Slot')
+    mid_content('(1-9)')
+    empty_line(3)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
+
+
+##############
+# transistions
+##############
 
 
 

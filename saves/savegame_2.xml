@@ -18,6 +18,13 @@
     </traits>
     <backpack>
       <keys>foo</keys>
+      <slot id="0">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
       <slot id="1">
         <item>
           <name>None</name>
@@ -88,14 +95,38 @@
           <value>None</value>
         </item>
       </slot>
+      <slot id="11">
+        <item>
+          <name>None</name>
+          <type>None</type>
+          <value>None</value>
+        </item>
+      </slot>
     </backpack>
   </player>
   <world>
     <region coord="0_0">
       <big_tile>
-        <name>Shelter</name>
+        <name name="Shelter" />
       </big_tile>
       <small_tiles>
+        <tile id="0">
+          <name>collapsed Skyscraper</name>
+          <description>
+Many people worked here before the world fell apart. You ought to find out what caused this destruction at some point.
+          </description>
+          <lock_condition>opened</lock_condition>
+          <item>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </item>
+          <entity>
+            <type>None</type>
+            <name>None</name>
+            <value>None</value>
+          </entity>
+        </tile>
         <tile id="1">
           <name>Home</name>
           <description>
@@ -201,7 +232,7 @@ In this distopian times a place to relax and nourish thyself next to well laid p
         <tile id="7">
           <name>Nuclear power plant</name>
           <description>
-Great Scientists once maintained this enormous accomplishment that delivered power to the whole city and further. 
+Great Scientists once maintained this enormous accomplishment that delivered power to the whole city and further.
           </description>
           <lock_condition>opened</lock_condition>
           <item>
@@ -219,23 +250,6 @@ Great Scientists once maintained this enormous accomplishment that delivered pow
           <name>Grammar School</name>
           <description>
 Once visited by many teenagers and kids this school now represents the fallen Importance of education in this world.
-          </description>
-          <lock_condition>opened</lock_condition>
-          <item>
-            <type>None</type>
-            <name>None</name>
-            <value>None</value>
-          </item>
-          <entity>
-            <type>None</type>
-            <name>None</name>
-            <value>None</value>
-          </entity>
-        </tile>
-        <tile id="9">
-          <name>collapsed Skyscraper</name>
-          <description>
-Many people worked here before the world fell apart. You ought to find out what caused this destruction at some point.
           </description>
           <lock_condition>opened</lock_condition>
           <item>

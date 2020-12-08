@@ -13,21 +13,13 @@
 
     <meta_savegame>
 
-        <savegame_1 status="inactiv">
-            <name>-----</name>
-        </savegame_1>
+        <savegame id = '1' status="inactiv" />
     
-        <savegame_2 status="inactiv">
-            <name>-----</name>
-        </savegame_2>
+        <savegame id = '2' status="inactiv" />
     
-        <savegame_3 status="inactiv">
-            <name>-----</name>
-        </savegame_3>
-    
-        <savegame_4 status="inactiv">
-            <name>-----</name>
-        </savegame_4>
+        <savegame id = '3' status="inactiv" />
+
+        <savegame id = '4' status="inactiv" />
 
     </meta_savegame>
 

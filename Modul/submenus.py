@@ -7,6 +7,7 @@
 '''
 # --- IMPORT ----------------------
 
+import main_game
 from Modul import formating, loader
 #from Modul.classes import player
 
@@ -34,7 +35,7 @@ def continueGame():
             else:
                 choice = True
     else:
-        formating.game(False)
+        main_game.game()
         #start savegame
 
 
@@ -169,7 +170,22 @@ def settingsFormat(choice = False):
 
 
 def settingsDelete():
-    pass
+    '''Logic for Menu-Settings-Delete'''
+    choice = False
+    while 'Delete':
+
+        choice  = formating.settingsdeleteuserdata(choice)
+
+        if choice == 'DeLeTe':
+            for i in range(1,5):
+                loader.resetSaveGame(i)
+                loader.resetSettings()
+                formating.clear()
+                exit()
+        elif choice == '0':
+            break
+        else:
+            choice = True
 
 
 # --- SHUT DOWN -------------------
