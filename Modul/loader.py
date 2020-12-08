@@ -428,7 +428,57 @@ def resetSaveGame(savegame:int):
         data = ET.SubElement(item, 'value')
         data.text = 'None'
 
-    ET.SubElement(root, 'world')
+    # world init
+
+    name = ['Home','Market','Locker','Metro','Lobby','Restaurant',
+            'Nuclear power plant','Grammar School','collapsed Skyscraper']
+    description = [
+                    '\nYou hear the constant strings of rain pattering on your apartments roof, while small leds illumante this hollow room.\n',
+                    '\nAs you enter the market you perceive a variety of sounds. This area seems busy and maybe you are able to trade as well.\n',
+                    '\nA tremendous bank vault secured by space marines indicating that its probably best to avoid going there. Maybe later.\n',
+                    '\nRapid trains once passed these rails, now its just dust and junk paving a way trough the depths of this tunnel.\n',
+                    '\nYou enter the halls filled with a diversity of scents indicating that a lot of ppl come here and talk with each other.\n',
+                    '\nIn this distopian times a place to relax and nourish thyself next to well laid plates is fairly welcomed. Enjoy.\n',
+                    '\nGreat Scientists once maintained this enormous accomplishment that delivered power to the whole city and further.\n',
+                    '\nOnce visited by many teenagers and kids this school now represents the fallen Importance of education in this world.\n',
+                    '\nMany people worked here before the world fell apart. You ought to find out what caused this destruction at some point.\n'
+                    ]
+
+
+    world       = ET.SubElement(root, 'world')
+    region      = ET.SubElement(world, 'region')
+    region.attrib['coord'] = '0_0'
+
+    big_tile    = ET.SubElement(region, 'big_tile')
+    data        = ET.SubElement(big_tile, 'name')
+    data.attrib['name'] = 'Shelter'
+
+    small_tiles = ET.SubElement(region, 'small_tiles')
+    for i in range(1,10):
+        tile    = ET.SubElement(small_tiles, 'tile')
+        tile.attrib['id'] = str(i)
+        data    = ET.SubElement(tile, 'name')
+        data.text = name[i-1]
+        data    = ET.SubElement(tile, 'description')
+        data.text = description[i-1]+'          '
+        data    = ET.SubElement(tile, 'lock_condition')
+        data.text = 'opened'
+
+        item    = ET.SubElement(tile, 'item')
+        data    = ET.SubElement(item, 'type')
+        data.text = 'None'
+        data    = ET.SubElement(item, 'name')
+        data.text = 'None'
+        data    = ET.SubElement(item, 'value')
+        data.text = 'None'
+
+        entity    = ET.SubElement(tile, 'entity')
+        data    = ET.SubElement(entity, 'type')
+        data.text = 'None'
+        data    = ET.SubElement(entity, 'name')
+        data.text = 'None'
+        data    = ET.SubElement(entity, 'value')
+        data.text = 'None'
 
     indent(root)
     tree.write(setting.path_Saves+'savegame_%d.xml'%(savegame))
