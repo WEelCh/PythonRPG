@@ -1,31 +1,778 @@
 <data>
-
+<!-- VILLAGES // SAMPLES {village}-->
     <big_tiles>
 
         <tile>
-            <type>foo</type>
-            <name>foo</name>
+            <type>village</type>
+            <name>Drebber</name>
         </tile>
+    
+        <tile>
+            <type>village</type>
+            <name>Endeavour</name>
+        </tile>
+    
+        <tile>
+            <type>village</type>
+            <name>yufburn</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Srusa</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Drison</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Arcross</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>3InnoD</name>
+        </tile>
+    
+        <tile>
+            <type>village</type>
+            <name>Cluudence</name>
+        </tile>
+    
+        <tile>
+            <type>village</type>
+            <name>Stiaton</name>
+        </tile>
+    
+        <tile>
+            <type>village</type>
+            <name>Fluhull</name>
+        </tile>
+    
+        <tile>
+            <type>village</type>
+            <name>bourgeouesk</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Ahrin</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Garendus</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Ottrox</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Duxfoord</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Perseverance</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>One Hope</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Judgement</name>
+        </tile>
+
+        <tile>
+            <type>village</type>
+            <name>Washam</name>
+        </tile>
+
+<!-- CITIES // SAMPLES {city} -->
+        <tile>
+            <type>city</type>
+            <name>Endeavour</name>
+        </tile>
+        
+        <tile>
+            <type>city</type>
+            <name>Discovery</name>
+        </tile>
+                
+        <tile>
+            <type>city</type>
+            <name>Columbia</name>
+        </tile>
+                
+        <tile>
+            <type>city</type>
+            <name>Challenger</name>
+        </tile>
+                                
+        <tile>
+            <type>city</type>
+            <name>Jhincity</name>
+        </tile>
+        
+        <tile>
+            <type>city</type>
+            <name>STS-6</name>
+        </tile>
+                
+        <tile>
+            <type>city</type>
+            <name>STS-8</name>
+        </tile>
+                
+        <tile>
+            <type>city</type>
+            <name>STS-51-F</name>
+        </tile>
+                
+        <tile>
+            <type>city</type>
+            <name>Kaisa</name>
+        </tile>
+                
+        <tile>
+            <type>city</type>
+            <name>Dunwall</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Korinus</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Burstehn</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Jhincity</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Bleheath</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Haven Space</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Yarkosvsky</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Apophis</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Stroyhand</name>
+        </tile>
+                        
+        <tile>
+            <type>city</type>
+            <name>Ballistix</name>
+        </tile>
+<!-- MILITARY  // SAMPLES {military}-->
+                
+        <tile>
+            <type>military</type>
+            <name>Outpost Benning </name>
+        </tile>
+                        
+        <tile>
+            <type>military</type>
+            <name>Outpost Alpha</name>
+        </tile>
+                        
+        <tile>
+            <type>military</type>
+            <name>Outpost Beta</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>Outpost Gamma</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>Outpost Omega</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>stationary camp</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>Outpost Flite</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>Heavy Delta</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>camp Magnetude</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>Fort Bennington</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>Fort Grafix</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>Outpost Endeavour</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>military base 001</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>military base 002</name>
+        </tile>
+                                
+        <tile>
+            <type>military</type>
+            <name>military  base 002</name>
+        </tile>
+
+<!-- BIOME // SAMPLES {biome}-->
+        
+                                        
+        <tile>
+            <type>biome</type>
+            <name>Meadow</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>Highland</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>Coniferous Forest</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>Boreal Forest</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>Alps</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>dysfunctional Hills</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>peculiar mountains</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>plateau</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>wasteland</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>flower field</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>rice field</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>grassland</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>Mountains</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>Hills</name>
+        </tile>
+                                                
+        <tile>
+            <type>biome</type>
+            <name>Swamp</name>
+        </tile>
+<!-- FOREST // SAMPLES {forest}-->
+
+        <tile>
+            <type>forest</type>
+            <name>Opaque Forest</name>
+        </tile>
+                                        
+        <tile>
+            <type>forest</type>
+            <name>Red Forest</name>
+        </tile>
+                                        
+        <tile>
+            <type>forest</type>
+            <name>White Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>Bleak Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>bald Forest</name>
+        </tile>
+                
+        <tile>
+            <type>forest</type>
+            <name>frightening Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>Rainforest </name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>Mixed Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>Burned Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>radiating Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>submerged Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>Shattered Forest</name>
+        </tile>
+                        
+        <tile>
+            <type>forest</type>
+            <name>Forest Anomaly</name>
+        </tile>
+<!-- // SAMPLES {}-->
     </big_tiles>
-
-
 
     <small_tiles>
 
-        <tile type = 'habitate'>
+<!--
+#####
+##### BIOMES // SAMPLES {biome}
+#####
+-->
+        
+        <tile type = 'biome'>
             <name>Field</name>
             <description>
-            a forest, nothing is to be found here, I guess.
+Upon entering this massive field you discover scrap, damaged mechs and several dead corpses lying on the ground.
             </description>
         </tile>
-
-        <tile type = 'final_station'>
-            <name>research center</name>
+        
+        <tile type = 'biome'>
+            <name>Field</name>
             <description>
-this must be the last location to finally end this misery
+Potatoes were harvested here once. After the mysterious war there is nothing left but burning divots and scrap.
+            </description>
+        </tile>
+                
+        <tile type = 'biome'>
+            <name>shack</name>
+            <description>
+You stumble across this wheatfield. There seems to be an old hud nearby. It burned down unfortunately.
             </description>
         </tile>
 
+        <tile type = 'biome'>
+            <name>refuge</name>
+            <description>
+Back when it was peaceful, wayfarer often came here to rest. You once heard that dangerous monster live there now.
+            </description>
+        </tile>
+                
+        <tile type = 'biome'>
+            <name>refuge</name>
+            <description>
+This seems to be a shack ppl rested in once. However it was widely destroyed and is determined to collapse soon. 
+            </description>
+        </tile>
+                
+        <tile type = 'biome'>
+            <name>freeway</name>
+            <description>
+You find yourself next to a massive concrete construction. Previously used as route it now solely exists.
+            </description>
+        </tile>
+                
+        <tile type = 'biome'>
+            <name>radio tower</name>
+            <description>
+Previously when people still lived in peace they communicated with the help of these massive buildings. 
+            </description>
+        </tile>
+                        
+        <tile type = 'biome'>
+            <name>radio tower</name>
+            <description>
+During the disastrous event nuclear weapons dismantled many buildings including this collapsed building.
+            </description>
+        </tile>
+                
+        <tile type = 'biome'>
+            <name>crater</name>
+            <description>
+invented and created by man made nuclear warheads these craters are the remains of these advanced missiles. 
+            </description>
+        </tile>
+                
+        <tile type = 'biome'>
+            <name>refuge</name>
+            <description>
+This seems to be a shack ppl rested in once. However it was widely destroyed and is determined to collapse soon. 
+            </description>
+        </tile>
+                
+        <tile type = 'biome'>
+            <name>crashed plane</name>
+            <description>
+During the war many warriors were abolished, killed, executed and these are the remains of that disastrous event.
+            </description>
+        </tile>
+
+<!--
+#####
+##### FORESTS // SAMPLES {forest}
+#####
+-->
+
+                
+        <tile type = 'forest'>
+            <name>crashed plane</name>
+            <description>
+Among the trees you discover shattered parts of a fighter which was used during war. It seems to burn constantly.
+
+            </description>
+        </tile>
+    
+        <tile type = 'forest'>
+            <name>crashed plane</name>
+            <description>
+Palls of smoke cover this area. There must have crashed a massive plane here once. Once again, remains of the war.
+#######################################################################################################################
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>destroyed mecha</name>
+            <description>
+Not only planes but several machines were used during the event. One such thing is this huge piece of metal, a mech.
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>destroyed mecha</name>
+            <description>
+Upon arriving at this colossus you discover the pilot lurking from the destroyed  cockpit. His skull shows punctures.
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>glade</name>
+            <description>
+A small stream of water makes its way trough this region. Dabbling water fills this empty, forsaken place with sound.
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>glade</name>
+            <description>
+Rays of sunlight pierce trough the lush trees. Among the dominant silence you hear birds and wood crackling.
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>cave</name>
+            <description>
+A dead soldier lies in this dusky cave. He must have seeked shelter here, died however. Probable death: bloodloss.
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>cave</name>
+            <description>
+A pitch black entrance lies before you.You decide not to enter it, who knows what lies withing these walls. 
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>encampment</name>
+            <description>
+That war urged soldiers to rest or they would've died instantly. This was one of their shelters, probably. 
+            </description>
+        </tile>
+                        
+        <tile type = 'forest'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+
+<!--
+#####
+##### CITIES // SAMPLES {city} 
+#####
+-->
+
+                        
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                
+        <tile type = 'city'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+        
+<!--
+#####
+##### VILLAGES // SAMPLES {village}
+#####
+-->
+
+                                
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+                                        
+        <tile type = 'village'>
+            <name>tree formation</name>
+            <description>
+Altough this forest is glaring with thousand of tree, these trees remind you of rituals, some sort of formation.
+            </description>
+        </tile>
+
+<!-- 
+#####
+##### MILITARY // SAMPLES {military}
+#####
+-->
     </small_tiles>
 
 

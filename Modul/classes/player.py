@@ -6,6 +6,7 @@ __author__ ='Fabian Stange'
 from Modul.loader import *
 import Modul.classes.environment as environment
 import Modul.classes.entity as entity
+import random
 # ---- ---- ---- ----
 
 # ---- ---- global variables ---- ----
@@ -45,7 +46,7 @@ class Player():
         self.__strength = 0 
         self.__intelligence = 0 
         self.__perception = 0
-        self.__items_backpack = []
+        self.__items_backpack = [None for i in range(12)]
         self.__keys = 0
         self.generatePlayer(list_at)
         self.setActiveTile()
@@ -344,13 +345,16 @@ class Player():
     def checkItems(self,):
         '''
         a method for checking the players inventory.
-        If it holds more than 15 items, it will return False,
+        If it holds more than 12 items, it will return False,
         otherwise it will return True
         '''
-        if(len(self.__items_backpack) < 10): 
-            return True
-        else:
-            False
+        items = 0
+        for i in self.__items_backpack:    
+            if(i != None):
+                items +=1
+            else:
+                True
+        return True
 
     def setItem(self,item:object):
         '''
@@ -523,7 +527,7 @@ class Player():
             return 'successfully restored'
         else:
             if random.choice([i for i in randint(0,20)] <=10):
-                self.__active_entity = genEntity(Enemy)
+                self.__active_entity = genEntity('Enemy')
 
 
 
@@ -533,7 +537,6 @@ class Player():
     - check if entity is enemy or player to allow/disallow travelling
     - if entity is present no movement is allowed 
     - query backpack ///
-    - searchRelics(active_tile._smallTile) -- results with nothing / clue / {small tile vanishes}
     - explore(active_tile._small_tile) -- results in combat or nothing
     - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
     - active_small_tile to directly interact with the queried smallTile from a bigTile
