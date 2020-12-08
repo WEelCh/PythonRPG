@@ -34,7 +34,7 @@ class Player():
         self.__active_small_tile = None
         self.__explore_score = 0
         # active entity to interact with 
-        self.__active_entity: None
+        self.__active_entity = None
         # --- dynamic attributes of player
         self.__char_class = 'nothing'
         self.__health = 0
@@ -436,7 +436,7 @@ class Player():
             self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self)
             self.__explore_score += 1
         else: 
-            # search in explored_tiles.xml and read out the object to load it.
+            # search in savegame and read out the object to load it.
             self.__active_tile =  environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
         
     def goEast(self):
@@ -445,30 +445,30 @@ class Player():
             if(self.__active_entity.getType() != 'Friend'):
                 return "you cant move rn, there's an enemy"
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
-        self.__coordinate_X -= 1
-        del self.__active_tile
-        del self.__active_small_tile
+        self.__coordinate_X += 1
+        self.__active_tile = None
+        self.__active_small_tile = None
         self.CheckTileExplored()
-        
+            
     def goWest(self):
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
-        self.__coordinate_X += 1
-        del self.__active_tile
-        del self.__active_small_tile
+        self.__coordinate_X -= 1
+        self.__active_tile = None
+        self.__active_small_tile = None
         self.CheckTileExplored()
         
     def goNorth(self):
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y += 1
-        del self.__active_tile
-        del self.__active_small_tile
+        self.__active_tile = None
+        self.__active_small_tile = None
         self.CheckTileExplored()
     
     def goSouth(self):
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y -= 1 
-        del self.__active_tile
-        del self.__active_small_tile
+        self.__active_tile = None
+        self.__active_small_tile = None
         self.CheckTileExplored()
 
 # --- ---
@@ -501,11 +501,19 @@ class Player():
         # loads given tile
         self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
 
+    def listSmallTiles(self):
+        '''
+        returns available small tiles on big tile.
+        
+        ### is tuple/list
+        '''
+        return self.__active_tile.listSmallTiles()    
+
     def setActiveSmallTile(self,query):
         '''
         triggers query to select active small tile to work with. 
         FOR UI >> Must return what new active _ small Tile is 
-        ### query is string
+        ### query is string or integer
         - string must be a name 
         '''
         self.__active_small_tile =  self.__active_tile.querySmallTiles(query)

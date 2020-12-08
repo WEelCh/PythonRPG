@@ -28,28 +28,32 @@ class Friend (Entity):
     def __init__(self, n):
         super().__init__(n)
         self._type = 'Friend'
-
+        self._atk = 0
+        self._health = 10
     def generate(self, exval):
         '''generates new value'''
         self._name,value = loader.genEntity('friend')
         value = value.split(',')
-        self._atk = value[0]
-        self._health = value[1]
+        self._atk = int(value[0])
+        self._health = int(value[1])
         
 
     def getType(self):
         return self._type
+   
     def getName(self):
         return str(self._name)
-
+   
+    def getPackedValues(self):
+        return '%d,%d'%(self._atk,self._health)
 
 
 class Enemy (Entity):
 
     def __init__(self, n, a, h):
         super().__init__(n)
-        self._atk       = a
-        self._health    = h
+        self._atk       = int(a)
+        self._health    = int(h)
         self._type = 'Enemy'
 
     def generate(self, exval):
@@ -71,7 +75,9 @@ class Enemy (Entity):
 
     def getHealth(self):
         return self._health
-
+    
+    def getPackedValues(self):
+        return '%d,%d'%(self._atk,self._health)
 # --- SHUT DOWN -------------------
 
 

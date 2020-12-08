@@ -71,7 +71,7 @@ class bigTile():
         '''
         # generates 9 small tiles that generate themselves upon getting  called
         
-        for i in range(0,8):
+        for i in range(9):
             self.__inherited_smallTiles[i] = smallTile(self.__given_explore_count,self.__type)
             
     def initializeTile(self,player:object):
@@ -90,20 +90,20 @@ class bigTile():
             small_tile.append(data_tile['small_tiles']['name'][i])
             small_tile.append(data_tile['small_tiles']['description'][i])
             small_tile.append(data_tile['small_tiles']['lock_condition'][i])
-            if data_tile['small_tiles']['item'][i] != 'None':
+            if data_tile['small_tiles']['item']['type'][i] != 'None':
                 list_item = [
-                    data_tile['small_tiles']['item'][i],
-                    data_tile['small_tiles']['item'][i],
-                    data_tile['small_tiles']['item'][i],
+                    data_tile['small_tiles']['item']['type'][i],
+                    data_tile['small_tiles']['item']['name'][i],
+                    data_tile['small_tiles']['item']['value'][i],
                 ]
                 small_tile.append(list_item)
             else:
                 small_tile.append(None)
-            if data_tile['small_tiles']['entity'][i] != 'None':
+            if data_tile['small_tiles']['entity']['type'][i] != 'None':
                 list_entity = [
-                    data_tile['small_tiles']['entity'][i],
-                    data_tile['small_tiles']['entity'][i],
-                    data_tile['small_tiles']['entity'][i],
+                    data_tile['small_tiles']['entity']['type'][i],
+                    data_tile['small_tiles']['entity']['name'][i],
+                    data_tile['small_tiles']['entity']['value'][i],
                 ]
                 small_tile.append(list_entity)
             else:
@@ -143,7 +143,7 @@ class bigTile():
 
     def getSmallTiles(self):
         '''
-        returns a dictionary of adjacent SmallTiles
+        returns a list of adjacent SmallTiles
         in order to display their name call __inherited_smallTiles.getName()
         
         ### is list with each object 
@@ -168,15 +168,20 @@ class bigTile():
 
     def querySmallTiles(self,query):
         '''
-        PLS LOOP To cope wrong inputs // 
-        queries trough inhereted smallTiles listing them in given document 
-        and returning the choosen Tile back to player. 
-        sets active_small_tile  to selected tile. Allows for interaction directly without querying trough entirye BigTile
+        query interates trough inhereted smallTiles 
+        and returns the choosen Tile back to player. 
+        sets player.active_small_tile  to selected tile.
         '''
-        listSmallTile()
-        for Tile in self.__inherited_smallTiles:
-            if(Tile.getName() == query):
-                return Tile
+        try: 
+            int(query)
+            if self.__inherited_smallTiles[query] == object:
+                return self.__inherited_smallTiles[query]
+            else:
+                return False
+        except:    
+            for Tile in self.__inherited_smallTiles:
+                if(Tile.getName() == query):
+                    return Tile
         # ends with return of newly selected smallTile
 
 # ---
@@ -237,8 +242,7 @@ class smallTile():
         percentage to generate it, scales with scaling.py
         '''
         self.__available_item = random.choice([None,None,None,None,loader.genItem()])
-        pass
-    
+        
     def generateEntity(self):
         '''
         method to generate a new Entity - whether its a friend or fiend. 
@@ -276,18 +280,38 @@ class smallTile():
         self.__description = data[1]
         self.__lock_condition = data[2]
         if data[3][0] != None:
-            '''
-            NOT DONE YET // ADJUSTMENT NEEDED
-            ''' 
-            self.__available_item = Item([data[3][0],data[3][1],data[3][2]])
+            # checks what type of item it is
+            if data[3][0] == 'Weapon':
+                
+                # creates item object WEAPON    
+                self.__available_item = Item([data[3][1],data[3][2]])
+            
+            elif data[3][0] == 'Food':
+                
+                # creates item object FOOD    
+                food_values = data[3][2].split(',')
+                self.__available_item = Item([data[3][1],food_values[0],food_values[1]])
+            
+            elif data[3][0] == 'MedicalSupply':
+                
+                # creates item object MEDICALSUPPLY
+                
+                self.__available_item = Item([data[3][1],data[3][2]])
+            
         else:
             self.__available_item = None
         
         if data[4][0] != None:
-            '''
-            NOT DONE YET // ADJUSTMENT NEEDED
-            ''' 
-            self.__available_entity = Entity([data[4][0],data[4][1],data[4][2]])
+            # checks what type of item it is
+            if data[3][0] == 'Friend':
+                
+                # creates item object WEAPON    
+                self.__available_item = Item([data[3][1],data[3][2]])
+            
+            elif data[3][0] == 'Enemy':
+                entity_values = data[4][2].split(',')
+                self.__available_entity = Entity([data[4][1],entity_values[0],entity_values[1]])
+                # creates item object FOOD    
         else:
             self.__available_entity = None
 
@@ -323,6 +347,12 @@ class smallTile():
             return self.__available_entity
         else:
             return self.__available_entity
+
+    def getLockCondition(self):
+        '''
+        returns the current LockCondition
+        '''
+        return self.__lock_condition
 # --- ---
 # UDATE VALUES
 # --- ---

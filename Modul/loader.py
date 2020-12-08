@@ -107,42 +107,62 @@ def saveTile(obj, coord:str, savegame:int):
         pass
 
     # when it not exists ... new
+    small_tile_list = obj.getSmallTiles()
     data = root.find('world')
     region = ET.SubElement(data, 'region')
     region.attrib['coord'] = coord
 
     big_tile = ET.SubElement(region, 'big_tile')
     data = ET.SubElement(big_tile, 'name')
-    data.text = 'foo'
+    data.text = obj.getName()
 
     small_tiles = ET.SubElement(region, 'small_tiles')
-    for i in range(1,10):
+    for i in range(9):
         tile = ET.SubElement(small_tiles, 'tile')
         tile.attrib['id'] = str(i)
 
         data = ET.SubElement(tile, 'name')
-        data.text = 'foo'
+        data.text = small_tile_list[i].getName()
         data = ET.SubElement(tile, 'description')
-        data.text = 'foo'
+        data.text = small_tile_list[i].getDescription()
         data = ET.SubElement(tile, 'lock_condition')
-        data.text = 'foo'
+        data.text = small_tile_list[i].getLockCondition()
 
         item = ET.SubElement(tile, 'item')
         data = ET.SubElement(item, 'type')
-        data.text = 'foo'
-        data = ET.SubElement(item, 'name')
-        data.text = 'foo'
-        data = ET.SubElement(item, 'value')
-        data.text = 'foo'
-
+        # reads out item object from iterated small tile
+        queried_item = small_tile_list[i].getItem()
+        
+        if queried_item != None:
+            data.text = queried_item.getType()
+            data = ET.SubElement(item, 'name')
+            data.text = queried_item.getName()
+            data = ET.SubElement(item, 'value')
+            data.text = queried_item.getPackedValues()
+        else:
+            data.text = 'None'
+            data = ET.SubElement(item, 'name')
+            data.text = 'None'
+            data = ET.SubElement(item, 'value')
+            data.text = 'None'
         entity = ET.SubElement(tile, 'entity')
         data = ET.SubElement(entity, 'type')
-        data.text = 'foo'
-        data = ET.SubElement(entity, 'name')
-        data.text = 'foo'
-        data = ET.SubElement(entity, 'value')
-        data.text = 'foo'
-
+        # reads out enity object from iterated small tile
+        queried_entity = small_tile_list[i].getEntity()
+        
+        if queried_entity != None: 
+            data.text = queried_entity.getType()
+            data = ET.SubElement(entity, 'name')
+            data.text = queried_entity.getName()
+            data = ET.SubElement(entity, 'value')
+            data.text = queried_entity.getPackedValues()
+        else:
+            data.text = 'None'
+            data = ET.SubElement(entity, 'name')
+            data.text = 'None'
+            data = ET.SubElement(entity, 'value')
+            data.text = 'None'
+        del queried_entity,queried_item
     indent(root)
     tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
 
@@ -186,6 +206,7 @@ def loadTile(coords:str, savegame:int):
     for region in root.findall('world/region'):
         if region.attrib['coord'] == coords:
             cache = False
+            break
     if cache:
         return False # if tile NOT exists
 
@@ -308,7 +329,7 @@ def genItem(typ = False):
     '''
 
     if typ == False:
-        typ = choice(['Weapon','Food','MedicalSupplies'])
+        typ = choice(['Weapon','Food','MedicalSupply'])
 
     tree = ET.parse(setting.path_Data+'sample_items.xml')
     root = tree.getroot()
@@ -368,7 +389,8 @@ def genEntity(typ = False):
         value = value.split('_')
 
     if typ == 'Friend':
-        obj = 'NOT FINALLY WORKING'
+        # NOT FINALLY WORKING 
+        obj = Entity.Friend(name)
     elif typ == 'Enemy':
         obj = Entity.Enemy(name, value[0], value[1])
 

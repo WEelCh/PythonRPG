@@ -33,7 +33,7 @@ class Weapon (Item):
 
     def __init__(self, n, a):
         super().__init__(n)
-        self._atk   = a
+        self._atk   = int(a)
 
     def generate(self,exval):
         '''generates new values'''
@@ -44,8 +44,11 @@ class Weapon (Item):
 
     def getAtk(self):
         return int(self._atk)
-
-
+    def getType(self):
+        return 'Weapon'
+    
+    def getPackedValues(self):
+        return '%d'%(self._atk)
 
 class Food (Item):
     '''food
@@ -53,8 +56,8 @@ class Food (Item):
 
     def __init__(self, n, s, h):
         super().__init__(n)
-        self._re_stamina    = s
-        self._re_health     = h
+        self._re_stamina    = int(s)
+        self._re_health     = int(h)
 
     def generate(self,exval):
         '''generates new values'''
@@ -71,8 +74,11 @@ class Food (Item):
 
     def getReHealth(self):
         return int(self._re_health)
-
-
+    
+    def getType(self):
+        return 'Food'
+    def getPackedValues(self):
+        return '%d,%d'%(self._re_stamina,self._re_health)
 
 class MedicalSupply (Item):
     '''medical supplies
@@ -80,7 +86,7 @@ class MedicalSupply (Item):
 
     def __init__(self, n, h):
         super().__init__(n)
-        self._re_health = h
+        self._re_health = int(h)
 
     def getName(self):
         return str(self._name)
@@ -91,8 +97,11 @@ class MedicalSupply (Item):
 
     def getReHealth(self):
         return int(self._re_health)
-
-
+    def getType(self):
+        return 'MedicalSupply'
+    
+    def getPackedValues(self):
+        return '%d'%(self._re_health)
 
 # --- SHUT DOWN -------------------
 
