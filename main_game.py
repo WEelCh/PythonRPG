@@ -15,7 +15,8 @@ from Modul import loader, formating
 
 # --- SETUP -----------------------
 
-
+def initGame():
+    pass
 
 # --- MAIN ------------------------
 
