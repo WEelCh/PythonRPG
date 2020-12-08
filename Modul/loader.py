@@ -375,6 +375,7 @@ def genEntity(typ = False):
     return obj
 
 
+
 def resetSaveGame(savegame:int):
     '''RESETS the SaveGame with number savegame'''
 
@@ -418,7 +419,7 @@ def resetSaveGame(savegame:int):
     backpack    = ET.SubElement(player, 'backpack')
     data        = ET.SubElement(backpack, 'keys')
     data.text   = 'foo'
-    for slot in range(1,11):
+    for slot in range(12):
         data = ET.SubElement(backpack, 'slot')
         data.attrib['id'] = str(slot)
 
@@ -456,7 +457,7 @@ def resetSaveGame(savegame:int):
     data.attrib['name'] = 'Shelter'
 
     small_tiles = ET.SubElement(region, 'small_tiles')
-    for i in range(1,10):
+    for i in range(9):
         tile    = ET.SubElement(small_tiles, 'tile')
         tile.attrib['id'] = str(i)
         data    = ET.SubElement(tile, 'name')

@@ -155,9 +155,29 @@ def game_inventory():
                 else:
                     choice = True
 
+        elif choice == '4': # diary
+            game_diary()
+
         elif choice == '0': # Back
             break
 
+        else:
+            choice = True
+
+
+
+def game_diary():
+    '''Logic for Diary'''
+    choice = False
+    while 'diary':
+
+        choice = formating.inventory_diary(choice)
+
+        if choice in '123456789' and len(choice) == 1:
+            '''DEBUGG load the shitty logs'''
+            pass
+        elif choice == '0':
+            break
         else:
             choice = True
 

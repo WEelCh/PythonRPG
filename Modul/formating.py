@@ -344,7 +344,7 @@ def settingsdeleteuserdata(error):
 #############
 
 
-def _headergame():#r, p):
+def _headergame(r=None, p=None):
     '''Print header of menu
         r == region
         p == player'''
@@ -353,15 +353,13 @@ def _headergame():#r, p):
     space_line(form_y)
 
     upperT_line()
-    #emptyT_line(1)
 
     norm_content('', 'name foo'.center(58)) #because new lambda makes no sense
     norm_content('  Region Name: '+'foo', 'Health : '+'█'*40+'  20/20')
-    emptyT_line(1)
-    norm_content('  Tile Name  : '+'foo', 'Stamina: '+'█'*40+'  10/10')
-    emptyT_line(1)
+    norm_content('  Type       : '+'foo','')
+    norm_content('', 'Stamina: '+'█'*40+'  10/10')
+    norm_content('  Tile Name  : '+'foo','')
     norm_content('', 'Mana   : '+'█'*40+'  5/5')
-    #emptyT_line(1)
     norm_content('  SaveGame : '+'0', 'Keys   : '+'o '*2)
 
     midDwTT_line()
@@ -740,11 +738,11 @@ def inventory(error):
     _headergame()
 
     empty_line(1)
-    tri_content('Slot I', 'Slot II', 'Slot III')
+    tri_content('SLOT I', 'SLOT II', 'SLOT III')
     tri_content('name', 'name', 'name')
     tri_content('', '', '')
     empty_line(1)
-    tri_content('Slot IV', 'SLOT V', 'SLOT VI')
+    tri_content('SLOT IV', 'SLOT V', 'SLOT VI')
     tri_content('name', 'name', 'name')
     tri_content('', '', '')
     empty_line(1)
@@ -761,6 +759,7 @@ def inventory(error):
 
     empty_line(3)
     tri_content('1 : Eat', '2 : Use', '3 : Discard')
+    mid_content('4 : Diary')
     empty_line(4)
 
     middle_line()
@@ -890,6 +889,43 @@ def inventory_discard(error):
     empty_line(1)
 
     return _bottom(error)
+
+
+
+def inventory_diary(error):
+    '''Print inventory_diary'''
+
+    _headergame()
+
+    empty_line(2)
+    tri_content('ENTRY I', 'ENTRY II', 'ENTRY III')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('ENTRY IV', 'ENTRY V', 'ENTRY VI')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(2)
+    tri_content('ENTRY VII', 'ENTRY VIII', 'ENTRY IX')
+    tri_content('name', 'name', 'name')
+    tri_content('', '', '')
+    empty_line(2)
+
+    mid_headline(' Which diary do you want to read ')
+
+    empty_line(4)
+    mid_content('Diary from Slot')
+    mid_content('(1-9)')
+    empty_line(3)
+
+    middle_line()
+
+    empty_line(1)
+    mid_content('0 : Back')
+    empty_line(1)
+
+    return _bottom(error)
+
 
 
 ##############
