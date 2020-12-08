@@ -225,7 +225,16 @@ class Player():
         return self.__max_mana
 
     def getEntity(self):
+        '''
+        
+        '''
         return self.__active_entity
+
+    def getActiveTileName(self):
+        '''
+        returns Name of current Active Tile. 
+        '''
+        return self.__active_tile.getName()
 # --- ---
 # UPDATING VALUES
 # --- ---
@@ -470,11 +479,17 @@ class Player():
         self.__active_tile = None
         self.__active_small_tile = None
         self.CheckTileExplored()
-
+    def saveQuitTile(self):
+        '''
+        this method is used upon saving the last Tile and its content before leaving the game. 
+        Therefore its important to not use it before.
+        '''
+        saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
 # --- ---
 # Player Interaction
 # --- ---
-
+    
+    
     def changeLockCondition(self):
         '''
         changes opened/closed condition if needed keys are available.

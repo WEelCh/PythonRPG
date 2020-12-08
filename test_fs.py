@@ -13,7 +13,7 @@ import  Modul.classes.player as player
 from Modul.loader import saveTile,resetSaveGame
 # ---- ---- ---- ----
 #saveTile(None,'0_0',1)
-'''
+
 list_player = [
     1,
     'fabian',
@@ -31,24 +31,10 @@ print(active_player.listMana())
 print(active_player.goEast())
 print(active_player.getCoordinates())
 
-
-print(active_player.goEast())
-print(active_player.getCoordinates())
-print(active_player.goEast())
-print(active_player.getCoordinates())
-print(active_player.goEast())
-print(active_player.getCoordinates())
-print(active_player.goEast())
-print(active_player.getCoordinates())
-print(active_player.goNorth())
-print(active_player.goSouth())
-print(active_player.getCoordinates())
-
-
-
-
-print(active_player.setActiveSmallTile(1))
+for i in range(20):
+    print(active_player.goNorth())
+    print(active_player.getActiveTileName())
+    print(active_player.getCoordinates())
 print('END')
-'''
+
 # ---- ---- code //  ---- ----
-resetSaveGame(1)

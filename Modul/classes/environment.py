@@ -174,10 +174,8 @@ class bigTile():
         '''
         try: 
             int(query)
-            if self.__inherited_smallTiles[query] == object:
-                return self.__inherited_smallTiles[query]
-            else:
-                return False
+            return self.__inherited_smallTiles[query]
+    
         except:    
             for Tile in self.__inherited_smallTiles:
                 if(Tile.getName() == query):
