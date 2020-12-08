@@ -27,4 +27,6 @@ print(active_player.listHealth())
 active_player.treatHealth(1,[10,active_player.getMaxHealth()])
 print(active_player.listHealth())
 print(active_player.listMana())
+print(active_player.goEast())
+print(active_player.getCoordinates())
 # ---- ---- code //  ---- ----
