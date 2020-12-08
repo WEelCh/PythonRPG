@@ -179,7 +179,7 @@ def settingsDelete():
         if choice == 'DeLeTe':
             for i in range(1,5):
                 loader.resetSaveGame(i)
-                '''DEBUGG reset META.xml'''
+                loader.resetSettings()
                 formating.clear()
                 exit()
         elif choice == '0':
