@@ -23,12 +23,13 @@ if choice == 'yes':
 else:    
     list_player = [
         1,
-        'fabian',
-        'male',
-        'Mercenary',
+        None,#'fabian',
+        None,#'male',
+        None#'Mercenary',
         
     ]
     active_player = player.Player(list_player)
+    active_player.initializePlayer(1)
     print(active_player.getCoordinates())
     print(active_player.getName(),active_player.getSavegame(),active_player.getSex(),active_player.getCharClass(),active_player.getItemsName())
     print(active_player.listHealth())
@@ -37,12 +38,12 @@ else:
     print(active_player.listMana())
     print(active_player.goEast())
     print(active_player.getCoordinates())
-
+'''
     for i in range(90):
         print(active_player.goNorth())
         print(active_player.getActiveTileName())
         print(active_player.getCoordinates())
     print('END')
     savePlayer(active_player,1)
-
+'''
 # ---- ---- code //  ---- ----
