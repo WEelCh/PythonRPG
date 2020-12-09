@@ -1,13 +1,13 @@
 <savegame_3>
   <player>
-    <generell>
-      <end_found>None</end_found>
-      <explore_score>None</explore_score>
+    <generel>
+      <end_found>False</end_found>
+      <explore_score>0</explore_score>
       <pos>None,None</pos>
-      <name>None</name>
+      <name>---</name>
       <sex>None</sex>
-      <class>None</class>
-    </generell>
+      <class>---</class>
+    </generel>
     <traits>
       <health>None</health>
       <stamina>None</stamina>
@@ -17,7 +17,7 @@
       <perception>None</perception>
     </traits>
     <backpack>
-      <keys>foo</keys>
+      <keys>0</keys>
       <slot id="0">
         <item>
           <name>None</name>

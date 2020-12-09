@@ -28,7 +28,8 @@ del system_check
 
 # display formating values
 form_y, form_x = loader.getYXFormat()
-x = ' '*form_x
+get_x = lambda : ' '*form_x
+x = get_x()
 
 
 # static lines
@@ -55,9 +56,9 @@ tri_content =lambda c1,c2,c3: print(x+'║'+c1.center(40)+c2.center(40)+c3.cente
 
 
 # static info-values
-_title_  = 'Endless Odyssey of Trash'
-_date_   = 'c 2020'
-_author_ = ' Stange Fabian'+' '*90+'Zeidler Elijah  '
+_title_  = 'WORK_TITLE_PyRPG'
+_date_   = '2020'
+_author_ = '  Stange Fabian'+' '*90+'Zeidler Elijah '
 
 # --- SETUP -----------------------
 
@@ -157,27 +158,41 @@ def noSaveGame(error):
 
 
 
-def newGame(error, level):
+def newGame(error, level, data):
     '''Show Menu-New Game'''
 
     _headermenu('MAIN / NEW GAME')
 
     if   level == 1: # SaveGame choice
         empty_line(1)
-        mid_content('At wich SaveGame do you wanna save the')
-        mid_content('new game?')
+        mid_content('At wich SaveGame do you wanna save the new game?')
         empty_line(1)
-        mid_content('Be aware that old SaveGames can be overwriten')
-        mid_content('by your actions !!!')
+        mid_content('Be aware that old SaveGames can be overwriten by your actions !!!')
         empty_line(1)
         midUpT_line()
+
         emptyT_line(1)
-        midT_content('foo', 'foo') # eigentlich xml
+        midT_content('Savegame 1', 'Savegame 2')
         emptyT_line(1)
+        midT_content(data[0][0], data[1][0]) # name
+        midT_content(data[0][1], data[1][1]) # class
+        emptyT_line(1)
+        midT_content('Progress: '+data[0][2],'Progress: '+data[1][2]) # explore
+        midT_content('End found: '+data[0][3],'End found: '+data[1][3]) # end_found
+        emptyT_line(1)
+
         midX_line()
+
         emptyT_line(1)
-        midT_content('foo', 'foo')
+        midT_content('Savegame 3', 'Savegame 4')
         emptyT_line(1)
+        midT_content(data[2][0], data[3][0]) # name
+        midT_content(data[2][1], data[3][1]) # class
+        emptyT_line(1)
+        midT_content('Progress: '+data[2][2],'Progress: '+data[3][2]) # explore
+        midT_content('End found: '+data[2][3],'End found: '+data[3][3]) # end_found
+        emptyT_line(1)
+
         midDwTT_line()
         empty_line(1)
         mid_content('Back')
@@ -234,20 +249,32 @@ def newGame(error, level):
 
 
 
-def loadGame(error):
+def loadGame(error, data):
     '''Show Menu-Load Game'''
 
     _headermenu('MENU / LOAD GAME', T = True)
 
+    emptyT_line(2)
+    midT_content('Savegame 1', 'Savegame 2')
     emptyT_line(1)
-    midT_content('foo', 'foo')
+    midT_content(data[0][0], data[1][0]) # name
+    midT_content(data[0][1], data[1][1]) # class
     emptyT_line(1)
+    midT_content('Progress: '+data[0][2],'Progress: '+data[1][2]) # explore
+    midT_content('End found: '+data[0][3],'End found: '+data[1][3]) # end_found
+    emptyT_line(3)
 
     midX_line()
 
+    emptyT_line(2)
+    midT_content('Savegame 3', 'Savegame 4')
     emptyT_line(1)
-    midT_content('foo', 'foo')
+    midT_content(data[2][0], data[3][0]) # name
+    midT_content(data[2][1], data[3][1]) # class
     emptyT_line(1)
+    midT_content('Progress: '+data[2][2],'Progress: '+data[3][2]) # explore
+    midT_content('End found: '+data[2][3],'End found: '+data[3][3]) # end_found
+    emptyT_line(3)
 
     midDwTT_line()
     empty_line(1)
@@ -255,7 +282,7 @@ def loadGame(error):
     mid_content('0')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error, msg = 'SaveGame not available!')
 
 
 
@@ -291,7 +318,7 @@ def settingsFormatWindow(error):
     mid_content(str(form_y))
     mid_content('Number of clear lines above the menu.')
     empty_line(2)
-    mid_content('Y Axes Formating')
+    mid_content('X Axes Formating')
     mid_content(str(form_x))
     mid_content('Number of clear spaces besides the menu.')
     empty_line(3)

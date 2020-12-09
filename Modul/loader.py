@@ -72,7 +72,7 @@ def setYXFormat(new_y, new_x):
 
 
 
-def getSaveGame():
+def getLastSaveGame():
     '''checks for last savegame information
     in meta.xml'''
 
@@ -80,6 +80,25 @@ def getSaveGame():
     root = tree.getroot()
 
     return str(root.find('last_game/value').text)
+
+
+
+def getSaveGame(savegame:int):
+    '''gives data about the savegame'''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+    root = tree.getroot()
+
+    name = root.find('player/generel/name')
+    name = name.text
+    clas = root.find('player/generel/class')
+    clas = clas.text
+    explore = root.find('player/generel/explore_score')
+    explore = explore.text
+    end  = root.find('player/generel/end_found')
+    end = end.text
+
+    return [str(name), str(clas), str(explore), str(end)]
 
 # PLAYER HANDLING
 
@@ -91,18 +110,18 @@ def savePlayer(obj:object, savegame:int):
 
     player = root.find('player')
 
-    generell = player.find('generell')
-    data    = generell.find('end_found')
+    generel = player.find('generel')
+    data    = generel.find('end_found')
     data.text = 'None' 
-    data    = generell.find('explore_score')
+    data    = generel.find('explore_score')
     data.text = 'None'
-    data    = generell.find('pos')
+    data    = generel.find('pos')
     data.text = 'None'
-    data    = generell.find('name')
+    data    = generel.find('name')
     data.text = 'None'
-    data    = generell.find('sex')
+    data    = generel.find('sex')
     data.text = 'None'
-    data    = generell.find('class')
+    data    = generel.find('class')
     data.text = 'None'
 
     traits  = player.find('traits')
@@ -142,7 +161,7 @@ def loadPlayer(savegame:int):
     tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
     root = tree.getroot()
 
-    player_DATA = { 'generell':{
+    player_DATA = { 'generel':{
                         'end_found' : None,
                         'explore_score' : None,
                         'pos' : None,
@@ -166,19 +185,19 @@ def loadPlayer(savegame:int):
 
     player = root.find('player')
 
-    generell = player.find('generell')
-    data    = generell.find('end_found')
-    player_DATA['generell']['end_found'] = data.text
-    data    = generell.find('explore_score')
-    player_DATA['generell']['explore_score'] = data.text
-    data    = generell.find('pos')
-    player_DATA['generell']['pos'] = data.text
-    data    = generell.find('name')
-    player_DATA['generell']['name'] = data.text
-    data    = generell.find('sex')
-    player_DATA['generell']['sex'] = data.text
-    data    = generell.find('class')
-    player_DATA['generell']['class'] = data.text
+    generel = player.find('generel')
+    data    = generel.find('end_found')
+    player_DATA['generel']['end_found'] = data.text
+    data    = generel.find('explore_score')
+    player_DATA['generel']['explore_score'] = data.text
+    data    = generel.find('pos')
+    player_DATA['generel']['pos'] = data.text
+    data    = generel.find('name')
+    player_DATA['generel']['name'] = data.text
+    data    = generel.find('sex')
+    player_DATA['generel']['sex'] = data.text
+    data    = generel.find('class')
+    player_DATA['generel']['class'] = data.text
 
     traits  = player.find('traits')
     data    = traits.find('health')
@@ -535,19 +554,19 @@ def resetSaveGame(savegame:int):
 
     player      = ET.SubElement(root, 'player')
 
-    generell    = ET.SubElement(player, 'generell')
-    data        = ET.SubElement(generell, 'end_found')
-    data.text   = 'None'
-    data        = ET.SubElement(generell, 'explore_score')
-    data.text   = 'None'
-    data        = ET.SubElement(generell, 'pos')
+    generel    = ET.SubElement(player, 'generel')
+    data        = ET.SubElement(generel, 'end_found')
+    data.text   = 'False'
+    data        = ET.SubElement(generel, 'explore_score')
+    data.text   = '0'
+    data        = ET.SubElement(generel, 'pos')
     data.text   = 'None,None'
-    data        = ET.SubElement(generell, 'name')
+    data        = ET.SubElement(generel, 'name')
+    data.text   = '---'
+    data        = ET.SubElement(generel, 'sex')
     data.text   = 'None'
-    data        = ET.SubElement(generell, 'sex')
-    data.text   = 'None'
-    data        = ET.SubElement(generell, 'class')
-    data.text   = 'None'
+    data        = ET.SubElement(generel, 'class')
+    data.text   = '---'
 
     traits      = ET.SubElement(player, 'traits')
     data        = ET.SubElement(traits, 'health')
@@ -565,7 +584,7 @@ def resetSaveGame(savegame:int):
 
     backpack    = ET.SubElement(player, 'backpack')
     data        = ET.SubElement(backpack, 'keys')
-    data.text   = 'foo'
+    data.text   = '0'
     for slot in range(12):
         data = ET.SubElement(backpack, 'slot')
         data.attrib['id'] = str(slot)
@@ -648,10 +667,6 @@ def resetSettings():
     # clear last savegame
     data = root.find('last_game/value')
     data.text = 'None'
-
-    # clear savegame meta data
-    for savegame in root.findall('meta_savegame/savegame'):
-        savegame.attrib['status'] = 'inactive'
 
     indent(root)
     tree.write(setting.path_Data+'meta.xml')

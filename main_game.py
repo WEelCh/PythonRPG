@@ -23,7 +23,7 @@ def initGame():
 def game ():
     '''Logic for BIG TILE'''
     choice = False
-    while 'BIT_TILE':
+    while 'BIG_TILE':
 
         choice = formating.bigTile(choice)
 
