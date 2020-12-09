@@ -54,6 +54,7 @@ class Enemy (Entity):
         super().__init__(n)
         self._atk       = int(a)
         self._health    = int(h)
+        self._max_health    = int(h)
         self._type = 'Enemy'
 
     def generate(self, exval):
@@ -75,6 +76,15 @@ class Enemy (Entity):
 
     def getHealth(self):
         return self._health
+    
+    def UpdateHealth(self,value:int):
+        if value >= self._max_health:
+            return 'death'
+        elif self._health - value == 0 :
+            return 'death'
+        else:
+            self._health = self._health - value
+        
     
     def getPackedValues(self):
         return '%d,%d'%(self._atk,self._health)

@@ -44,4 +44,6 @@ else:
         print(active_player.getCoordinates())
     print('END')
     savePlayer(active_player,1)
+    print('Hallooo')
+    active_player.saveQuitTile()
 # ---- ---- code //  ---- ----

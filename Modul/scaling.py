@@ -75,12 +75,12 @@ def getClassAttributes(type_input):
         20,    #intelligence = 7
         20,    #perception = 8 
         [       #items_backpack = []
-            ['Weapon','knob',10],
-            ['Weapon','the penetrator',10],
-            ['Food','Apple',10,10],
-            ['Food','Apple',10,10],
+            ['Weapon','defective Pistol',11],
+            ['Weapon','Mech defence',17],
+            ['Food','Apple',10,5],
+            ['Food','Special Apple',30,10],
             ['MedicalSupply','Syringe',10,10],
-        ]
+                ]
         
         ]
     elif type_input == 'Illusionist':
@@ -95,10 +95,10 @@ def getClassAttributes(type_input):
         20,    #intelligence = 7
         20,    #perception = 8 
         [       #items_backpack = []
-            ['Weapon','knob',10],
-            ['Weapon','the penetrator',10],
-            ['Food','Apple',10,10],
-            ['Food','Apple',10,10],
+            ['Weapon','defective Pistol',11],
+            ['Weapon','Mech defence',17],
+            ['Food','Apple',10,5],
+            ['Food','Special Apple',30,10],
             ['MedicalSupply','Syringe',10,10],
                 ]
         ]
@@ -114,10 +114,10 @@ def getClassAttributes(type_input):
         20,    #intelligence = 7
         20,    #perception = 8 
         [       #items_backpack = []
-            ['Weapon','knob',10],
-            ['Weapon','the penetrator',10],
-            ['Food','Apple',10,10],
-            ['Food','Apple',10,10],
+            ['Weapon','defective Pistol',11],
+            ['Weapon','Mech defence',17],
+            ['Food','Apple',10,5],
+            ['Food','Special Apple',30,10],
             ['MedicalSupply','Syringe',10,10],
                 ]
         ]
@@ -133,10 +133,10 @@ def getClassAttributes(type_input):
         20,    #intelligence = 0
         20,    #perception = 0 
         [       #items_backpack = []
-            ['Weapon','knob',10],
-            ['Weapon','the penetrator',10],
-            ['Food','Apple',10,10],
-            ['Food','Apple',10,10],
+            ['Weapon','defective Pistol',11],
+            ['Weapon','Mech defence',17],
+            ['Food','Apple',10,5],
+            ['Food','Special Apple',30,10],
             ['MedicalSupply','Syringe',10,10],
                 ]
         ]
