@@ -114,52 +114,52 @@ def savePlayer(obj:object, savegame:int):
 
     general = player.find('general')
     data    = general.find('end_found')
-    data.text = obj.treatEndFound()
+    data.text = str(obj.treatEndFound())
     data    = general.find('explore_score')
-    data.text = obj.treatExplorationScore()
+    data.text = str(obj.treatExplorationScore())
     data    = general.find('pos')
-    data.text = obj.getCoordinates()
+    data.text = str(obj.getCoordinates())
     data    = general.find('name')
-    data.text = obj.getName()
+    data.text = str(obj.getName())
     data    = general.find('sex')
-    data.text = obj.getSex()
+    data.text = str(obj.getSex())
     data    = general.find('class')
-    data.text = obj.getCharClass()
+    data.text = str(obj.getCharClass())
 
     traits  = player.find('traits')
     data    = traits.find('health')
-    data.text = '%d,%d'%(obj.treatHealth()[0],obj.treatHealth()[1])
+    data.text = '%s,%s'%(str(obj.treatHealth()[0]),str(obj.treatHealth()[1]))
     data    = traits.find('stamina')
-    data.text = '%d,%d'%(obj.treatStamina()[0],obj.treatStamina()[1])
+    data.text = '%s,%s'%(str(obj.treatStamina()[0]),str(obj.treatStamina()[1]))
     data    = traits.find('mana')
-    data.text = '%d,%d'%(obj.treatMana()[0],obj.treatMana()[1])
+    data.text = '%s,%s'%(str(obj.treatMana()[0]),str(obj.treatMana()[1]))
     data    = traits.find('strength')
-    data.text = obj.treatStrength()
+    data.text = str(obj.treatStrength())
     data    = traits.find('intelligence')
-    data.text = obj.treatIntelligence()
+    data.text = str(obj.treatIntelligence())
     data    = traits.find('perception')
-    data.text = obj.treatPerception()
+    data.text = str(obj.treatPerception())
 
     backpack = player.find('backpack')
     data = backpack.find('keys')
-    data.text = obj.getKeys()
+    data.text = str(obj.getKeys())
 
     for item in backpack.findall('slot/item'):
         item_values = obj.getItemValues(slot)
         if item_values !=None:    
             data = item.find('name')
-            data.text = item_values[1]
+            data.text = str(item_values[1])
             data = item.find('type')
-            data.text = item_values[0]
+            data.text = str(item_values[0])
             data = item.find('value')
-            data.text = item_values[2]
+            data.text = str(item_values[2])
         else:
             data = item.find('name')
-            data.text = None
+            data.text = 'None'
             data = item.find('type')
-            data.text = None
+            data.text = 'None'
             data = item.find('value')
-            data.text = None
+            data.text = 'None'
         slot += 1
 
     indent(root)
@@ -590,7 +590,7 @@ def resetSaveGame(savegame:int):
     data.text   = 'None'
     data        = ET.SubElement(general, 'class')
     data.text   = 'None'
-    data        = ET.SubElement(generel, 'class')
+    data        = ET.SubElement(general, 'class')
     data.text   = '---'
 
     traits      = ET.SubElement(player, 'traits')

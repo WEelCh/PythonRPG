@@ -115,22 +115,32 @@ class Player():
         uses given dictionary from loader.py
         '''
         player_dict = loadPlayer(savegame)
-        self.__name = player_dict['name']
-        self.__sex = player_dict['sex']
+        self.__name = player_dict['general']['name']
+        self.__sex = player_dict['general']['sex']
         # --- position on map
-        self.__coordinate_X,self.__coordinate_Y = int(player_dict['pos'].strip('_'))
-        self.__explore_score = player_dict['explore_score']
+        cache_str = player_dict['general']['pos']
+        self.__coordinate_X,self.__coordinate_Y = cache_str.split('_')
+        self.__coordinate_X, self.__coordinate_Y = int(self.__coordinate_X), int(self.__coordinate_Y)
+        self.__explore_score = int(player_dict['general']['explore_score'])
         # --- dynamic leveling attributes
         # --- dynamic attributes of player
-        self.__health,self.__max_health = int(player_dict['traits']['health'].strip(','))
-        self.__stamina,self.__max_stamina = int(player_dict['traits']['stamina'].strip(','))
-        self.__mana,self.__max_mana = int(player_dict['traits']['mana'].strip(','))
-        self.__strength = int(player_dict['traits']['strength'].strip(','))
-        self.__intelligence = int(player_dict['traits']['intelligence'].strip(','))
-        self.__perception = int(player_dict['traits']['perception'].strip(','))
-        self.__keys = player_dict['backpack']['keys']
+        cache_str = player_dict['traits']['health']
+        self.__health,self.__max_health = cache_str.split(',')
+        self.__health,self.__max_health = int(self.__health),(self.__max_health)
+        cache_str = player_dict['traits']['stamina']
+        self.__stamina,self.__max_stamina = cache_str.split(',')
+        self.__stamina,self.__max_stamina = int(self.__stamina),int(self.__max_stamina)
+        cache_str = player_dict['traits']['mana']
+        self.__mana,self.__max_mana = cache_str.split(',')
+        self.__mana,self.__max_mana = int(self.__mana),int(self.__max_mana)
+        self.__strength = int(player_dict['traits']['strength'])
+        self.__intelligence = int(player_dict['traits']['intelligence'])
+        self.__perception = int(player_dict['traits']['perception'])
+        self.__keys = int(player_dict['backpack']['keys'])
         for i in range(9):
-            if player_dict['backpack']['items']['type'][i] == 'Weapon':
+            if player_dict['backpack']['items']['type'][i] == 'None':
+                new_Item = None
+            elif player_dict['backpack']['items']['type'][i] == 'Weapon':
                 # INITIALIZES WEAPON OBJECT
                 new_Item = classItem.Weapon(
                     player_dict['backpack']['items']['name'][i],
@@ -138,13 +148,12 @@ class Player():
                 )
             elif player_dict['backpack']['items']['type'][i] == 'Food':
                 # INITIALIZES FOOD OBJECT
-                c,h = player_dict['backpack']['items']['value'][i].strip(',')
+                c,h = player_dict['backpack']['items']['value'][i].split(',')
                 new_Item = classItem.Food(
                     player_dict['backpack']['items']['name'][i],
                     c,
                     h,
                 )
-                new_Item = classItem.Food(item[1],item[2],item[3])
             elif player_dict['backpack']['items']['type'][i] == 'MedicalSupply':
                 # INITIALIZES MEDICALSUPPLY OBJECT
                 new_Item = classItem.MedicalSupply(
