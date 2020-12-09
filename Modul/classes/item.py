@@ -97,6 +97,7 @@ class MedicalSupply (Item):
 
     def getReHealth(self):
         return int(self._re_health)
+
     def getType(self):
         return 'MedicalSupply'
     
@@ -116,9 +117,7 @@ class Key (Item):
 
     def getType(self):
         return 'Key'
-    
-    def getPackedValues(self):
-        return '%d'%(self._re_health)
+
 
 # --- SHUT DOWN -------------------
 

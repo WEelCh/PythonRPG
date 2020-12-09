@@ -78,7 +78,9 @@ class Player():
         self.__sex = player_input[2]
         # iterating trough sublist, provided by choosen class
         self.__char_class = player_input[3]
-        self.setClassAttributes()
+        if self.__char_class != None:
+            # if player gets generated these values will set the default attributes.
+            self.setClassAttributes()
 
     def setClassAttributes(self):
         '''
@@ -106,31 +108,51 @@ class Player():
             self.__items_backpack[i] =new_Item
             i += 1
 
-    def initializePlayer(self):
+    def initializePlayer(self,savegame:int):
         '''
         {#ONLY FOR SAVEGAME}
         method to import player data after successfully saving the game
         uses given dictionary from loader.py
         '''
-        self.__name = 'empty'
-        self.__sex = 'empty'
+        player_dict = loadPlayer(savegame)
+        self.__name = player_dict['name']
+        self.__sex = player_dict['sex']
         # --- position on map
-        self.__active_coordinates = [0,0]
-        self.__explore_score = 0
+        self.__coordinate_X,self.__coordinate_Y = int(player_dict['pos'].strip('_'))
+        self.__explore_score = player_dict['explore_score']
         # --- dynamic leveling attributes
-        self.__level = 0
-        self.__experience = 0 
         # --- dynamic attributes of player
-        self.__health = 0
-        self.__max_health = 0
-        self.__stamina = 0
-        self.__max_stamina = 0
-        self.__mana = 0
-        self.__max_mana = 0
-        self.__strength = 0 
-        self.__intelligence = 0 
-        self.__perception = 0
-        self.__items_backpack = []
+        self.__health,self.__max_health = int(player_dict['traits']['health'].strip(','))
+        self.__stamina,self.__max_stamina = int(player_dict['traits']['stamina'].strip(','))
+        self.__mana,self.__max_mana = int(player_dict['traits']['mana'].strip(','))
+        self.__strength = int(player_dict['traits']['strength'].strip(','))
+        self.__intelligence = int(player_dict['traits']['intelligence'].strip(','))
+        self.__perception = int(player_dict['traits']['perception'].strip(','))
+        self.__keys = player_dict['backpack']['keys']
+        for i in range(9):
+            if player_dict['backpack']['items']['type'][i] == 'Weapon':
+                # INITIALIZES WEAPON OBJECT
+                new_Item = classItem.Weapon(
+                    player_dict['backpack']['items']['name'][i],
+                    player_dict['backpack']['items']['value'][i],
+                )
+            elif player_dict['backpack']['items']['type'][i] == 'Food':
+                # INITIALIZES FOOD OBJECT
+                c,h = player_dict['backpack']['items']['value'][i].strip(',')
+                new_Item = classItem.Food(
+                    player_dict['backpack']['items']['name'][i],
+                    c,
+                    h,
+                )
+                new_Item = classItem.Food(item[1],item[2],item[3])
+            elif player_dict['backpack']['items']['type'][i] == 'MedicalSupply':
+                # INITIALIZES MEDICALSUPPLY OBJECT
+                new_Item = classItem.MedicalSupply(
+                    player_dict['backpack']['items']['name'][i],
+                    player_dict['backpack']['items']['value'][i],
+                )
+            self.__items_backpack[i] =new_Item
+            i += 1
         #
         # must set the last used TILE from given coordinate
         self.setActiveTile()
@@ -165,6 +187,12 @@ class Player():
         ### is string
         '''
         return self.__sex
+
+    def getKeys(self):
+        '''
+        returns current amount of keys.
+        '''
+        return self.__keys
 
     def getItems(self):
         '''
@@ -313,6 +341,20 @@ class Player():
 # Update/Modify Itemlist
 # --- ---
 
+    def getItemValues(self,slot:int):
+        '''
+        returns values for queried item object from inventory
+        - type [0]
+        - name [1]
+        - value of item [2]
+        '''
+        item_values = list()
+        if self.__items_backpack[slot] != None:
+            item_values.append(self.__items_backpack[slot].getType())
+            item_values.append(self.__items_backpack[slot].getName())
+            item_values.append(self.__items_backpack[slot].getPackedValues())
+        else:
+            return None,None,None
     def checkItems(self,):
         '''
         a method for checking the players inventory.
@@ -530,7 +572,6 @@ class Player():
             return 'nothing found'  
         else:
             return self.setItem(self.__active_small_tile.getItem())
-
 
     def playerRest(self):
         '''

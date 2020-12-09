@@ -23,6 +23,10 @@ import Modul.classes.entity as Entity
 
 # --- SETUP -----------------------
 
+# --- ---
+# FUNCTIONS FORMATTING
+# --- ---
+
 def indent(elem, level=0):
     '''Copyrigth ERICK M. SPREGEL
     https://stackoverflow.com/users/1489446/erick-m-sprengel'''
@@ -41,8 +45,6 @@ def indent(elem, level=0):
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
 
-# --- MAIN ------------------------
-
 # FORMAT HANDLING
 
 def getYXFormat():
@@ -56,8 +58,6 @@ def getYXFormat():
     X = int(root[0][1].text)
     return Y, X
 
-
-
 def setYXFormat(new_y, new_x):
     '''changes the Y-Axis and X-Axis
     values at the meta.xml'''
@@ -70,7 +70,9 @@ def setYXFormat(new_y, new_x):
 
     tree.write(setting.path_Data+'meta.xml')
 
-
+# --- ---
+# XML HANDELING
+# --- ---
 
 def getSaveGame():
     '''checks for last savegame information
@@ -85,51 +87,61 @@ def getSaveGame():
 
 def savePlayer(obj:object, savegame:int):
     '''Saves the Player object'''
-
+    slot = 0
     tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
     root = tree.getroot()
 
     player = root.find('player')
 
-    generell = player.find('generell')
-    data    = generell.find('end_found')
-    data.text = 'None' 
-    data    = generell.find('explore_score')
-    data.text = 'None'
-    data    = generell.find('pos')
-    data.text = 'None'
-    data    = generell.find('name')
-    data.text = 'None'
-    data    = generell.find('sex')
-    data.text = 'None'
-    data    = generell.find('class')
-    data.text = 'None'
+    general = player.find('general')
+    data    = general.find('end_found')
+    data.text = obj.treatEndFound()
+    data    = general.find('explore_score')
+    data.text = obj.treatExplorationScore()
+    data    = general.find('pos')
+    data.text = obj.getCoordinates()
+    data    = general.find('name')
+    data.text = obj.getName()
+    data    = general.find('sex')
+    data.text = obj.getSex()
+    data    = general.find('class')
+    data.text = obj.getCharClass()
 
     traits  = player.find('traits')
     data    = traits.find('health')
-    data.text = 'None'
+    data.text = '%d,%d'%(obj.treatHealth()[0],obj.treatHealth()[1])
     data    = traits.find('stamina')
-    data.text = 'None'
+    data.text = '%d,%d'%(obj.treatStamina()[0],obj.treatStamina()[1])
     data    = traits.find('mana')
-    data.text = 'None'
+    data.text = '%d,%d'%(obj.treatMana()[0],obj.treatMana()[1])
     data    = traits.find('strength')
-    data.text = 'None'
+    data.text = obj.treatStrength()
     data    = traits.find('intelligence')
-    data.text = 'None'
+    data.text = obj.treatIntelligence()
     data    = traits.find('perception')
-    data.text = 'None'
+    data.text = obj.treatPerception()
 
     backpack = player.find('backpack')
     data = backpack.find('keys')
-    data.text = '0'
+    data.text = obj.getKeys()
 
     for item in backpack.findall('slot/item'):
-        data = item.find('name')
-        data.text = 'None'
-        data = item.find('type')
-        data.text = 'None'
-        data = item.find('value')
-        data.text = 'None'
+        item_values = obj.getItemValues(slot)
+        if item_values !=None:    
+            data = item.find('name')
+            data.text = item_values[1]
+            data = item.find('type')
+            data.text = item_values[0]
+            data = item.find('value')
+            data.text = item_values[2]
+        else:
+            data = item.find('name')
+            data.text = None
+            data = item.find('type')
+            data.text = None
+            data = item.find('value')
+            data.text = None
+        slot += 1
 
     indent(root)
     tree.write(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
@@ -137,12 +149,14 @@ def savePlayer(obj:object, savegame:int):
 
 
 def loadPlayer(savegame:int):
-    '''Load the Player'''
+    '''
+    Loads the Player
+    '''
 
     tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
     root = tree.getroot()
 
-    player_DATA = { 'generell':{
+    player_DATA = { 'general':{
                         'end_found' : None,
                         'explore_score' : None,
                         'pos' : None,
@@ -166,19 +180,19 @@ def loadPlayer(savegame:int):
 
     player = root.find('player')
 
-    generell = player.find('generell')
-    data    = generell.find('end_found')
-    player_DATA['generell']['end_found'] = data.text
-    data    = generell.find('explore_score')
-    player_DATA['generell']['explore_score'] = data.text
-    data    = generell.find('pos')
-    player_DATA['generell']['pos'] = data.text
-    data    = generell.find('name')
-    player_DATA['generell']['name'] = data.text
-    data    = generell.find('sex')
-    player_DATA['generell']['sex'] = data.text
-    data    = generell.find('class')
-    player_DATA['generell']['class'] = data.text
+    general = player.find('general')
+    data    = general.find('end_found')
+    player_DATA['general']['end_found'] = data.text
+    data    = general.find('explore_score')
+    player_DATA['general']['explore_score'] = data.text
+    data    = general.find('pos')
+    player_DATA['general']['pos'] = data.text
+    data    = general.find('name')
+    player_DATA['general']['name'] = data.text
+    data    = general.find('sex')
+    player_DATA['general']['sex'] = data.text
+    data    = general.find('class')
+    player_DATA['general']['class'] = data.text
 
     traits  = player.find('traits')
     data    = traits.find('health')
@@ -207,7 +221,7 @@ def loadPlayer(savegame:int):
         data = item.find('value')
         player_DATA['backpack']['items']['value'][i] = data.text
         i += 1
-
+    return player_DATA
 
 
 # SAMPLE TILE HANDLING
@@ -258,12 +272,19 @@ def saveTile(obj, coord:str, savegame:int):
         # reads out item object from iterated small tile
         queried_item = small_tile_list[i].getItem()
         
-        if queried_item != None:
-            data.text = queried_item.getType()
-            data = ET.SubElement(item, 'name')
-            data.text = queried_item.getName()
-            data = ET.SubElement(item, 'value')
-            data.text = queried_item.getPackedValues()
+        if(queried_item != None):
+            if(queried_item.getType() != 'Key'):
+                data.text = queried_item.getType()
+                data = ET.SubElement(item, 'name')
+                data.text = queried_item.getName()
+                data = ET.SubElement(item, 'value')
+                data.text = queried_item.getPackedValues()
+            elif(queried_item.getType() == 'Key'):
+                data.text = queried_item.getType()
+                data = ET.SubElement(item, 'name')
+                data.text = queried_item.getName()
+                data = ET.SubElement(item, 'value')
+                data.text = 0
         else:
             data.text = 'None'
             data = ET.SubElement(item, 'name')
@@ -537,18 +558,18 @@ def resetSaveGame(savegame:int):
 
     player      = ET.SubElement(root, 'player')
 
-    generell    = ET.SubElement(player, 'generell')
-    data        = ET.SubElement(generell, 'end_found')
+    general    = ET.SubElement(player, 'general')
+    data        = ET.SubElement(general, 'end_found')
     data.text   = 'None'
-    data        = ET.SubElement(generell, 'explore_score')
+    data        = ET.SubElement(general, 'explore_score')
     data.text   = 'None'
-    data        = ET.SubElement(generell, 'pos')
+    data        = ET.SubElement(general, 'pos')
     data.text   = 'None,None'
-    data        = ET.SubElement(generell, 'name')
+    data        = ET.SubElement(general, 'name')
     data.text   = 'None'
-    data        = ET.SubElement(generell, 'sex')
+    data        = ET.SubElement(general, 'sex')
     data.text   = 'None'
-    data        = ET.SubElement(generell, 'class')
+    data        = ET.SubElement(general, 'class')
     data.text   = 'None'
 
     traits      = ET.SubElement(player, 'traits')

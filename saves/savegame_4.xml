@@ -1,13 +1,13 @@
 <savegame_4>
   <player>
-    <generell>
+    <general>
       <end_found>None</end_found>
       <explore_score>None</explore_score>
       <pos>None,None</pos>
       <name>None</name>
       <sex>None</sex>
       <class>None</class>
-    </generell>
+    </general>
     <traits>
       <health>None</health>
       <stamina>None</stamina>

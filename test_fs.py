@@ -10,13 +10,16 @@ __author__ ='Fabian Stange'
 # ---- ---- global variables ---- ----
 import Modul.classes.environment as environment
 import  Modul.classes.player as player
-from Modul.loader import saveTile,resetSaveGame
+from Modul.loader import saveTile,resetSaveGame,savePlayer
 # ---- ---- ---- ----
 #saveTile(None,'0_0',1)
 choice = input('yes or no')
 
 if choice == 'yes':
     resetSaveGame(1)
+    resetSaveGame(2)
+    resetSaveGame(3)
+    resetSaveGame(4)
 else:    
     list_player = [
         1,
@@ -40,5 +43,6 @@ else:
         print(active_player.getActiveTileName())
         print(active_player.getCoordinates())
     print('END')
+    savePlayer(active_player,1)
 
 # ---- ---- code //  ---- ----
