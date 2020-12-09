@@ -52,6 +52,7 @@ norm_content=lambda c, c1: print(x+'║ '+c.ljust(58)+' ║ '+c1.ljust(58)+' ║
 mid_content =lambda c: print(x+'║'+c.center(121)+'║')
 mid_headline=lambda c: print(x+'║'+c.center(121,'═')+'║')
 midT_content=lambda c1, c2: print(x+'║'+c1.center(60)+'║'+c2.center(60)+'║')
+di_content  =lambda c1, c2: print(x+'║'+c1.center(60)+' '+c2.center(60)+'║')
 tri_content =lambda c1,c2,c3: print(x+'║'+c1.center(40)+c2.center(40)+c3.center(40)+' ║')
 
 
@@ -785,7 +786,7 @@ def inventory(error):
     mid_headline(' What do you want to do ')
 
     empty_line(3)
-    tri_content('1 : Eat', '2 : Use', '3 : Discard')
+    di_content('1 : Use', '2 : Discard')
     mid_content('4 : Diary')
     empty_line(4)
 
