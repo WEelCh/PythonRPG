@@ -333,7 +333,12 @@ class smallTile():
 # --- ---
 # RETURN VALUES 
 # --- ---
-
+    def getItemName(self):
+        '''
+        returns name of available Item on tile
+        '''
+        return self.__available_item.getName()
+    
     def getName(self):
         return self.__name
     

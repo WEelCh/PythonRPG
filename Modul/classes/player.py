@@ -170,7 +170,9 @@ class Player():
 # --- ---
 # RETURN VALUES
 # --- ---
-    
+    '''
+    [unicode(x.strip()) if x is not None else '' for x in row]
+    '''
     # ---  static values ---
     
     def getName(self):
@@ -215,7 +217,7 @@ class Player():
         returns list of item names 
         ### is list
         '''
-        return [item.getName() for item in self.__items_backpack if item != None ]
+        return [item.getName() if item != None else None for item in self.__items_backpack]
     
     def getCoordinates(self):
         '''
@@ -224,6 +226,16 @@ class Player():
         Example: 0_-1;-2_2
         '''
         return str(self.__coordinate_X)+'_'+str(self.__coordinate_Y)
+
+    def getProbableCoords(self,direction):
+        if direction == 'North':
+            return str(self.__coordinate_X+1)+'_'+str(self.__coordinate_Y)
+        elif direction == 'South':
+            return str(self.__coordinate_X-1)+'_'+str(self.__coordinate_Y)
+        elif direction == 'East':
+            return str(self.__coordinate_X)+'_'+str(self.__coordinate_Y+1)
+        elif direction == 'West':
+            return str(self.__coordinate_X)+'_'+str(self.__coordinate_Y-1)
     
     def getMaxHealth(self):
         return self.__max_health
@@ -245,6 +257,29 @@ class Player():
             return self.__active_small_tile.getName()
         else:
             return '---'
+    
+    def getSmallTileDescription(self):
+        if self.__active_small_tile != None:
+            return self.__active_small_tile.getDescription()
+        else:
+            return '---'
+
+    def getTravelInformation(self):
+        '''
+        ONLY FOR UI 
+        returns coordinates of adjacent tiles:
+        - [0 is NORTH]
+        - [1 is SOUTH]
+        - [2 is WEST]
+        - [3 is EAST]
+        '''
+        direction_list =[
+            self.getProbableCoords('North'),
+            self.getProbableCoords('South'),
+            self.getProbableCoords('West'),
+            self.getProbableCoords('East'),
+        ]
+        
 # --- ---
 # UPDATING VALUES
 # --- ---
@@ -606,7 +641,15 @@ class Player():
 # --- ---
 # Player Interaction
 # --- ---
-    
+    def getItemName(self):
+        '''
+        returns ItemName
+        '''
+        if self.__active_small_tile.getItem() == None:
+            return 'nothing found'  
+        else:
+            return self.__active_small_tile.getName()
+        
     def getEntity(self):
         '''
         returns the active entity object
@@ -632,7 +675,7 @@ class Player():
         if self.__active_small_tile.getItem() == None:
             return 'nothing found'  
         else:
-            return self.setItem(self.__active_small_tile.getItem())
+            return self.setItem(self.__active_small_tile.getItemName())
 
     def searchEntity(self):
         '''
@@ -645,7 +688,8 @@ class Player():
             return 'nothing found'  
         else:
             self.__active_entity = self.__active_small_tile.getEntity()
-
+            return self.__active_entity.getName()
+   
     def playerRest(self):
         '''
         method to let player rest in order to restore stamina (and health)
@@ -668,13 +712,13 @@ class Player():
 
     '''
     adds interaction with environment // active Tile
-    - check if entity is enemy or player to allow/disallow travelling
-    - if entity is present no movement is allowed 
     - query backpack ///
     - explore(active_tile._small_tile) -- results in combat or nothing
     - rest - lets the person rest -- stamina restore / slight health --  and with a certain percentage a monster might spawn during that process/ 
     - active_small_tile to directly interact with the queried smallTile from a bigTile
     ////
+    - check if entity is enemy or player to allow/disallow travelling
+    - if entity is present no movement is allowed 
     - searchItem(active_tile._small_tile) -- results with item / nothing ### done ### 
     - unlock - if tile.smalltile[] locked >> check if enough owned ### done ### 
     '''
@@ -691,7 +735,7 @@ class Player():
             #
             # FIGHT OR SMTH 
             # begin to attack opponent
-            self.__acrtive_entity.UpdateHealth(self.)
+            self.__active_entity.UpdateHealth(self.getTotalStrength())
         elif(self.__active_entity.getType() =='Friend'):
             return 'you cannot fight a friend!'
         else:
