@@ -170,9 +170,7 @@ class Player():
 # --- ---
 # RETURN VALUES
 # --- ---
-    '''
-    [unicode(x.strip()) if x is not None else '' for x in row]
-    '''
+
     # ---  static values ---
     
     def getName(self):
