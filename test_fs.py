@@ -38,12 +38,10 @@ else:
     print(active_player.listMana())
     print(active_player.goEast())
     print(active_player.getCoordinates())
-'''
     for i in range(90):
         print(active_player.goNorth())
         print(active_player.getActiveTileName())
         print(active_player.getCoordinates())
     print('END')
     savePlayer(active_player,1)
-'''
 # ---- ---- code //  ---- ----
