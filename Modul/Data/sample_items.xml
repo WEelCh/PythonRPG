@@ -3,12 +3,42 @@
     <items>
 <!--
 #####
-##### WEAPON // SAMPLES {weapon
+##### WEAPON // SAMPLES {weapon}
 #####
 -->
         <item type = 'Weapon'>
             <name>Sword of Death</name>
             <value>3</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Dimas AR-15</name>
+            <value>30</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Peacebringer</name>
+            <value>30</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Shotgun</name>
+            <value>22</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Sawed-off-Shotgun</name>
+            <value>30</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Mech cannon</name>
+            <value>40</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Mr-15</name>
+            <value>25</value>
         </item>
 
         <item type = 'Weapon'>
@@ -57,12 +87,82 @@
         </item>
 
         <item type = 'Weapon'>
-            <name>Sword of Dev</name>
-            <value>12</value>
+            <name>Baseball bat</name>
+            <value>25</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>dangerous baton</name>
+            <value>22</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>damned baton</name>
+            <value>15</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>bloody baton</name>
+            <value>20</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>rueful baton</name>
+            <value>17</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>sharpened sword</name>
+            <value>20</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>greatsword</name>
+            <value>30</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>sharpened greatsword</name>
+            <value>35</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>enchanted greatsword</name>
+            <value>27</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Scythe</name>
+            <value>33</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>edged Scythe</name>
+            <value>36</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>broken Scythe</name>
+            <value>25</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>broken Greatsword</name>
+            <value>10</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>damaged Greatsword</name>
+            <value>19</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>flawed sword</name>
+            <value>20</value>
         </item>
 <!--
 #####
-##### WEAPON // SAMPLES {weapon
+##### FOOD // SAMPLES {Food}
 #####
 -->
 
@@ -71,18 +171,182 @@
             <value>25,3</value>
         </item>
 
+        <item type = 'Food'>
+            <name>Enchanted Golden Apple</name>
+            <value>25,25</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>carrots</name>
+            <value>4,3</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>cucumber</name>
+            <value>5,5</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>thermal paste</name>
+            <value>-3,2</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>Orange</name>
+            <value>2,5</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>radish</name>
+            <value>6,3</value>
+        </item>
+
+        <item type = 'Water'>
+            <name>Golden Apple</name>
+            <value>2,2</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>eggs</name>
+            <value>4,3</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>rotten spinach</name>
+            <value>-5,-5</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>spinach</name>
+            <value>5,4</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>lettuce</name>
+            <value>2,4</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>Grapes</name>
+            <value>4,3</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>Tomatoes</name>
+            <value>4,4</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>canned Flesh</name>
+            <value>10,5</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>canned potatoes</name>
+            <value>3,5</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>canned stew</name>
+            <value>7,3</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>canned crisps</name>
+            <value>4,4</value>
+        </item>
+
+        <item type = 'Food'>
+            <name>sweets</name>
+            <value>3,5</value>
+        </item>
+
 <!--
 #####
-##### WEAPON // SAMPLES {weapon
+##### MEDICAL SUPPLIES // SAMPLES {MedicalSupply}
 #####
 -->
 
         <item type ='MedicalSupply'>
+            <name>morphium</name>
+            <value>30</value>
+        </item>
+
+        <item type ='MedicalSupply'>
             <name>antibiotics</name>
+            <value>15</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>bandage</name>
+            <value>5</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>compressor</name>
+            <value>5</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>vaccines</name>
+            <value>18</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>Syringes</name>
+            <value>15</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>Bloodbag</name>
+            <value>17</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>insulin</name>
             <value>25</value>
         </item>
 
+        <item type ='MedicalSupply'>
+            <name>Adempas</name>
+            <value>24</value>
+        </item>
 
+        <item type ='MedicalSupply'>
+            <name>Ibuprofen</name>
+            <value>20</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>flux recalibrator</name>
+            <value>20</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>positron restabilizer</name>
+            <value>15</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>special bandage</name>
+            <value>14</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>Paracetamol</name>
+            <value>10</value>
+        </item>
+
+        <item type ='MedicalSupply'>
+            <name>proton pump inhibtor</name>
+            <value>25</value>
+        </item>
+
+<!--
+#####
+##### KEY // SAMPLES {Key}
+#####
+-->
         <item type ='Key'>
             <name>Key</name>
             <value>0</value>

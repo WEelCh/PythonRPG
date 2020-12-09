@@ -3,7 +3,7 @@
     <general>
       <end_found>None</end_found>
       <explore_score>None</explore_score>
-      <pos>None,None</pos>
+      <pos>0,0</pos>
       <name>None</name>
       <sex>None</sex>
       <class>None</class>
@@ -108,7 +108,7 @@
   <world>
     <region coord="0_0">
       <big_tile>
-        <name name="Shelter" />
+        <name>Shelter</name>
       </big_tile>
       <small_tiles>
         <tile id="0">

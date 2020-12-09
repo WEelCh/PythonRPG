@@ -1,14 +1,147 @@
 <data>
+<!--
+#####
+##### FRIEND // SAMPLES {Friend}
+#####
+-->
 
     <entities>
         <entity type = 'Friend'>
-            <name>Dev</name>
+            <name>Elijah</name>
             <value>0,0</value>
         </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>Dima</name>
+            <value>0,0</value>
+        </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>Tom</name>
+            <value>0,0</value>
+        </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>Spoon champion</name>
+            <value>0,0</value>
+        </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>Iteration Dio</name>
+            <value>0,0</value>
+        </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>Jeff</name>
+            <value>0,0</value>
+        </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>Iteration Helios</name>
+            <value>0,0</value>
+        </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>Anomaly Clara</name>
+            <value>0,0</value>
+        </entity>
+
+    <entities>
+        <entity type = 'Friend'>
+            <name>???</name>
+            <value>0,0</value>
+        </entity>
+
+
+<!--
+#####
+##### Enemy // SAMPLES {Enemy}
+#####
+-->
+
         <entity type = 'Enemy'>
             <name>Kowalski</name>
             <value>14,2</value>
         </entity>
+
+        <entity type = 'Enemy'>
+            <name>Fred</name>
+            <value>20,4</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Mecha- 001 Entity"1</name>
+            <value>15,2</value>
+        </entity>
+
+
+        <entity type = 'Enemy'>
+            <name>Mecha- 022 Entity"2</name>
+            <value>14,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Mech -1301 Fighter</name>
+            <value>14,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Soldier</name>
+            <value>9,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Anomaly __entity 01</name>
+            <value>34,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>????</name>
+            <value>10,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Iteration Solider</name>
+            <value>8,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Iteration Builder</name>
+            <value>20,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Iteration Constructor</name>
+            <value>24,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>C-RAM</name>
+            <value>30,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Attack Robot 001</name>
+            <value>22,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Attack Robot 002</name>
+            <value>25,2</value>
+        </entity>
+
+        <entity type = 'Enemy'>
+            <name>Attack Robot 012</name>
+            <value>24,2</value>
+        </entity>
+
     </entities>
 
 

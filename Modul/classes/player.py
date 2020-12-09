@@ -126,7 +126,7 @@ class Player():
         # --- dynamic attributes of player
         cache_str = player_dict['traits']['health']
         self.__health,self.__max_health = cache_str.split(',')
-        self.__health,self.__max_health = int(self.__health),(self.__max_health)
+        self.__health,self.__max_health = int(self.__health),int(self.__max_health)
         cache_str = player_dict['traits']['stamina']
         self.__stamina,self.__max_stamina = cache_str.split(',')
         self.__stamina,self.__max_stamina = int(self.__stamina),int(self.__max_stamina)
@@ -364,6 +364,7 @@ class Player():
             item_values.append(self.__items_backpack[slot].getPackedValues())
         else:
             return None,None,None
+
     def checkItems(self,):
         '''
         a method for checking the players inventory.
@@ -380,14 +381,20 @@ class Player():
 
     def setItem(self,item:object):
         '''
+        TAKE ITEM FROM TILE //
         adds a new item as long as there is enough place for the item. 
         If the backpack - list to be precise - is full, it will ask the player
         to choose, whether to change an existing one or just drop the item
         
+        - adds key to inventory if Type == Key
         - returns success message if check passed
         
         - leads to swapItem if no space left
         '''
+        if item.getType() == 'Key':
+            self.__keys += 1
+            self.__active_small_tile.setItem()
+            return 'key added to inventory'
         if self.checkItems() == True:
             self.__items_backpack.append(item)
             self.__active_small_tile.setItem()
@@ -395,8 +402,9 @@ class Player():
         else:
             self.swapItem(item)
 
-    def deleteItem(self,item:object):
+    def discardItem(self,item:object):
         '''
+        >> QUERY ITEM FIRST,BEFORE USING IT HERE 
         deletes item that was passed trough to that method
         if the given item was not found, it will return "item not found"
         '''
@@ -443,6 +451,45 @@ class Player():
         ### is object
         '''
         pass
+
+    def UseItem(self,queried_item):
+        '''
+        uses choosen Item - restores health or smth like that
+        - weapons not possible //
+        '''
+        if(queried_item.getType() == 'Weapon') or (queried_item == None):
+            return 'cant use that item'
+        elif(queried_item.getType() == 'MedicalSupply'):
+            # heals player with given amount
+            if queried_item.getReHealth() >= self.__max_health:
+                self.treatHealth(1,[self.__max_health,self.__max_health])
+            elif queried_item.getReHealth() + self.__health >= self.__max_health:
+                self.treatHealth(1,[self.__max_health,self.__max_health])
+            else:
+                self.treatHealth(1,[queried_item.getReHealth()+self.__health,self.__max_health])
+        elif(queried_item.getType() == 'Food'):
+            # heals player with given amount
+            
+            if queried_item.getReHealth() >= self.__max_health:
+                # restores to max
+                self.treatHealth(1,[self.__max_health,self.__max_health])
+            elif queried_item.getReHealth() + self.__health >= self.__max_health:
+                # restores to max 
+                self.treatHealth(1,[self.__max_health,self.__max_health])
+            else:
+                # restores given amount
+                self.treatHealth(1,[queried_item.getReHealth()+self.__health,self.__max_health])  
+                # restores players Stamina to given amount
+            
+            if queried_item.getReStamina() >= self.__max_stamina:
+                # restores to max 
+                self.treatStamina(1,[self.__max_stamina,self.__max_stamina])
+            elif queried_item.getReStamina() + self.__stamina >= self.__max_stamina:
+                # restores to max 
+                self.treatStamina(1,[self.__max_stamina,self.__max_stamina])
+            else:
+                # restores players Stamina to given amount
+                self.treatStamina(1,[self.__max_stamina+ queried_item.geReStamina(),self.__max_stamina])
 
 # --- ---    
 # Player Movement
@@ -582,6 +629,18 @@ class Player():
         else:
             return self.setItem(self.__active_small_tile.getItem())
 
+    def searchEntity(self):
+        '''
+        method to let player search for an Entity in active_small_tile
+        - returns nothing if active_small_tile doesnt hold an item
+        ///
+        IF ITEM TYPE Key >> append to saved keys
+        '''
+        if self.__active_small_tile.getEntity() == None:
+            return 'nothing found'  
+        else:
+            self.__active_entity = self.__active_small_tile.getEntity()
+
     def playerRest(self):
         '''
         method to let player rest in order to restore stamina (and health)
@@ -593,7 +652,7 @@ class Player():
         # checks for enemy on smallTile
         if(self.__active_entity != None):
             if(self.__active_entity.getType() != 'Friend'):
-                return 'sleep not possible, theres an entity here'
+                return 'sleep not possible, theres a  Monster here'
         # checks for type 
         if self.__active_tile.getType() == 'shelter':
             self.treatStamina(1,[self.__max_stamina,self.__max_stamina])
@@ -618,7 +677,21 @@ class Player():
 # --- ---
 # Player Combat
 # --- ---
-
+    def FightActiveEntity(self):
+        '''
+        funtion to fight enemy
+        only works after searchEntity was successfull // 
+        '''
+        if(self.__active_entity != None) and (self.__active_entity.getType() == 'Enemy'):
+            #
+            # FIGHT OR SMTH 
+            # begin to attack opponent
+            self.__acrtive_entity.UpdateHealth(self.)
+        elif(self.__active_entity.getType() =='Friend'):
+            return 'you cannot fight a friend!'
+        else:
+            return 'No entity present'
+        
 # --- ---
 # VISUALIZING VALUES
 # --- ---
