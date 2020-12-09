@@ -8,6 +8,7 @@
 # --- IMPORT ----------------------
 
 from Modul import loader, formating
+from Modul.classes import player
 
 # --- DECLARATION -----------------
 
@@ -15,24 +16,34 @@ from Modul import loader, formating
 
 # --- SETUP -----------------------
 
-def initGame():
-    pass
+def initGame(attr:list):
+    '''player'''
+
+    p = player.Player(attr)
+    return p
 
 # --- MAIN ------------------------
 
 def game ():
     '''Logic for BIG TILE'''
+    p = initGame([1,'Dev', 'Male', 'Mercenary'])
     choice = False
     while 'BIG_TILE':
 
-        choice = formating.bigTile(choice)
+        choice = formating.bigTile(choice, p)
 
         if   choice == '1': # Travel
             while 'travel':
-                choice = formating.travel(choice)
-                if   choice in '123456789' and len(choice)==1:
-                    '''DEBUGG call player move ? '''
-                    break
+                choice = formating.travel(choice, p)
+                if   choice in '1234' and len(choice)==1:
+                    if choice == '1':
+                        p.goNorth()
+                    elif choice == '2':
+                        p.goWest()
+                    elif choice == '3':
+                        p.goEast()
+                    elif choice == '4':
+                        p.goSouth()
                 elif choice == '0':
                     break
                 else:
@@ -40,9 +51,9 @@ def game ():
 
         elif choice == '2': # Enter
             while 'enter':
-                choice = formating.enter(choice)
+                choice = formating.enter(choice,p)
                 if   choice in '123456789' and len(choice)==1:
-                    game_smallTile(choice)
+                    p = game_smallTile(choice,p)
                     break
                 elif choice == '0':
                     break
@@ -62,7 +73,7 @@ def game ():
 
 
 
-def game_smallTile(tile_no):
+def game_smallTile(tile_no,p):
     ''' Logic for SMALL TILE'''
     choice = False
     while 'SMALL_TILE':
@@ -71,12 +82,12 @@ def game_smallTile(tile_no):
 
         if   choice == '1': # Search
             '''DEBUGG check game data for item'''
-            c = 'item_info'
+            c = p.getItemName()
             formating.smallTile_search(False, c)
 
         elif choice == '2': # Take
             '''DEBUGG check game data for item'''
-            c = 'item_info'
+            c = p.searchItem()
             formating.smallTile_take(False, c)
 
         elif choice == '3': # Inventory
@@ -84,12 +95,12 @@ def game_smallTile(tile_no):
 
         elif choice == '4': # Talk
             '''DEBUGG check game data for entity'''
-            c = 'entity_info'
+            c = p.searchEntity()
             formating.smallTile_talk(False, c)
 
         elif choice == '5': # Attack
             '''DEBUGG check game data for entity'''
-            c = 'entity_info'
+            c = p.searchEntity()
             formating.smallTile_attack(False, c)
 
         elif choice == '6': # Flee
@@ -99,7 +110,7 @@ def game_smallTile(tile_no):
 
         elif choice == '7': # Sleep
             '''DEBUGG check for sleep'''
-            c = 'sleep_status'
+            c = p.playerRest()
             formating.smallTile_sleep(False, c)
 
         elif choice == '0': # Back
@@ -107,6 +118,8 @@ def game_smallTile(tile_no):
             if no enemy --> break
             if enemy --> not possible'''
             break
+
+    return p
 
 
 
@@ -116,11 +129,11 @@ def game_inventory():
     while 'INVENTORY':
 
         choice = formating.inventory(choice)
-
+        '''
         if   choice == '1': # Eat
             while 'eat':
                 choice = formating.inventory_eat(choice)
-                '''DEBUGG check for eadability'''
+                """DEBUGG check for eadability"""
                 if choice in '123456789' and len(choice)==1:
                     pass
                 elif choice in ['10','11','12']:
@@ -129,8 +142,8 @@ def game_inventory():
                     break
                 else:
                     choice = True
-
-        elif choice == '2': # Use
+        '''
+        if choice == '1': # Use
             while 'use':
                 choice = formating.inventory_use(choice)
                 '''DEBUGG check for useability'''
@@ -143,7 +156,7 @@ def game_inventory():
                 else:
                     choice = True
 
-        elif choice == '3': # Discard
+        elif choice == '2': # Discard
             while 'discard':
                 choice = formating.inventory_discard(choice)
                 '''DEBUGG check'''
