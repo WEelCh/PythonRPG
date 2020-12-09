@@ -379,7 +379,8 @@ def loadTile(coords:str, savegame:int):
     # loads all the region DATA in region_DATA
 
     # big_tile
-    region_DATA['big_tile']['name'] = region.find('big_tile/name').text
+    data = region.find('big_tile/name')
+    region_DATA['big_tile']['name'] = data.text
 
     # small_tile
     for i in range(9):
@@ -583,7 +584,7 @@ def resetSaveGame(savegame:int):
     data        = ET.SubElement(general, 'explore_score')
     data.text   = 'None'
     data        = ET.SubElement(general, 'pos')
-    data.text   = 'None,None'
+    data.text   = '0,0'
     data        = ET.SubElement(general, 'name')
     data.text   = 'None'
     data        = ET.SubElement(general, 'sex')
@@ -645,7 +646,7 @@ def resetSaveGame(savegame:int):
 
     big_tile    = ET.SubElement(region, 'big_tile')
     data        = ET.SubElement(big_tile, 'name')
-    data.attrib['name'] = 'Shelter'
+    data.text = 'Shelter'
 
     small_tiles = ET.SubElement(region, 'small_tiles')
     for i in range(9):
@@ -673,6 +674,7 @@ def resetSaveGame(savegame:int):
         data.text = 'None'
         data    = ET.SubElement(entity, 'value')
         data.text = 'None'
+
 
     indent(root)
     tree.write(setting.path_Saves+'savegame_%d.xml'%(savegame))
