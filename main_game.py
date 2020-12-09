@@ -1,10 +1,6 @@
 # AUTHOR : Elijah Zeidler
 # DATE   : 
 
-# --- DOCSTRING -------------------
-'''
-
-'''
 # --- IMPORT ----------------------
 
 from Modul import loader, formating
@@ -17,7 +13,9 @@ from Modul.classes import player
 # --- SETUP -----------------------
 
 def initGame(attr:list):
-    '''player'''
+    '''
+    player
+    '''
 
     p = player.Player(attr)
     return p
@@ -30,7 +28,7 @@ def game (player_data):
     choice = False
     while 'BIG_TILE':
 
-        choice = formating.bigTile(choice, p)
+        choice = formating.bigTile(choice,p)
 
         if   choice == '1': # Travel
             while 'travel':
@@ -78,7 +76,7 @@ def game_smallTile(tile_no,p):
     choice = False
     while 'SMALL_TILE':
 
-        choice = formating.smallTile(choice)
+        choice = formating.smallTile(choice,p)
 
         if   choice == '1': # Search
             '''DEBUGG check game data for item'''

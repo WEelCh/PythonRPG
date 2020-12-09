@@ -49,6 +49,7 @@ class bigTile():
             self.generateSmallTiles()
         else: 
             self.initializeTile(player_obj)
+
     
 # --- ---
 # SET VALUES
@@ -111,6 +112,7 @@ class bigTile():
                 small_tile.append(None)
             # calls initialisation of small Tile handing over the collected data
             self.__inherited_smallTiles[i] = smallTile(self.__given_explore_count,self.__type,1,small_tile)
+        print('done initializing!')
 
 # --- --- 
 # RETURN VALUES
@@ -172,12 +174,6 @@ class bigTile():
 # Interaction small Tile
 # --- --- 
 
-    def listSmallTiles(self):
-        '''
-        returns a list with each name of the inhereted small tiles 
-        ### is list
-        '''
-        return [Tile.getName() for Tile in self.__inherited_smallTiles]
             
 
     def querySmallTiles(self,query):

@@ -51,7 +51,8 @@ class Player():
         self.__items_backpack = [None for i in range(12)]
         self.__keys = 0
         self.generatePlayer(list_at)
-        self.setActiveTile()
+        self.CheckTileExplored()
+        # self.setActiveTile()
 
 # --- ---
 # SET VALUES
@@ -164,7 +165,7 @@ class Player():
             i += 1
         #
         # must set the last used TILE from given coordinate
-        self.setActiveTile()
+        self.CheckTileExplored()
         
 
 # --- ---
@@ -244,6 +245,12 @@ class Player():
     def getMaxMana(self):
         return self.__max_mana
 
+    def getActiveTile(self):
+        '''
+        returns object self.__active_tile
+        '''
+        return self.__active_tile
+    
     def getBigTileName(self):
         return self.__active_tile.getName()
     
@@ -277,6 +284,7 @@ class Player():
             self.getProbableCoords('West'),
             self.getProbableCoords('East'),
         ]
+        return direction_list
         
 # --- ---
 # UPDATING VALUES
@@ -543,7 +551,7 @@ class Player():
         '''
         upon entering a new BigTile this method checks if the new one was already generated before. 
         otherwise it will generate a new one and save the last Tile.
-        - runs before player travells  /// 
+        - runs before player travels  /// 
         '''
         
         if loadTile(self.getCoordinates(),self.__savegame) == False:
@@ -613,7 +621,7 @@ class Player():
         method to set active Big tile upon loading the character for the first time // or smth like that
         '''
         # loads given tile
-        self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
+        self.__active_tile =(environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1))
 
     def setActiveSmallTile(self,query):
         '''
@@ -627,14 +635,6 @@ class Player():
                 return "you cant move rn, there's an enemy"
         self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
         return self.__active_small_tile.getName()
-
-    def listSmallTiles(self):
-        '''
-        returns available small tiles on big tile.
-        
-        ### is tuple/list
-        '''
-        return self.__active_tile.listSmallTiles()    
 
 # --- ---
 # Player Interaction
