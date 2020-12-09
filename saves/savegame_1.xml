@@ -10,12 +10,12 @@
       <class>---</class>
     </general>
     <traits>
-      <health>10,20</health>
-      <stamina>20,20</stamina>
-      <mana>20,20</mana>
-      <strength>20</strength>
-      <intelligence>20</intelligence>
-      <perception>20</perception>
+      <health>None</health>
+      <stamina>None</stamina>
+      <mana>None</mana>
+      <strength>None</strength>
+      <intelligence>None</intelligence>
+      <perception>None</perception>
     </traits>
     <backpack>
       <keys>0</keys>

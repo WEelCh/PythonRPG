@@ -81,12 +81,12 @@ def game_smallTile(tile_no,p):
         if   choice == '1': # Search
             '''DEBUGG check game data for item'''
             c = p.getItemName()
-            formating.smallTile_search(False, c)
+            p = formating.smallTile_search(False, c, p)
 
         elif choice == '2': # Take
             '''DEBUGG check game data for item'''
             c = p.searchItem()
-            formating.smallTile_take(False, c)
+            p = formating.smallTile_take(False, c,p)
 
         elif choice == '3': # Inventory
             game_inventory()
@@ -94,22 +94,22 @@ def game_smallTile(tile_no,p):
         elif choice == '4': # Talk
             '''DEBUGG check game data for entity'''
             c = p.searchEntity()
-            formating.smallTile_talk(False, c)
+            p = formating.smallTile_talk(False, c,p)
 
         elif choice == '5': # Attack
             '''DEBUGG check game data for entity'''
             c = p.searchEntity()
-            formating.smallTile_attack(False, c)
+            p =formating.smallTile_attack(False, c,p)
 
         elif choice == '6': # Flee
             '''DEBUGG check for flee'''
             c = 'flee_status'
-            formating.smallTile_flee(False, c)
+            p = formating.smallTile_flee(False, c,p)
 
         elif choice == '7': # Sleep
             '''DEBUGG check for sleep'''
             c = p.playerRest()
-            formating.smallTile_sleep(False, c)
+            p = formating.smallTile_sleep(False, c,p)
 
         elif choice == '0': # Back
             '''DEBUGG check for enemy- status
@@ -126,7 +126,7 @@ def game_inventory():
     choice = False
     while 'INVENTORY':
 
-        choice = formating.inventory(choice)
+        choice, p = formating.inventory(choice,p)
         '''
         if   choice == '1': # Eat
             while 'eat':
@@ -143,7 +143,7 @@ def game_inventory():
         '''
         if choice == '1': # Use
             while 'use':
-                choice = formating.inventory_use(choice)
+                choice, p = formating.inventory_use(choice,p)
                 '''DEBUGG check for useability'''
                 if choice in '123456789' and len(choice)==1:
                     pass
@@ -156,7 +156,7 @@ def game_inventory():
 
         elif choice == '2': # Discard
             while 'discard':
-                choice = formating.inventory_discard(choice)
+                choice,p = formating.inventory_discard(choice,p)
                 '''DEBUGG check'''
                 if choice in '123456789' and len(choice)==1:
                     pass
