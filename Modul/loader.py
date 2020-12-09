@@ -91,13 +91,13 @@ def getSaveGame(savegame:int):
     tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
     root = tree.getroot()
 
-    name = root.find('player/generel/name')
+    name = root.find('player/general/name')
     name = name.text
-    clas = root.find('player/generel/class')
+    clas = root.find('player/general/class')
     clas = clas.text
-    explore = root.find('player/generel/explore_score')
+    explore = root.find('player/general/explore_score')
     explore = explore.text
-    end  = root.find('player/generel/end_found')
+    end  = root.find('player/general/end_found')
     end = end.text
 
     return [str(name), str(clas), str(explore), str(end)]
