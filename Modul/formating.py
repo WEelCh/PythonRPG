@@ -372,9 +372,8 @@ def settingsdeleteuserdata(error):
 #############
 
 
-def _headergame(r=None, p=None):
+def _headergame(p:object):
     '''Print header of menu
-        r == region
         p == player'''
 
     clear()
@@ -383,32 +382,34 @@ def _headergame(r=None, p=None):
     upperT_line()
 
     norm_content('', 'name foo'.center(58)) #because new lambda makes no sense
-    norm_content('  Region Name: '+'foo', 'Health : '+'█'*40+'  20/20')
-    norm_content('  Type       : '+'foo','')
-    norm_content('', 'Stamina: '+'█'*40+'  10/10')
-    norm_content('  Tile Name  : '+'foo','')
-    norm_content('', 'Mana   : '+'█'*40+'  5/5')
-    norm_content('  SaveGame : '+'0', 'Keys   : '+'o '*2)
+    norm_content('  Region Name: '+p.getBigTileName(), 'Health : '+p.listHealth())
+    norm_content('  Type       : '+p.getBigTileType(),'')
+    norm_content('', 'Stamina: '+p.getStamina())
+    norm_content('  Tile Name  : '+p.getSmallTileName(),'')
+    norm_content('', 'Mana   : '+p.getMana())
+    norm_content('  SaveGame : '+p.getSavegame(), 'Keys   : '+p.getKeys())
 
     midDwTT_line()
 
 
 
-def bigTile(error):
+def bigTile(error, p:object):
     'Print Game Main'
 
-    _headergame()
+    _headergame(p)
+
+    names_sT = p.listSmallTiles()
 
     empty_line(2)
-    tri_content('name', 'name', 'name')
+    tri_content(names_sT[0],names_sT[1],names_sT[2])
     tri_content('entity', 'entity', 'entity')
     tri_content('item', 'item', 'item')
     empty_line(2)
-    tri_content('name', 'name', 'name')
+    tri_content(names_sT[3],names_sT[4],names_sT[5])
     tri_content('entity', 'entity', 'entity')
     tri_content('item', 'item', 'item')
     empty_line(2)
-    tri_content('name', 'name', 'name')
+    tri_content(names_sT[6],names_sT[7],names_sT[8])
     tri_content('entity', 'entity', 'entity')
     tri_content('item', 'item', 'item')
     empty_line(2)
@@ -417,10 +418,6 @@ def bigTile(error):
 
     empty_line(3)
     tri_content('1 : Travel', '2 : Enter', '3 : Inventory')
-    #empty_line(1)
-    #tri_content('4 : Talk', '5 : Attack', '6 : Flee')
-    #empty_line(1)
-    #tri_content('7 : Sleep', '8 : Leave', '')
     empty_line(4)
 
     middle_line()
@@ -433,24 +430,23 @@ def bigTile(error):
 
 
 
-def travel(error):
+def travel(error, p):
     '''Print Travel Menu'''
 
     _headergame()
 
+    names_d = p.getTravelInformation()
+
     empty_line(2)
     tri_content('', 'NORTH', '')
-    tri_content('', 'foo', '')
-    tri_content('', 'foo', '')
-    empty_line(2)
+    tri_content('', names_d[0], '')
+    empty_line(3)
     tri_content('WEST', '', 'EAST')
-    tri_content('name', '', 'name')
-    tri_content('foo', '', 'foo')
-    empty_line(2)
+    tri_content(names_d[2], '', names_d[3])
+    empty_line(3)
     tri_content('', 'SOUTH', '')
-    tri_content('', 'name', '')
-    tri_content('', 'foo', '')
-    empty_line(2)
+    tri_content('', names_d[1], '')
+    empty_line(3)
 
     mid_headline(' Where do you want to go ')
 
@@ -472,33 +468,29 @@ def travel(error):
 
 
 
-def enter(error):
+def enter(error, p):
     'Print Enter Menu'
 
     _headergame()
 
-    empty_line(2)
-    tri_content('name', 'name', 'name')
-    tri_content('entity', 'entity', 'entity')
-    tri_content('item', 'item', 'item')
-    empty_line(2)
-    tri_content('name', 'name', 'name')
-    tri_content('entity', 'entity', 'entity')
-    tri_content('item', 'item', 'item')
-    empty_line(2)
-    tri_content('name', 'name', 'name')
-    tri_content('entity', 'entity', 'entity')
-    tri_content('item', 'item', 'item')
-    empty_line(2)
+    names_sT = p.listSmallTiles()
 
-    mid_headline(' What want you enter ')
+    empty_line(2)
+    tri_content(names_sT[0], names_sT[1], names_sT[2])
+    empty_line(4)
+    tri_content(names_sT[3], names_sT[4], names_sT[5])
+    empty_line(4)
+    tri_content(names_sT[6], names_sT[7], names_sT[8])
+    empty_line(4)
+
+    mid_headline(' What region to enter ')
 
     empty_line(1)
-    tri_content('1 : name', '2 : name', '3 : name')
+    tri_content('1 :'+names_sT[0], '2 :'+names_sT[1], '3 :'+names_sT[2])
     empty_line(1)
-    tri_content('4 : name', '5 : name', '6 : name')
+    tri_content('4 :'+names_sT[3], '5 :'+names_sT[4], '6 :'+names_sT[5])
     empty_line(1)
-    tri_content('7 : name', '8 : name', '9 : name')
+    tri_content('7 :'+names_sT[6], '8 :'+names_sT[7], '9 :'+names_sT[8])
     empty_line(2)
 
     middle_line()
@@ -511,23 +503,23 @@ def enter(error):
 
 
 
-def smallTile(error):
+def smallTile(error,p):
     '''Print small Tile'''
 
     _headergame()
 
     empty_line(2)
-    tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', p.getSmallTileName(), '')
+    tri_content('', p.getSmallTileDescription(), '')
     tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ENTITY', '')
-    tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', p.searchEntity(), '')
+    tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ITEM', '')
-    tri_content('', 'name', '')
-    tri_content('', 'value', '')
+    tri_content('', p.getItemName(), '')
+    tri_content('', '', '')
     empty_line(2)
 
     mid_headline(' What do you want to do ')
@@ -760,10 +752,12 @@ def smallTile_sleep(error, c:str):
 
 
 
-def inventory(error):
+def inventory(error, p):
     '''Print inventory'''
 
     _headergame()
+
+    names_iT = p.getItemsName()
 
     empty_line(1)
     tri_content('SLOT I', 'SLOT II', 'SLOT III')
@@ -799,11 +793,13 @@ def inventory(error):
     return _bottom(error)
 
 
-
-def inventory_eat(error):
-    '''Print inventory_eat'''
+'''
+def inventory_eat(error, p):
+    """Print inventory_eat"""
 
     _headergame()
+
+    names_iT = p.getItemsName()
 
     empty_line(1)
     tri_content('Slot I', 'Slot II', 'Slot III')
@@ -837,13 +833,15 @@ def inventory_eat(error):
     empty_line(1)
 
     return _bottom(error)
+'''
 
 
-
-def inventory_use(error):
+def inventory_use(error,p):
     '''Print inventory_use'''
 
     _headergame()
+
+    names_iT = p.getItemsName()
 
     empty_line(1)
     tri_content('Slot I', 'Slot II', 'Slot III')
@@ -880,10 +878,12 @@ def inventory_use(error):
 
 
 
-def inventory_discard(error):
+def inventory_discard(error, p):
     '''Print inventory_discard'''
 
     _headergame()
+
+    names_iT = p.getItemsName()
 
     empty_line(1)
     tri_content('Slot I', 'Slot II', 'Slot III')
