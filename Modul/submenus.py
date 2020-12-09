@@ -24,7 +24,7 @@ def continueGame():
     Checks for last savegame and, if exist
     loads savegame'''
 
-    game_value = loader.getSaveGame()
+    game_value = loader.getLastSaveGame()
 
     if game_value == 'None':
         choice = False
@@ -43,10 +43,13 @@ def continueGame():
 def newGame(choice = False, level = 1):
     '''Logic for Menu-New Game
     Gets Player Data from the User'''
+    data = []
+    for i in range(1,5):
+        data.append(loader.getSaveGame(i))
     player_data = []
     while 'NEWGAME_LOOP':
 
-        choice = formating.newGame(choice, level)
+        choice = formating.newGame(choice, level, data)
 
         if  choice == '0':
             break
@@ -98,11 +101,30 @@ def newGame(choice = False, level = 1):
 
 def loadGame(choice = False):
     '''Logic for Menu-Load Game'''
+    data = []
+    for i in range(1,5):
+        data.append(loader.getSaveGame(i))
     while 'LOADGAME_LOOP':
 
-        choice = formating.loadGame(choice)
+        choice = formating.loadGame(choice, data)
 
-        if choice == '0':
+        if   choice == '1':
+            if data[0][1] == '---': # no class
+                choice = True
+
+        elif choice == '2':
+            if data[1][1] == '---': # no class
+                choice = True
+
+        elif choice == '3':
+            if data[2][1] == '---': # no class
+                choice = True
+
+        elif choice == '4':
+            if data[3][1] == '---': # no class
+                choice = True
+
+        elif choice == '0':
             break
         else:
             choice = True
@@ -167,6 +189,7 @@ def settingsFormat(choice = False):
             # if input was ok, overwrite old values
             loader.setYXFormat(new_form_y, new_form_x)
             formating.form_y,formating.form_x = loader.getYXFormat()
+            formating.x = formating.get_x()
 
 
 def settingsDelete():
@@ -179,9 +202,9 @@ def settingsDelete():
         if choice == 'DeLeTe':
             for i in range(1,5):
                 loader.resetSaveGame(i)
-                loader.resetSettings()
-                formating.clear()
-                exit()
+            loader.resetSettings()
+            formating.clear()
+            exit()
         elif choice == '0':
             break
         else:

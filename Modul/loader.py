@@ -74,7 +74,7 @@ def setYXFormat(new_y, new_x):
 # XML HANDELING
 # --- ---
 
-def getSaveGame():
+def getLastSaveGame():
     '''checks for last savegame information
     in meta.xml'''
 
@@ -82,6 +82,25 @@ def getSaveGame():
     root = tree.getroot()
 
     return str(root.find('last_game/value').text)
+
+
+
+def getSaveGame(savegame:int):
+    '''gives data about the savegame'''
+
+    tree = ET.parse(setting.path_Saves+'savegame_%s.xml'%(str(savegame)))
+    root = tree.getroot()
+
+    name = root.find('player/generel/name')
+    name = name.text
+    clas = root.find('player/generel/class')
+    clas = clas.text
+    explore = root.find('player/generel/explore_score')
+    explore = explore.text
+    end  = root.find('player/generel/end_found')
+    end = end.text
+
+    return [str(name), str(clas), str(explore), str(end)]
 
 # PLAYER HANDLING
 
@@ -571,6 +590,8 @@ def resetSaveGame(savegame:int):
     data.text   = 'None'
     data        = ET.SubElement(general, 'class')
     data.text   = 'None'
+    data        = ET.SubElement(generel, 'class')
+    data.text   = '---'
 
     traits      = ET.SubElement(player, 'traits')
     data        = ET.SubElement(traits, 'health')
@@ -588,7 +609,7 @@ def resetSaveGame(savegame:int):
 
     backpack    = ET.SubElement(player, 'backpack')
     data        = ET.SubElement(backpack, 'keys')
-    data.text   = 'foo'
+    data.text   = '0'
     for slot in range(12):
         data = ET.SubElement(backpack, 'slot')
         data.attrib['id'] = str(slot)
@@ -671,10 +692,6 @@ def resetSettings():
     # clear last savegame
     data = root.find('last_game/value')
     data.text = 'None'
-
-    # clear savegame meta data
-    for savegame in root.findall('meta_savegame/savegame'):
-        savegame.attrib['status'] = 'inactive'
 
     indent(root)
     tree.write(setting.path_Data+'meta.xml')

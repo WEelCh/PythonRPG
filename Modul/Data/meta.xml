@@ -1,26 +1,9 @@
 <data>
-
-    <cmd_location>
-        <value name="Y-Axis">3</value>
-        <value name="X-Axis">43</value>
-    </cmd_location>
-
-
-    <last_game>
-        <value>1</value>
-    </last_game>
-
-
-    <meta_savegame>
-
-        <savegame id = '1' status="inactiv" />
-    
-        <savegame id = '2' status="inactiv" />
-    
-        <savegame id = '3' status="inactiv" />
-
-        <savegame id = '4' status="inactiv" />
-
-    </meta_savegame>
-
+  <cmd_location>
+    <value name="Y-Axis">0</value>
+    <value name="X-Axis">0</value>
+  </cmd_location>
+  <last_game>
+    <value>None</value>
+  </last_game>
 </data>

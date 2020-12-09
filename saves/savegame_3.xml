@@ -4,7 +4,7 @@
       <end_found>None</end_found>
       <explore_score>None</explore_score>
       <pos>None,None</pos>
-      <name>None</name>
+      <name>---</name>
       <sex>None</sex>
       <class>None</class>
     </general>
@@ -17,7 +17,7 @@
       <perception>None</perception>
     </traits>
     <backpack>
-      <keys>foo</keys>
+      <keys>0</keys>
       <slot id="0">
         <item>
           <name>None</name>
