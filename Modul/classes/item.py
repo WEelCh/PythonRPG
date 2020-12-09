@@ -29,7 +29,7 @@ class Item ():
 
 class Weapon (Item):
     '''weapon
-    serves to increeses atk'''
+    serves to increases atk'''
 
     def __init__(self, n, a):
         super().__init__(n)
@@ -99,6 +99,23 @@ class MedicalSupply (Item):
         return int(self._re_health)
     def getType(self):
         return 'MedicalSupply'
+    
+    def getPackedValues(self):
+        return '%d'%(self._re_health)
+
+class Key (Item):
+    '''
+    KEYS are used to open locked tiles
+    '''
+
+    def __init__(self):
+        super().__init__('Key')
+
+    def getName(self):
+        return str(self._name)
+
+    def getType(self):
+        return 'Key'
     
     def getPackedValues(self):
         return '%d'%(self._re_health)

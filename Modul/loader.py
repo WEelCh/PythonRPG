@@ -473,7 +473,7 @@ def genItem(typ = False):
     '''
 
     if typ == False:
-        typ = choice(['Weapon','Food','MedicalSupply'])
+        typ = choice(['Weapon','Food','MedicalSupply','Key'])
 
     tree = ET.parse(setting.path_Data+'sample_items.xml')
     root = tree.getroot()
@@ -489,8 +489,8 @@ def genItem(typ = False):
     name = item.find('name').text
     value = item.find('value').text
 
-    if '_' in value:
-        value = value.split('_')
+    if ',' in value:
+        value = value.split(',')
 
     if typ == 'Weapon':
         obj = Item.Weapon(name, value)
@@ -498,6 +498,8 @@ def genItem(typ = False):
         obj = Item.Food(name, value[0], value[1])
     elif typ == 'MedicalSupply':
         obj = Item.MedicalSupply(name, value)
+    elif typ == 'Key':
+        obj = Item.Key()
 
     return obj
 
