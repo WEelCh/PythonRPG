@@ -381,7 +381,7 @@ def _headergame(p:object):
 
     upperT_line()
 
-    norm_content('', 'name foo'.center(58)) #because new lambda makes no sense
+    norm_content('', p.getName().center(58)) #because new lambda makes no sense
     norm_content('  Region Name: '+p.getBigTileName(), 'Health : '+p.listHealth())
     norm_content('  Type       : '+p.getBigTileType(),'')
     norm_content('', 'Stamina: '+p.listStamina())
@@ -402,17 +402,17 @@ def bigTile(error, p:object):
 
     empty_line(2)
     tri_content(names_sT[0],names_sT[1],names_sT[2])
-    tri_content('entity', 'entity', 'entity')
-    tri_content('item', 'item', 'item')
-    empty_line(2)
+    #tri_content('entity', 'entity', 'entity')
+    #tri_content('item', 'item', 'item')
+    empty_line(4)
     tri_content(names_sT[3],names_sT[4],names_sT[5])
-    tri_content('entity', 'entity', 'entity')
-    tri_content('item', 'item', 'item')
-    empty_line(2)
+    #tri_content('entity', 'entity', 'entity')
+    #tri_content('item', 'item', 'item')
+    empty_line(4)
     tri_content(names_sT[6],names_sT[7],names_sT[8])
-    tri_content('entity', 'entity', 'entity')
-    tri_content('item', 'item', 'item')
-    empty_line(2)
+    #tri_content('entity', 'entity', 'entity')
+    #tri_content('item', 'item', 'item')
+    empty_line(4)
 
     mid_headline(' What do you want to do ')
 
@@ -538,27 +538,27 @@ def smallTile(error,p):
     mid_content('0 : Back')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error), p
 
 
 
-def smallTile_search(error, c:str):
+def smallTile_search(error, c:str, p):
     '''Print small Tile search'''
 
     _headergame()
 
     empty_line(2)
-    tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', p.getSmallTileName(), '')
+    tri_content('', p.getSmallTileDescription(), '')
     tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ENTITY', '')
     tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ITEM', '')
     tri_content('', 'name', '')
-    tri_content('', 'value', '')
+    tri_content('', '', '')
     empty_line(2)
 
     mid_headline(' You found... ')
@@ -573,18 +573,18 @@ def smallTile_search(error, c:str):
     mid_content('ENTER')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error), p
 
 
 
-def smallTile_take(error, c:str):
+def smallTile_take(error, c:str,p):
     '''Print small Tile take'''
 
     _headergame()
 
     empty_line(2)
-    tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', p.getSmallTileName(), '')
+    tri_content('', p.getSmallTileDescription(), '')
     tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ENTITY', '')
@@ -608,11 +608,11 @@ def smallTile_take(error, c:str):
     mid_content('ENTER')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error),p
 
 
 
-def smallTile_talk(error, c:str):
+def smallTile_talk(error, c:str,p):
     '''Print small Tile talk'''
 
     _headergame()
@@ -643,18 +643,18 @@ def smallTile_talk(error, c:str):
     mid_content('ENTER')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error),p
 
 
 
-def smallTile_attack(error, c:str):
+def smallTile_attack(error, c:str,p):
     '''Print small Tile attack'''
 
     _headergame()
 
     empty_line(2)
-    tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', p.getSmallTileName(), '')
+    tri_content('', p.getSmallTileDescription(), '')
     tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ENTITY', '')
@@ -678,18 +678,18 @@ def smallTile_attack(error, c:str):
     mid_content('ENTER')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error),p
 
 
 
-def smallTile_flee(error, c:str):
+def smallTile_flee(error, c:str,p):
     '''Print small Tile flee'''
 
     _headergame()
 
     empty_line(2)
-    tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', p.getSmallTileName(), '')
+    tri_content('', p.getSmallTileDescription(), '')
     tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ENTITY', '')
@@ -713,18 +713,18 @@ def smallTile_flee(error, c:str):
     mid_content('ENTER')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error),p
 
 
 
-def smallTile_sleep(error, c:str):
+def smallTile_sleep(error, c:str,p):
     '''Print small Tile sleep'''
 
     _headergame()
 
     empty_line(2)
-    tri_content('', 'name', '')
-    tri_content('', 'dec', '')
+    tri_content('', p.getSmallTileName(), '')
+    tri_content('', p.getSmallTileDescription(), '')
     tri_content('', '', '')
     empty_line(2)
     tri_content('', 'ENTITY', '')
@@ -748,7 +748,7 @@ def smallTile_sleep(error, c:str):
     mid_content('ENTER')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error),p
 
 
 
@@ -790,7 +790,7 @@ def inventory(error, p):
     mid_content('0 : Back')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error),p
 
 
 '''
@@ -841,7 +841,7 @@ def inventory_use(error,p):
 
     _headergame()
 
-    names_iT = p.getItemsName()
+    #names_iT = p.getItemsName()
 
     empty_line(1)
     tri_content('Slot I', 'Slot II', 'Slot III')
@@ -874,7 +874,7 @@ def inventory_use(error,p):
     mid_content('0 : Back')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error),p
 
 
 
@@ -916,7 +916,7 @@ def inventory_discard(error, p):
     mid_content('0 : Back')
     empty_line(1)
 
-    return _bottom(error)
+    return _bottom(error), p
 
 
 

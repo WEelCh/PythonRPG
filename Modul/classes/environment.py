@@ -178,7 +178,6 @@ class bigTile():
         ### is list
         '''
         return [Tile.getName() for Tile in self.__inherited_smallTiles]
-            
 
     def querySmallTiles(self,query):
         '''
