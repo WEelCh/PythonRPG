@@ -24,9 +24,9 @@ def initGame(attr:list):
 
 # --- MAIN ------------------------
 
-def game ():
+def game (player_data):
     '''Logic for BIG TILE'''
-    p = initGame([1,'Dev', 'Male', 'Mercenary'])
+    p = initGame(player_data)
     choice = False
     while 'BIG_TILE':
 

@@ -754,7 +754,7 @@ class Player():
         percentage_health = self.__health*100/self.__max_health
         value_max = 20 
         value_left = round(20*percentage_health/100)
-        return ('[','█'*value_left,'░'*(value_max-value_left),']')
+        return str('['+'█'*value_left+'░'*(value_max-value_left)+']')
 
     def listStamina(self):
         '''
@@ -764,7 +764,7 @@ class Player():
         percentage_stamina = self.__stamina*100/self.__max_stamina
         value_max = self.__max_stamina 
         value_left = round(20*percentage_stamina/100)
-        return ('[','█'*value_left,'░'*(value_max-value_left),']')
+        return str('['+'█'*value_left+'░'*(value_max-value_left)+']')
     
     def listMana(self):
         '''
@@ -774,5 +774,5 @@ class Player():
         percentage_mana = self.__mana*100/self.__max_mana
         value_max = self.__max_mana
         value_left = round(20*percentage_mana/100)
-        return ('[','█'*value_left,'░'*(value_max - value_left),']')
+        return str('['+'█'*value_left+'░'*(value_max - value_left)+']')
     
