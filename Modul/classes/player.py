@@ -234,6 +234,17 @@ class Player():
     def getMaxMana(self):
         return self.__max_mana
 
+    def getBigTileName(self):
+        return self.__active_tile.getName()
+    
+    def getBigTileType(self):
+        return self.__active_tile.getType()
+
+    def getSmallTileName(self):
+        if self.__active_small_tile != None:
+            return self.__active_small_tile.getName()
+        else:
+            return '---'
 # --- ---
 # UPDATING VALUES
 # --- ---
@@ -602,12 +613,6 @@ class Player():
         '''
         return self.__active_entity
 
-    def getActiveTileName(self):
-        '''
-        returns Name of current Active Tile. 
-        '''
-        return self.__active_tile.getName()
-    
     def changeLockCondition(self):
         '''
         changes opened/closed condition if needed keys are available.

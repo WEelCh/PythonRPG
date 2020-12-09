@@ -155,6 +155,19 @@ class bigTile():
         '''
         return self.__inherited_smallTiles
     
+    def getNameSmallTiles(self):
+        '''
+        returns a list of adjacent SmallTiles
+        in order to display their name call __inherited_smallTiles.getName()
+        
+        ### is list with each object 
+        
+        [9 in total]
+        
+        used to display them and for later query use
+        '''
+        return self.__inherited_smallTiles
+    
 # --- --- 
 # Interaction small Tile
 # --- --- 

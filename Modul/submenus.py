@@ -35,7 +35,8 @@ def continueGame():
             else:
                 choice = True
     else:
-        main_game.game()
+        pass
+    main_game.game()
         #start savegame
 
 
