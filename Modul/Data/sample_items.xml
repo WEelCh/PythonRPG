@@ -1,22 +1,88 @@
 <data>
 
     <items>
-        <item type = 'Weapon'>
-            <name>Sword of Dev</name>
-            <value>12</value>
-        </item>
+<!--
+#####
+##### WEAPON // SAMPLES {weapon
+#####
+-->
         <item type = 'Weapon'>
             <name>Sword of Death</name>
             <value>3</value>
         </item>
+
+        <item type = 'Weapon'>
+            <name>Sword of Dev</name>
+            <value>12</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Bow of Despair</name>
+            <value>12</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>small knives</name>
+            <value>6</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Daggers</name>
+            <value>8</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Halberd</name>
+            <value>10</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Mace of pain</name>
+            <value>12</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Mace of pain</name>
+            <value>12</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Broken Mace</name>
+            <value>8</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>borked Mace</name>
+            <value>2</value>
+        </item>
+
+        <item type = 'Weapon'>
+            <name>Sword of Dev</name>
+            <value>12</value>
+        </item>
+<!--
+#####
+##### WEAPON // SAMPLES {weapon
+#####
+-->
+
         <item type = 'Food'>
             <name>Golden Apple</name>
             <value>25,3</value>
         </item>
+
+<!--
+#####
+##### WEAPON // SAMPLES {weapon
+#####
+-->
+
         <item type ='MedicalSupply'>
             <name>antibiotics</name>
             <value>25</value>
         </item>
+
+
         <item type ='Key'>
             <name>Key</name>
             <value>0</value>
