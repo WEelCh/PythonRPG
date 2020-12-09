@@ -7,6 +7,8 @@ from Modul.loader import *
 import Modul.classes.environment as environment
 import Modul.classes.entity as entity
 import random
+import Modul.scaling as scaling
+import Modul.classes.item as classItem
 # ---- ---- ---- ----
 
 # ---- ---- global variables ---- ----
@@ -80,56 +82,29 @@ class Player():
 
     def setClassAttributes(self):
         '''
-        {VALUES REQUIRED}
         an awful method to set the basic attributes for our player
         ### takes four possible classes from menu(creategame) upon initialisation 
         '''
-        if self.__char_class == 'Mercenary': 
-            self.__health = 20
-            self.__max_health = 20
-            self.__stamina = 30
-            self.__max_stamina = 30
-            self.__mana = 10
-            self.__max_mana = 10
-            self.__strength = 10
-            self.__intelligence = 10
-            self.__perception = 10
-            self.__items_backpack = []
-        elif self.__char_class == 'Illusionist':
-            self.__health = 20
-            self.__max_health = 20
-            self.__stamina = 0
-            self.__max_stamina = 0
-            self.__mana = 0
-            self.__max_mana = 0
-            self.__strength = 0
-            self.__intelligence = 0
-            self.__perception = 0 
-            self.__items_backpack = []
-
-        elif self.__char_class == 'Stinker':
-            self.__health = 0
-            self.__max_health = 0
-            self.__stamina = 0
-            self.__max_stamina = 0
-            self.__mana = 0
-            self.__max_mana = 0
-            self.__strength = 0
-            self.__intelligence = 0
-            self.__perception = 0 
-            self.__items_backpack = []
-
-        elif self.__char_class == 'Scout':
-            self.__health = 0
-            self.__max_health = 0
-            self.__stamina = 0
-            self.__max_stamina = 0
-            self.__mana = 0
-            self.__max_mana = 0
-            self.__strength = 0
-            self.__intelligence = 0
-            self.__perception = 0 
-            self.__items_backpack = []
+        i = 0
+        player_class = scaling.getClassAttributes(self.__char_class)
+        self.__health = player_class[0]
+        self.__max_health = player_class[1]
+        self.__stamina = player_class[2]
+        self.__max_stamina = player_class[3]
+        self.__mana = player_class[4]
+        self.__max_mana = player_class[5]
+        self.__strength = player_class[6]
+        self.__intelligence = player_class[7]
+        self.__perception = player_class[8]
+        for item in player_class[9]:
+            if item[0] == 'Weapon':
+                new_Item = classItem.Weapon(item[1],item[2])
+            elif item[0] == 'Food':
+                new_Item = classItem.Food(item[1],item[2],item[3])
+            elif item[0] == 'MedicalSupply':
+                new_Item = classItem.MedicalSupply(item[1],item[2])
+            self.__items_backpack[i] =new_Item
+            i += 1
 
     def initializePlayer(self):
         '''
@@ -174,6 +149,9 @@ class Player():
         '''
         return self.__name
 
+    def getCharClass(self):
+        return self.__char_class
+
     def getSavegame(self):
         '''
         returns savegame location of object
@@ -200,9 +178,7 @@ class Player():
         returns list of item names 
         ### is list
         '''
-        for i in self.__items_backpack:
-            pass 
-        return [self.__items_backpack[i].getName for i in range(0,len(self.__items_backpack))]
+        return [item.getName() for item in self.__items_backpack if item != None ]
     
     def getCoordinates(self):
         '''
@@ -212,9 +188,6 @@ class Player():
         '''
         return str(self.__coordinate_X)+'_'+str(self.__coordinate_Y)
     
-    def getCharClass(self):
-        return self.__char_class
-
     def getMaxHealth(self):
         return self.__max_health
     
@@ -224,17 +197,6 @@ class Player():
     def getMaxMana(self):
         return self.__max_mana
 
-    def getEntity(self):
-        '''
-        
-        '''
-        return self.__active_entity
-
-    def getActiveTileName(self):
-        '''
-        returns Name of current Active Tile. 
-        '''
-        return self.__active_tile.getName()
 # --- ---
 # UPDATING VALUES
 # --- ---
@@ -434,25 +396,30 @@ class Player():
 # --- ---    
 # Player Movement
 # --- ---
+
     def CheckTileExplored(self):
         '''
         upon entering a new BigTile this method checks if the new one was already generated before. 
         otherwise it will generate a new one and save the last Tile.
+        - runs before player travells  /// 
         '''
         
         if loadTile(self.getCoordinates(),self.__savegame) == False:
             # create a new tile based on the coordinates given and safe it as active tile 
             self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self)
+            # check if generated tile is final_station >> avoid generating it multiple times // 
+            if( self.__active_tile.getType() == 'final_station'):
+                self.treatEndFound(1,True)
             self.__explore_score += 1
         else: 
             # search in savegame and read out the object to load it.
             self.__active_tile =  environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
         
     def goEast(self):
-
-        if(self.__active_entity != None):
-            if(self.__active_entity.getType() != 'Friend'):
-                return "you cant move rn, there's an enemy"
+        '''
+        moves player to coordinate << east
+        checks if loaded tile was saved before or not. 
+        '''
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X += 1
         self.__active_tile = None
@@ -460,6 +427,10 @@ class Player():
         self.CheckTileExplored()
             
     def goWest(self):
+        '''
+        moves player to coordinate << west 
+        checks if loaded tile was saved before or not. 
+        '''
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_X -= 1
         self.__active_tile = None
@@ -467,6 +438,10 @@ class Player():
         self.CheckTileExplored()
         
     def goNorth(self):
+        '''
+        moves player to coordinate << North 
+        checks if loaded tile was saved before or not. 
+        '''
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y += 1
         self.__active_tile = None
@@ -474,21 +449,66 @@ class Player():
         self.CheckTileExplored()
     
     def goSouth(self):
+        '''
+        moves player to coordinate << South
+        checks if loaded tile was saved before or not. 
+        '''
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
         self.__coordinate_Y -= 1 
         self.__active_tile = None
         self.__active_small_tile = None
         self.CheckTileExplored()
+
     def saveQuitTile(self):
         '''
         this method is used upon saving the last Tile and its content before leaving the game. 
-        Therefore its important to not use it before.
+        - better not use it before tho
         '''
         saveTile(self.__active_tile,self.getCoordinates(),self.__savegame)
+
+    def setActiveTile(self):
+        '''
+        method to set active Big tile upon loading the character for the first time // or smth like that
+        '''
+        # loads given tile
+        self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
+
+    def setActiveSmallTile(self,query):
+        '''
+        triggers query to select active small tile to work with. 
+        FOR UI >> Must return what new active _ small Tile is 
+        ### query is string or integer
+        - string must be a name 
+        '''
+        if(self.__active_entity != None):
+            if(self.__active_entity.getType() != 'Friend'):
+                return "you cant move rn, there's an enemy"
+        self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
+        return self.__active_small_tile.getName()
+
+    def listSmallTiles(self):
+        '''
+        returns available small tiles on big tile.
+        
+        ### is tuple/list
+        '''
+        return self.__active_tile.listSmallTiles()    
+
 # --- ---
 # Player Interaction
 # --- ---
     
+    def getEntity(self):
+        '''
+        returns the active entity object
+        '''
+        return self.__active_entity
+
+    def getActiveTileName(self):
+        '''
+        returns Name of current Active Tile. 
+        '''
+        return self.__active_tile.getName()
     
     def changeLockCondition(self):
         '''
@@ -503,36 +523,14 @@ class Player():
         method to let player search for an item in active_small_tile
         - returns nothing if active_small_tile doesnt hold an item
         - returns 
+        ///
+        IF ITEM TYPE Key >> append to saved keys
         '''
         if self.__active_small_tile.getItem() == None:
             return 'nothing found'  
         else:
             return self.setItem(self.__active_small_tile.getItem())
 
-    def setActiveTile(self):
-        '''
-        method to set active Big tile upon loading the character for the first time // or smth like that
-        '''
-        # loads given tile
-        self.__active_tile = environment.bigTile(self.__coordinate_X,self.__coordinate_Y,self,1)
-
-    def listSmallTiles(self):
-        '''
-        returns available small tiles on big tile.
-        
-        ### is tuple/list
-        '''
-        return self.__active_tile.listSmallTiles()    
-
-    def setActiveSmallTile(self,query):
-        '''
-        triggers query to select active small tile to work with. 
-        FOR UI >> Must return what new active _ small Tile is 
-        ### query is string or integer
-        - string must be a name 
-        '''
-        self.__active_small_tile =  self.__active_tile.querySmallTiles(query)
-        return self.__active_small_tile.getName()
 
     def playerRest(self):
         '''
@@ -542,18 +540,17 @@ class Player():
         - restores stamina to maximum 
         - if player rests on type"shelter" they restores uninterrupted all the time
         '''
-        if self.__active_entity != None:
-            return 'sleep not possible, theres an entity here'
-
+        # checks for enemy on smallTile
+        if(self.__active_entity != None):
+            if(self.__active_entity.getType() != 'Friend'):
+                return 'sleep not possible, theres an entity here'
+        # checks for type 
         if self.__active_tile.getType() == 'shelter':
             self.treatStamina(1,[self.__max_stamina,self.__max_stamina])
             return 'successfully restored'
         else:
             if random.choice([i for i in randint(0,20)] <=10):
                 self.__active_entity = genEntity('Enemy')
-
-
-
 
     '''
     adds interaction with environment // active Tile

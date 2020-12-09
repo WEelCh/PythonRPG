@@ -13,6 +13,7 @@ from Modul.classes.player import *
 import random
 from Modul.loader import *
 from Modul.classes.item import *
+import Modul.scaling as scaling
 # --- END Imports and Variables ---
 
 # --- ---- // CODE // ---- ---
@@ -239,7 +240,7 @@ class smallTile():
         
         percentage to generate it, scales with scaling.py
         '''
-        self.__available_item = random.choice([None,None,None,None,loader.genItem()])
+        self.__available_item = random.choice(scaling.item_percentage)
         
     def generateEntity(self):
         '''
@@ -247,7 +248,7 @@ class smallTile():
         
         percentage to generate it, scales with scaling.py
         '''
-        self.__available_entity = random.choice([None,None,None,None,loader.genEntity()])
+        self.__available_entity = random.choice(scaling.entity_percentage)
     
     def generatelockCondition(self):
         
@@ -261,8 +262,8 @@ class smallTile():
         - generates required keys if condition is 'locked'
         - if condition is 'opened' no key required
         '''
-        if( self.__type.lower() == 'housing') or ( self.__type.lower() == 'dungeon'):
-            self.__lock_condition = random.choice(['locked','opened'])
+        if( self.__type.lower() == '') or ( self.__type.lower() == ''):
+            self.__lock_condition = random.choice(scaling.lock_condition)
             if(self.__lock_condition == 'locked'):
                 self.__key_required = random.randint(1,5)    
         
@@ -282,20 +283,23 @@ class smallTile():
             if data[3][0] == 'Weapon':
                 
                 # creates item object WEAPON    
-                self.__available_item = Item([data[3][1],data[3][2]])
+                self.__available_item = Weapon(data[3][1],data[3][2])
             
             elif data[3][0] == 'Food':
                 
                 # creates item object FOOD    
                 food_values = data[3][2].split(',')
-                self.__available_item = Item([data[3][1],food_values[0],food_values[1]])
+                self.__available_item = Food(data[3][1],food_values[0],food_values[1])
             
             elif data[3][0] == 'MedicalSupply':
                 
                 # creates item object MEDICALSUPPLY
                 
-                self.__available_item = Item([data[3][1],data[3][2]])
-            
+                self.__available_item = MedicalSupply(data[3][1],data[3][2])
+            elif data[3][0] == 'Key':
+                # creates item object KEY
+                
+                self.__available_item = Key()
         else:
             self.__available_item = None
         
@@ -304,7 +308,7 @@ class smallTile():
             if data[3][0] == 'Friend':
                 
                 # creates item object WEAPON    
-                self.__available_item = Item([data[3][1],data[3][2]])
+                self.__available_item = Item(data[3][1],data[3][2])
             
             elif data[3][0] == 'Enemy':
                 entity_values = data[4][2].split(',')
