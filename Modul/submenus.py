@@ -94,7 +94,7 @@ def newGame(choice = False, level = 1):
 
         level += 1
         if level == 5:
-            #activ_player = player.Player(player_data)
+            main_game.game(player_data)
             '''START_GAME (activ_player)'''
             break
 

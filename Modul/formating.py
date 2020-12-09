@@ -384,10 +384,10 @@ def _headergame(p:object):
     norm_content('', 'name foo'.center(58)) #because new lambda makes no sense
     norm_content('  Region Name: '+p.getBigTileName(), 'Health : '+p.listHealth())
     norm_content('  Type       : '+p.getBigTileType(),'')
-    norm_content('', 'Stamina: '+p.getStamina())
+    norm_content('', 'Stamina: '+p.listStamina())
     norm_content('  Tile Name  : '+p.getSmallTileName(),'')
-    norm_content('', 'Mana   : '+p.getMana())
-    norm_content('  SaveGame : '+p.getSavegame(), 'Keys   : '+p.getKeys())
+    norm_content('', 'Mana   : '+p.listMana())
+    norm_content('  SaveGame : '+str(p.getSavegame()), 'Keys   : '+str(p.getKeys()))
 
     midDwTT_line()
 

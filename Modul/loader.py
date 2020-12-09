@@ -553,8 +553,8 @@ def genEntity(typ = False):
     name = entity.find('name').text
     value = entity.find('value').text
 
-    if '_' in value:
-        value = value.split('_')
+    if ',' in value:
+        value = value.split(',')
 
     if typ == 'Friend':
         # NOT FINALLY WORKING 
