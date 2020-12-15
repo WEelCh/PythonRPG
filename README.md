@@ -1,35 +1,35 @@
-# PythonRPG
-Who knows what lies beneath ||
-|| two beginner classes able to be choosen from:
+# Python RPG 
 ---
-## MAGE:
- - higher intelligence
- - health +
- - pre-equipped spells - heal and damage spell
- - ...
-## Knight/Warrior:
- - higher strength
- - health ++
- - pre-equipped weapons - shield and short sword
- - ...
+Initiated as a project solely for school, we have begun developing this little cmd game right after we declared our inital goals.
+We wanted to make a game, focused on travelling trough worlds, experiencing the story of our protagonist whilst also looting and fighting monster with a rather simple combat system. 
 
-> intelligence and strength (maybe some more later) are attributes
-> work as multiplier of base damage of a weapon/spell if they hold a specific type
-> swords gain strenght*2 for example // -- needs balancing
-> effects like fire or electrical deal 1.8 the origin damage of the weapon on enemies with these weaknesses
 
-### Generating the world:
- - everything discovered gets saved and reloaded after new game. 
- - base / camp / housing starts at 0|0 > north 1|0 east 0|1 south -1|0 and west 0|-1 
- - if player travels to these fields, they get generated with a value, written in a dictionary and are available to be read out during the game. 
- 
+## Classes and Scaling
+---
+## The Character and Classes
 
-## Available environments:
-The map works with a simple Cartesian coordinate system. The shelter called 'Home' can be found on 0/0 and our survivor 
-begins their journey at these coordinates, giving them the ability to travel east, west, north, south.
+Before starting to play you enter all the necessary information and values about your character, mostly these are your sex, name, and some other attributes. 
+During that process you also have to choose between four given classes: 
+The Mercenary, The Stinker, The Illusionist and the Scout. 
+Here, the Mercenary marks the basic and easiest character with a rather balanced loadout and solid stats to begin the game with. 
+With further development the class of the Illusionist and some more will gain certain importance and different focuses, like Spell casting, meleed or ranged damage and some more. 
+The more time and motivation we got, the more we will  result with. 
 
-### BigTiles:
-When travelling to given direction a new tile will be constructed, a new entry in an existing list holds the object. 
-Each Tile yields one of XX types that are important for the generation process of the 9 SmallTiles each BigTile holds. 
-### SmallTiles:
-Upon entering a new BigTile, 9 smaller tiles are generated, the player can interact with. They hold the type of the tile they are inhereted by and their names, descriptions and attributes depend on these given types. 
+### Scaling
+
+Troughout the progress of the game, you need a certain way to improve your character otherwise it will become boring pretty soon. 
+In order to fix this possible problem, we've added a simple system to make scaling  dependent on how much you've explored already. We might adjust that whole system troughout game changes and maybe switch to an experience based leveling system later, but right it's mostly focused on this value. 
+
+## World Generation 
+
+You can imagine our world as an cartesian coordinate system. There are four directions you can travel to - North, East, South, West - and each simply changes the active coordinate of our player to the given direction. These coordinates indicate your current position on that system, which is divided into big squares. Each square is a (BigTile) holding the coordinates it was given, and it also yields a theme, like city, military camp, simple environment or certain other areas. Upon discovering these areas 9 smaller tiles within that BigTile are generated. With certain percentage each of these tiles spawns an item and an enemy. The player then could explore them to find loot - later experience trough combat or new items due to trades with friendly npcs- or simply go on to the next tile. 
+Upon returning these tiles get loaded again, or a new one gets generated. 
+
+## Future plans: 
+
+- better Ui - maybe even a graphical interface 
+- more types of entities 
+- new world generation 
+- experience system 
+- new combat system 
+- enhanced character traits 
