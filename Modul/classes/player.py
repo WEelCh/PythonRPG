@@ -1,6 +1,6 @@
 # -------------------
 
-__author__ ='Fabian Stange'
+__author__ ='Evelyn Stange'
 
 # ---- ---- import libraries ---- ----
 from Modul.loader import *

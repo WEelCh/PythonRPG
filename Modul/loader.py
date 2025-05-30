@@ -1,4 +1,4 @@
-# AUTHOR : Elijah Zeidler & Fabian Stange
+# AUTHOR : Elijah Zeidler & Evelyn Stange
 # DATE   : 
 
 # --- DOCSTRING -------------------

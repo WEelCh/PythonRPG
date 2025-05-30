@@ -1,5 +1,5 @@
 # --- ----
-__author__='Fabian Stange'
+__author__='Evelyn Stange'
 
 # --- ----
 ''' 

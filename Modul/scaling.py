@@ -1,6 +1,6 @@
 # -------------------
 
-__author__ ='Fabian Stange'
+__author__ ='Evelyn Stange'
 
 # ---- ---- Import ---- ----
 import Modul.loader as loader
